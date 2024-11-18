@@ -40,6 +40,7 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
       resizeToAvoidBottomInset: false,
       backgroundColor: LuckitColors.background,
       appBar: AppBar(
+        scrolledUnderElevation: 0.0,
         backgroundColor: LuckitColors.white,
         leading: IconButton(
           onPressed: () => context.go('/home'),
@@ -95,62 +96,63 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
             ),
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Padding(
-                      padding:
-                          EdgeInsets.only(left: 3.0, bottom: 10.0, top: 16.0),
-                      child: Text(
-                        '이루고 싶은 목표를 적어주세요',
-                        style: LuckitTypos.suitR16,
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate(<Widget>[
+                      const Padding(
+                        padding:
+                            EdgeInsets.only(left: 3.0, bottom: 10.0, top: 16.0),
+                        child: Text(
+                          '이루고 싶은 목표를 적어주세요',
+                          style: LuckitTypos.suitR16,
+                        ),
                       ),
-                    ),
-                    CustomTextField(
-                      fieldHeight: 52.0,
-                      hintText: '예) 매일 30분씩 어떤 공부든 하기',
-                      enabled: viewModel.enableGoalInputField,
-                      onChanged: (String text) =>
-                          viewModel.onChangedGoalTextField(text: text),
-                      fillColor: LuckitColors.white,
-                      enabledBorderColor: LuckitColors.gray40,
-                      focusedBorderColor: LuckitColors.main,
-                      textInputType: TextInputType.text,
-                      hintTextStyle: LuckitTypos.suitR12.copyWith(
-                        color: LuckitColors.gray40,
+                      CustomTextField(
+                        fieldHeight: 52.0,
+                        hintText: '예) 매일 30분씩 어떤 공부든 하기',
+                        enabled: viewModel.enableGoalInputField,
+                        onChanged: (String text) =>
+                            viewModel.onChangedGoalTextField(text: text),
+                        fillColor: LuckitColors.white,
+                        enabledBorderColor: LuckitColors.gray40,
+                        focusedBorderColor: LuckitColors.main,
+                        textInputType: TextInputType.text,
+                        hintTextStyle: LuckitTypos.suitR12.copyWith(
+                          color: LuckitColors.gray40,
+                        ),
                       ),
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.only(left: 3.0, bottom: 10.0, top: 44.0),
-                      child: Text(
-                        '아직 고민 중이시라면, 이런 목표에 도전해보세요!',
-                        style: LuckitTypos.suitR16,
+                      const Padding(
+                        padding:
+                            EdgeInsets.only(left: 3.0, bottom: 10.0, top: 44.0),
+                        child: Text(
+                          '아직 고민 중이시라면, 이런 목표에 도전해보세요!',
+                          style: LuckitTypos.suitR16,
+                        ),
                       ),
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.suggestions.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final GoalSuggestionModel model =
-                            state.suggestions[index];
+                      ...state.suggestions
+                          .asMap()
+                          .entries
+                          .map((MapEntry<int, GoalSuggestionModel> entry) {
+                        final int index = entry.key;
+                        final GoalSuggestionModel model = entry.value;
                         return GoalSuggestion(
                           index: index,
                           model: model,
                           onPressedCheck: () =>
                               viewModel.onTapSuggestion(index: index),
                         );
-                      },
-                    ),
-                  ],
+                      }),
+                    ]),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           TextButton(
+            // viewModelX navigation으로 수정
             onPressed: viewModel.activateNextButtonInGoal
                 ? viewModel.onTapNextButtonInGoal
                 : null,
@@ -277,7 +279,8 @@ class GoalSuggestion extends ConsumerWidget {
                 child: Text(
                   '추천 기간 ${model.suggestedDuration}',
                   style: LuckitTypos.suitR10.copyWith(
-                    color: isChecked ? LuckitColors.gray60 : LuckitColors.gray40,
+                    color:
+                        isChecked ? LuckitColors.gray60 : LuckitColors.gray40,
                   ),
                 ),
               ),
