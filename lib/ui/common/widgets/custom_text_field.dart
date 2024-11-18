@@ -23,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   final TextStyle textStyle;
   final TextStyle hintTextStyle;
   final TextInputType textInputType;
+  final Color? fillColor;
 
   const CustomTextField({
     required this.enabledBorderColor,
@@ -38,6 +39,7 @@ class CustomTextField extends StatelessWidget {
     this.textStyle = LuckitTypos.suitR16,
     this.hintTextStyle = LuckitTypos.suitR16,
     this.textAlign = TextAlign.start,
+    this.fillColor,
   });
 
   @override
@@ -61,7 +63,7 @@ class CustomTextField extends StatelessWidget {
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(horizontal: 14.0),
               filled: true,
-              fillColor: LuckitColors.gray10,
+              fillColor: fillColor ?? LuckitColors.gray10,
               border: baseBorder,
               enabled: enabled,
               disabledBorder: baseBorder,

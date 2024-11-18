@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 // import 'package:go_router/go_router.dart';
 
+import '../../routes/app_router.dart';
+import '../../routes/routes.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
 
@@ -33,6 +36,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
           TextButton(
             onPressed: viewModel.onToggleExample,
             child: const Text('toggleExample'),
+          ),
+          TextButton(
+            onPressed: () => context.go(Routes.goal.path),
+            child: Text("온보딩"),
           ),
         ],
       ),
