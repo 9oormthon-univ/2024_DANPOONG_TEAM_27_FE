@@ -15,7 +15,7 @@ class LoginView extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(Assets.loginBackground),
-            fit: BoxFit.none,
+            fit: BoxFit.cover
           ),
         ),
         child: Column(
