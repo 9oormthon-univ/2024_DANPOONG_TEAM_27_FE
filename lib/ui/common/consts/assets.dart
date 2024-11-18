@@ -41,4 +41,8 @@ class Assets {
   static const String sleep = 'assets/icons/sleep.svg';
   static const String sort = 'assets/icons/sort.svg';
   static const String verticlaDots = 'assets/icons/verticlaDots.svg';
+
+  static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
+  static const String loginBackground = 'assets/images/login_background.png';
+  static const String loginLogo = 'assets/images/login_logo.svg';
 }
