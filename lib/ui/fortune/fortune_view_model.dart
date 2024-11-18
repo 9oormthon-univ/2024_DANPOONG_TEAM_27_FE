@@ -13,11 +13,7 @@ class FortuneViewModel extends StateNotifier<FortuneState> {
     required FortuneState state,
   }) : super(state);
 
-  void onchangeExample({required String example}) {
-    state = state.copyWith(example: example);
-  }
-
-  void onToggleExample() {
-    state = state.copyWith(example: 'example');
+  void onSelectFortune({required String title}) {
+    state = state.copyWith(selectdTitle: title);
   }
 }

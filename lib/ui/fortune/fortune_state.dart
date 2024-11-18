@@ -3,29 +3,29 @@ import '../../../../core/loading_status.dart';
 
 class FortuneState extends Equatable {
   final LoadingStatus loadingStatus;
-  final String example;
+  final String selectdTitle;
 
   const FortuneState({
     required this.loadingStatus,
-    required this.example,
+    required this.selectdTitle,
   });
 
   const FortuneState.init()
       : loadingStatus = LoadingStatus.none,
-        example = '';
+        selectdTitle = '총운';
 
   FortuneState copyWith({
     LoadingStatus? loadingStatus,
-    String? example,
+    String? selectdTitle,
   }) =>
       FortuneState(
         loadingStatus: loadingStatus ?? this.loadingStatus,
-        example: example ?? this.example,
+        selectdTitle: selectdTitle ?? this.selectdTitle,
       );
 
   @override
   List<Object> get props => <Object>[
         loadingStatus,
-        example,
+        selectdTitle,
       ];
 }
