@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:luckit_front/ui/login/login_view.dart';
 import '../ui/home/home_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
@@ -48,7 +49,7 @@ class AppRouter {
         path: Routes.home.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
-          child: HomeView(),
+          child: LoginView(),
         ),
       ),
 
