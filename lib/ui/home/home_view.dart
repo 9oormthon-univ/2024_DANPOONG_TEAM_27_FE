@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 // import 'package:go_router/go_router.dart';
 
 import 'home_state.dart';
@@ -34,6 +35,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
             onPressed: viewModel.onToggleExample,
             child: const Text('toggleExample'),
           ),
+          /// dot_indicator 예시 코드
+          // SmoothPageIndicator(
+          //   controller: pageController,
+          //   count: _totalDots,
+          //   effect: ExpandingDotsEffect(
+          //     dotColor: Colors.grey,
+          //     activeDotColor: Colors.indigo,
+          //     dotHeight: 12,
+          //     dotWidth: 12,
+          //     expansionFactor: 4,
+          //   ),
+          // ),
         ],
       ),
     );
