@@ -1,8 +1,15 @@
 // import 'package:go_router/go_router.dart';
+// import 'fortune_state.dart';
+// import 'fortune_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'fortune_state.dart';
-import 'fortune_view_model.dart';
+import '../../theme/luckit_colors.dart';
+import 'widgets/chip_list_widget.dart';
+import 'widgets/fortune_app_bar_widget.dart';
+import 'widgets/fortune_card_widget.dart';
+import 'widgets/fortune_score_widget.dart';
+import 'widgets/icon_card_widget.dart';
+import 'widgets/time_fortune_graph_list_widget.dart';
 
 class FortuneView extends ConsumerStatefulWidget {
   const FortuneView({super.key});
@@ -13,21 +20,24 @@ class FortuneView extends ConsumerStatefulWidget {
 
 class _FortuneViewState extends ConsumerState<FortuneView> {
   @override
-  Widget build(BuildContext context) {
-    final FortuneState state = ref.watch(fortuneViewModelProvider);
-    final FortuneViewModel viewModel =
-        ref.read(fortuneViewModelProvider.notifier);
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          Text(state.example),
-          TextButton(
-            onPressed: viewModel.onToggleExample,
-            child: const Text('toggleExample'),
+  Widget build(BuildContext context) => const Scaffold(
+        backgroundColor: LuckitColors.background,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              FortuneAppBarWidget(),
+              IconCardListWidget(),
+              SizedBox(height: 24),
+              FortuneScoreWidget(),
+              SizedBox(height: 24),
+              ChipListWidget(),
+              SizedBox(height: 12),
+              FortuneCardWidget(),
+              TimeFortuneGraphListWidget(),
+              SizedBox(height: 93),
+            ],
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      );
 }
