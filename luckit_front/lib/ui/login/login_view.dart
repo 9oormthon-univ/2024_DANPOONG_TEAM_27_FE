@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:luckit_front/ui/common/consts/assets.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -11,7 +12,7 @@ class LoginView extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/login_background.png'),
+            image: AssetImage(Assets.loginBackgroundImage),
             fit: BoxFit.none,
           ),
         ),
@@ -19,13 +20,13 @@ class LoginView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SvgPicture.asset('assets/icons/login_logo.svg'),
+            SvgPicture.asset(Assets.loginLogo),
             SizedBox(height: 168,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: InkWell(
                 onTap: (){},
-                child: Image.asset('assets/icons/kakao_login_large_wide.png'),
+                child: Image.asset(Assets.kakaoLogin),
               ),
             ),
           ],

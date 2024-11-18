@@ -49,7 +49,7 @@ class AppRouter {
         path: Routes.home.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
-          child: LoginView(),
+          child: HomeView(),
         ),
       ),
 
