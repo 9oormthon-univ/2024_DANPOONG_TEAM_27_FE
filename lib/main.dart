@@ -14,6 +14,8 @@ class MainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => MaterialApp.router(
         routerConfig: ref.watch(appRouterProvider).router,
         title: 'boiler plate',
-        theme: ThemeData(),
+        theme: ThemeData(
+          fontFamily: 'SUIT',
+        ),
       );
 }

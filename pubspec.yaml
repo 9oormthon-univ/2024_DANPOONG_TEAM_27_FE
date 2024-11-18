@@ -56,3 +56,8 @@ flutter:
           weight: 800
         - asset: fonts/SUIT-Heavy.ttf
           weight: 900
+
+    - family: Tenada
+      fonts:
+        - asset: fonts/Tenada.ttf
+          weight: 400
