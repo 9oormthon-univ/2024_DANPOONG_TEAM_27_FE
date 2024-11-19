@@ -11,6 +11,7 @@ import '../widgets/check_icon_widget.dart';
 import '../widgets/onboarding_bottom_button.dart';
 import '../widgets/onboarding_layout.dart';
 import '../widgets/onboarding_top_widget.dart';
+import '../widgets/suggested_duration_widget.dart';
 
 Color shadowColor = const Color(0xffA6C1EE).withOpacity(0.15);
 
@@ -102,7 +103,7 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
         ),
       ),
       bottomButton: OnboardingBottomButton(
-        onPressed: () => viewModel.onTapNextButtonInGoal,
+        onPressed: () => context.push('/onboarding/duration'),
         activated: viewModel.activateNextButtonInGoal,
       ),
     );
@@ -157,23 +158,9 @@ class GoalSuggestionWidget extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 8.0),
-              Container(
-                margin: const EdgeInsets.only(top: 8.0),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 4.0,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  color: LuckitColors.gray10,
-                ),
-                child: Text(
-                  '추천 기간 ${model.suggestedDuration}',
-                  style: LuckitTypos.suitR10.copyWith(
-                    color:
-                        isChecked ? LuckitColors.gray60 : LuckitColors.gray40,
-                  ),
-                ),
+              SuggestedDurationWidget(
+                isChecked: isChecked,
+                duration: model.suggestedDuration,
               ),
             ],
           ),
