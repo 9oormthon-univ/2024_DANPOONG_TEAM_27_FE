@@ -26,8 +26,15 @@ class _ScaffoldWithNavigationState extends ConsumerState<ScaffoldWithNavigation>
     ref.read(navigationProvider.notifier).setIndex(index);
     final hasAlreadyOnBranch = index == widget.navigationShell.currentIndex;
 
+    final endpoint = NAV_INDEX_ENDPOINT_MAPPER[index];
+
+      if (endpoint == null) {
+        debugPrint('Warning: Invalid navigation index: $index');
+        return;
+      }
+
     if (hasAlreadyOnBranch) {
-      context.go(NAV_INDEX_ENDPOINT_MAPPER[index]!);
+      context.go(endpoint);
     } else {
       widget.navigationShell.goBranch(index);
     }

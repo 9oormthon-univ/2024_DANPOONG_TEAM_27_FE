@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 
-class EditDialog extends StatelessWidget {
-  final TextEditingController controller = TextEditingController();
+class EditDialog extends StatefulWidget {
   final String buttonText;
   final String title;
   final String? content;
@@ -14,8 +13,27 @@ class EditDialog extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<EditDialog> createState() => _EditDialogState();
+}
+
+class _EditDialogState extends State<EditDialog> {
+  late final TextEditingController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController(text: widget.content ?? '');
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    controller.text = content ?? '';
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -34,15 +52,15 @@ class EditDialog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
-                    style: LuckitTypos.suitSB16..copyWith(color: LuckitColors.gray80),
+                    widget.title,
+                    style: LuckitTypos.suitSB16.copyWith(color: LuckitColors.gray80),
                   ),
                   const SizedBox(height: 17),
                   TextField(
                     controller: controller,
                     decoration: InputDecoration(
                       hintText: '할 일을 적어주세요',
-                      hintStyle: LuckitTypos.suitR12..copyWith(color: LuckitColors.gray40),
+                      hintStyle: LuckitTypos.suitR12.copyWith(color: LuckitColors.gray40),
                       filled: true,
                       fillColor: Colors.grey[50],
                       border: OutlineInputBorder(
@@ -67,7 +85,7 @@ class EditDialog extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                     child: Text(
                       '취소',
-                      style: LuckitTypos.suitR16..copyWith(color: LuckitColors.gray80),
+                      style: LuckitTypos.suitR16.copyWith(color: LuckitColors.gray80),
                     ),
                   ),
                 ),
@@ -85,8 +103,8 @@ class EditDialog extends StatelessWidget {
                       }
                     },
                     child: Text(
-                      buttonText,
-                      style: LuckitTypos.suitR16..copyWith(color: LuckitColors.main)
+                      widget.buttonText,
+                      style: LuckitTypos.suitR16.copyWith(color: LuckitColors.main)
                     ),
                   ),
                 ),

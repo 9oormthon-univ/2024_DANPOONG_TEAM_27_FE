@@ -20,11 +20,23 @@ class NavigationState {
   }
 }
 
+const int _defaultHomeIndex = 1;
+
+/// The maximum allowed navigation index
+const int _maxNavigationIndex = 2;
+
 class NavigationNotifier extends StateNotifier<NavigationState> {
   NavigationNotifier()
-      : super(NavigationState(currentIndex: 1, previousIndex: 1));
+      : super(NavigationState(
+          currentIndex: _defaultHomeIndex,
+          previousIndex: _defaultHomeIndex,
+        ));
 
   void setIndex(int index) {
+    if (index < 0 || index > _maxNavigationIndex) {
+      throw ArgumentError(
+          'Navigation index must be between 0 and $_maxNavigationIndex');
+    }
     state = NavigationState(
       currentIndex: index,
       previousIndex: state.currentIndex,
@@ -32,11 +44,14 @@ class NavigationNotifier extends StateNotifier<NavigationState> {
   }
 
   void resetToHome() {
-    state = NavigationState(currentIndex: 1, previousIndex: state.currentIndex);
+    state = NavigationState(
+      currentIndex: _defaultHomeIndex,
+      previousIndex: state.currentIndex,
+    );
   }
 }
 
 final navigationProvider =
-StateNotifierProvider<NavigationNotifier, NavigationState>((ref) {
+    StateNotifierProvider<NavigationNotifier, NavigationState>((ref) {
   return NavigationNotifier();
 });
