@@ -22,4 +22,14 @@ class Routes {
     name: '/home',
     path: '/home',
   );
+  // 운세 페이지
+  static const RouteInfo fortune = RouteInfo(
+    name: '/fortune',
+    path: '/fortune',
+  );
+  // 프로필 페이지
+  static const RouteInfo profile = RouteInfo(
+    name: '/profile',
+    path: '/profile',
+  );
 }

@@ -32,7 +32,7 @@ class NavigationNotifier extends StateNotifier<NavigationState> {
   }
 
   void resetToHome() {
-    state = NavigationState(currentIndex: 0, previousIndex: state.currentIndex);
+    state = NavigationState(currentIndex: 1, previousIndex: state.currentIndex);
   }
 }
 

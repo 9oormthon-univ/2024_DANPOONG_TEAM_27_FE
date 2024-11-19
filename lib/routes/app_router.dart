@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:booklog/ui/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../ui/common/widget/navigation_bar/scaffold_with_navigation.dart';
+import '../ui/fortune/fortune_view.dart';
 import '../ui/home/home_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
@@ -43,13 +46,51 @@ class AppRouter {
     ),
     redirect: _redirect,
     routes: <RouteBase>[
-      GoRoute(
-        name: Routes.home.name,
-        path: Routes.home.path,
-        pageBuilder: (BuildContext context, GoRouterState state) =>
-            const NoTransitionPage<dynamic>(
-          child: HomeView(),
-        ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ScaffoldWithNavigation(
+            navigationShell: navigationShell,
+            child: navigationShell,
+          );
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.fortune.path,
+                name: Routes.fortune.name,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                const NoTransitionPage<dynamic>(
+                  child: FortuneView(),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.home.path,
+                name: Routes.home.name,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                const NoTransitionPage<dynamic>(
+                  child: HomeView(),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.profile.path,
+                name: Routes.profile.name,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                const NoTransitionPage<dynamic>(
+                  child: ProfileView(),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
 
       // Auth
