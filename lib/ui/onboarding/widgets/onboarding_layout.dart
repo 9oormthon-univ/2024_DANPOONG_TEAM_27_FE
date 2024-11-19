@@ -9,19 +9,21 @@ class OnboardingLayout extends StatelessWidget {
   final Widget topWidget;
   final Widget content;
   final Widget bottomButton;
+  final Color backgroundColor;
 
   const OnboardingLayout({
     required this.onPressedBackButton,
     required this.topWidget,
     required this.content,
     required this.bottomButton,
+    this.backgroundColor = LuckitColors.background,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) => Scaffold(
     resizeToAvoidBottomInset: false,
-    backgroundColor: LuckitColors.background,
+    backgroundColor: backgroundColor,
     appBar: AppBar(
       scrolledUnderElevation: 0.0,
       backgroundColor: LuckitColors.white,
