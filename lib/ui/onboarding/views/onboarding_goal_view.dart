@@ -151,29 +151,10 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
               ],
             ),
           ),
-          TextButton(
-            // viewModelX navigation으로 수정
-            onPressed: viewModel.activateNextButtonInGoal
-                ? viewModel.onTapNextButtonInGoal
-                : null,
-            style: TextButton.styleFrom(
-              minimumSize: Size(MediaQuery.of(context).size.width, 64.0),
-              backgroundColor: viewModel.activateNextButtonInGoal
-                  ? LuckitColors.main
-                  : LuckitColors.gray20,
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-            ),
-            child: Text(
-              '기간 설정하기',
-              style: LuckitTypos.suitR20.copyWith(
-                color: viewModel.activateNextButtonInGoal
-                    ? LuckitColors.white
-                    : LuckitColors.gray80,
-              ),
-            ),
+          OnboardingBottomButton(
+            // onPressed는 router 추가 후 변경 예정
+            onPressed: () => viewModel.onTapNextButtonInGoal,
+            activated: viewModel.activateNextButtonInGoal,
           ),
         ],
       ),
@@ -181,41 +162,68 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
   }
 }
 
-class CheckIcon extends ConsumerWidget {
-  final int index;
+class OnboardingBottomButton extends StatelessWidget {
   final VoidCallback onPressed;
+  final bool activated;
 
-  const CheckIcon({required this.index, required this.onPressed, super.key});
+  const OnboardingBottomButton({
+    required this.onPressed,
+    required this.activated,
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final OnboardingState state = ref.watch(onboardingViewModelProvider);
-    final bool isChecked = index == state.selectedSuggestion;
-
-    return IconButton(
-      onPressed: onPressed,
-      icon: Container(
-        // margin: const EdgeInsets.all(2.67),
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isChecked ? LuckitColors.main : LuckitColors.gray20,
+  Widget build(BuildContext context) => TextButton(
+        // viewModelX navigation으로 수정
+        onPressed: activated ? onPressed : null,
+        style: TextButton.styleFrom(
+          minimumSize: Size(MediaQuery.of(context).size.width, 64.0),
+          backgroundColor: activated ? LuckitColors.main : LuckitColors.gray20,
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+          ),
         ),
-        child: Center(
-          child: SvgPicture.asset(
-            Assets.done,
-            width: 32,
-            height: 32,
-            colorFilter: const ColorFilter.mode(
-              Colors.white,
-              BlendMode.srcIn,
+        child: Text(
+          '기간 설정하기',
+          style: LuckitTypos.suitR20.copyWith(
+            color: activated ? LuckitColors.white : LuckitColors.gray80,
+          ),
+        ),
+      );
+}
+
+class CheckIcon extends StatelessWidget {
+  final bool isChecked;
+  final VoidCallback onPressed;
+
+  const CheckIcon(
+      {required this.isChecked, required this.onPressed, super.key});
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+        onPressed: onPressed,
+        icon: Container(
+          // margin: const EdgeInsets.all(2.67),
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isChecked ? LuckitColors.main : LuckitColors.gray20,
+          ),
+          child: Center(
+            child: SvgPicture.asset(
+              Assets.done,
+              width: 32,
+              height: 32,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class GoalSuggestion extends ConsumerWidget {
@@ -287,7 +295,7 @@ class GoalSuggestion extends ConsumerWidget {
             ],
           ),
           CheckIcon(
-            index: index,
+            isChecked: index == state.selectedSuggestion,
             onPressed: onPressedCheck,
           ),
         ],
