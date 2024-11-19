@@ -11,11 +11,13 @@ class WalkingGame extends FlameGame {
   final Random random = Random();
   final Vector2 boundarySize;
   final List<CharacterData> characterTypes;
+  final String gameBackground;
   late SpriteComponent background;
 
   WalkingGame({
     required this.boundarySize,
     required this.characterTypes,
+    required this.gameBackground
   }) : super(world: World());
 
   @override
@@ -26,7 +28,7 @@ class WalkingGame extends FlameGame {
     camera.viewfinder.anchor = Anchor.topLeft;
 
     // 배경 이미지 로드 및 추가
-    final backgroundSprite = await Sprite.load(Assets.gameBackground);
+    final backgroundSprite = await Sprite.load(gameBackground);
     background = SpriteComponent(
       sprite: backgroundSprite,
       size: boundarySize,
@@ -52,6 +54,21 @@ class WalkingGame extends FlameGame {
       await player.isReady.future;
       player.startMoving();
     }
+  }
+
+  Future<void> updateBackground(String newGameBackground, bool isLandscape) async {
+    final newSprite = await Sprite.load(newGameBackground);
+    background.sprite = newSprite;
+
+    // Swap width and height for landscape mode
+    if (isLandscape) {
+      camera.viewport.size = Vector2(boundarySize.y, boundarySize.x);
+      background.size = Vector2(boundarySize.y, boundarySize.x);
+    } else {
+      camera.viewport.size = boundarySize;
+      background.size = boundarySize;
+    }
+    camera.viewport.position = Vector2.zero();
   }
 
   Vector2 get gameSize => boundarySize;

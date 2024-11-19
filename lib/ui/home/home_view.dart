@@ -1,4 +1,4 @@
-import 'package:booklog/ui/game/character_provider.dart';
+import 'package:booklog/ui/game/mission_character_provider.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -46,11 +46,12 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
       final availableHeight = screenSize.height - paddingTop - appBarHeight;
       final gameHeight = availableHeight * 0.3;
 
-      final characters = ref.read(charactersProvider);
+      final characters = ref.read(missionCharactersProvider);
 
       game = WalkingGame(
         boundarySize: Vector2(screenSize.width, gameHeight),
         characterTypes: characters,
+        gameBackground: Assets.gameBackground,
       );
       setState(() {});
     });
@@ -74,7 +75,7 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
     final HomeViewModel viewModel = ref.read(homeViewModelProvider.notifier);
 
     //게임 관련
-    final characters = ref.watch(charactersProvider);
+    final characters = ref.watch(missionCharactersProvider);
     final screenSize = MediaQuery.of(context).size;
     final paddingTop = MediaQuery.of(context).padding.top;
     final appBarHeight = AppBar().preferredSize.height;
@@ -109,7 +110,7 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    ref.read(charactersProvider.notifier).addCharacter(
+                    ref.read(missionCharactersProvider.notifier).addCharacter(
                       CharacterData(
                         idleAnimation: Assets.dogStop,
                         walkAnimation: Assets.dogMove,
@@ -124,7 +125,7 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
                 if (characters.isNotEmpty)
                   ElevatedButton(
                     onPressed: () {
-                      ref.read(charactersProvider.notifier)
+                      ref.read(missionCharactersProvider.notifier)
                           .removeCharacter(characters.length - 1);
                       initializeGame();
                     },
@@ -155,6 +156,10 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
           TextButton(
             onPressed: () => context.go(Routes.goal.path),
             child: Text("온보딩"),
+          ),
+          TextButton(
+            onPressed: () => context.go(Routes.farm.path),
+            child: Text("농장"),
           ),
 
         ],

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../ui/farm/farm_view.dart';
 import '../ui/fortune/fortune_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
@@ -35,7 +36,7 @@ class AppRouter {
       _appRouterInterceptor.redirect(context, state);
 
   late final GoRouter _router = GoRouter(
-    initialLocation: Routes.fortune.name,
+    initialLocation: Routes.home.name,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
@@ -77,6 +78,14 @@ class AppRouter {
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: OnboardingGoalView(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.farm.name,
+        path: Routes.farm.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: FarmView(),
         ),
       ),
 
