@@ -30,6 +30,7 @@ class OnboardingBottomButton extends StatelessWidget {
       label,
       style: LuckitTypos.suitR20.copyWith(
         color: activated ? LuckitColors.white : LuckitColors.gray80,
+        height: 0.0,
       ),
     ),
   );

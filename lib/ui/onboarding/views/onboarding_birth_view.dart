@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
+import '../../common/widgets/rounded_text_button_widget.dart';
 import '../onboarding_state.dart';
 import '../onboarding_view_model.dart';
 import '../widgets/check_icon_widget.dart';
+import '../widgets/error_text_widget.dart';
 import '../widgets/onboarding_bottom_button.dart';
 import '../widgets/onboarding_layout.dart';
 import '../widgets/onboarding_top_widget.dart';
@@ -337,91 +339,6 @@ class BirthTimeInputField extends StatelessWidget {
           ),
           cursorColor: LuckitColors.gray80,
           cursorWidth: 1.0,
-        ),
-      );
-}
-
-class ErrorTextWidget extends StatelessWidget {
-  final Map<String?, TextAlign> errorTexts;
-
-  const ErrorTextWidget({
-    required this.errorTexts,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) => SizedBox(
-        height: 20.0,
-        child: _showErrorText(),
-      );
-
-  Widget _showErrorText() {
-    final TextStyle errorTextStyle = LuckitTypos.suitR10.copyWith(
-      color: LuckitColors.error,
-    );
-
-    for (final MapEntry<String?, TextAlign> entry in errorTexts.entries) {
-      if (entry.key != null) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2.0),
-          child: Text(
-            entry.key!,
-            style: errorTextStyle,
-            textAlign: entry.value,
-          ),
-        );
-      }
-    }
-    return const SizedBox.shrink();
-  }
-}
-
-class RoundedTextButtonWidget extends StatelessWidget {
-  final bool isSelected;
-  final bool isActivated;
-  final String label;
-  final VoidCallback onPressed;
-  final double height;
-
-  const RoundedTextButtonWidget({
-    required this.isSelected,
-    required this.label,
-    required this.onPressed,
-    this.isActivated = true,
-    this.height = 40.0,
-    super.key,
-  });
-
-  Color get backgroundColor =>
-  !isActivated?LuckitColors.gray10:
-      (isSelected ? LuckitColors.main : LuckitColors.gray10);
-
-  Color get foregroundColor => !isActivated?LuckitColors.gray40:
-  (isSelected ? LuckitColors.white : LuckitColors.gray60);
-
-  @override
-  Widget build(BuildContext context) => SizedBox(
-        height: height,
-        child: TextButton(
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-            alignment: Alignment.center,
-            padding: EdgeInsets.zero,
-            backgroundColor: backgroundColor,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8.0),
-              ),
-            ),
-          ),
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: LuckitTypos.suitR20.copyWith(
-              height: 0.0,
-              color: foregroundColor,
-            ),
-          ),
         ),
       );
 }
