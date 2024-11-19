@@ -48,6 +48,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
         selectedSuggestion: -1,
         goal:
             state.goalInputFieldText.isNotEmpty ? state.goalInputFieldText : '',
+        suggestedDuration: '',
       );
       debugPrint('현재 목표: ${state.goal}');
     }
@@ -56,6 +57,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
       state = state.copyWith(
         selectedSuggestion: index,
         goal: state.suggestions[index].suggestedGoal,
+        suggestedDuration: state.suggestions[index].suggestedDuration,
       );
       debugPrint('현재 목표: ${state.goal}');
     }

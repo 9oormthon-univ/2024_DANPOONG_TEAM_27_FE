@@ -45,7 +45,6 @@ class OnboardingDurationView extends ConsumerWidget {
                     style: LuckitTypos.suitR16,
                   ),
                 ),
-                // TODO state/viewModel에 추천 기간 저장
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
@@ -68,9 +67,14 @@ class OnboardingDurationView extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 4.0),
-                      // TODO state의 추천 기간
-                      SuggestedDurationWidget(isChecked: true, duration: "30일"),
+                      if (state.suggestedDuration.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: SuggestedDurationWidget(
+                            isChecked: true,
+                            duration: state.suggestedDuration,
+                          ),
+                        ),
                     ],
                   ),
                 ),
