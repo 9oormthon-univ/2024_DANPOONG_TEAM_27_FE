@@ -10,7 +10,7 @@ class LuckitTypos {
     fontSize: 32,
     fontWeight: FontWeight.w800,
     height: 1.7,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'Tenada',
   );
 
@@ -19,7 +19,16 @@ class LuckitTypos {
     fontSize: 32,
     fontWeight: FontWeight.w800,
     height: 1.4,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
+    fontFamily: 'SUIT',
+  );
+
+  /// SUIT semiBOld 20
+  static const TextStyle suitSB20 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    height: 1.7,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'SUIT',
   );
 
@@ -29,7 +38,7 @@ class LuckitTypos {
     fontWeight: FontWeight.w400,
     height: 1.7,
     letterSpacing: 0.03,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'SUIT',
   );
 
@@ -38,7 +47,7 @@ class LuckitTypos {
     fontSize: 16,
     fontWeight: FontWeight.w600,
     height: 1.6,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'SUIT',
   );
 
@@ -48,7 +57,7 @@ class LuckitTypos {
     fontWeight: FontWeight.w400,
     height: 1.6,
     letterSpacing: 0.03,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'SUIT',
   );
 
@@ -57,7 +66,7 @@ class LuckitTypos {
     fontSize: 14,
     fontWeight: FontWeight.w400,
     height: 1.7,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'SUIT',
   );
 
@@ -66,7 +75,7 @@ class LuckitTypos {
     fontSize: 12,
     fontWeight: FontWeight.w600,
     height: 1.7,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'SUIT',
   );
 
@@ -75,7 +84,7 @@ class LuckitTypos {
     fontSize: 12,
     fontWeight: FontWeight.w400,
     height: 1.7,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'SUIT',
   );
 
@@ -84,7 +93,7 @@ class LuckitTypos {
     fontSize: 10,
     fontWeight: FontWeight.w400,
     height: 1.6,
-    leadingDistribution: TextLeadingDistribution.even,
+    leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'SUIT',
   );
 }
