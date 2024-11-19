@@ -35,6 +35,8 @@ flutter:
     - assets/
     - assets/icons/
     - assets/images/
+    - assets/images/login_background.png
+    - assets/images/kakao_login_large_wide.png
 
   fonts:
     - family: SUIT
