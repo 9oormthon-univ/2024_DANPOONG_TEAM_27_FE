@@ -23,6 +23,17 @@ class Routes {
     path: '/home',
   );
 
+  // 운세 페이지
+  static const RouteInfo fortune = RouteInfo(
+    name: '/fortune',
+    path: '/fortune',
+  );
+  // 프로필 페이지
+  static const RouteInfo profile = RouteInfo(
+    name: '/profile',
+    path: '/profile',
+  );
+
   // 온보딩
   static const RouteInfo goal = RouteInfo(
     name: '/onboarding/goal',

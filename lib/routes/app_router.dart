@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:booklog/ui/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../ui/common/widget/navigation_bar/scaffold_with_navigation.dart';
+import '../ui/fortune/fortune_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
 import 'app_router_interceptor.dart';
@@ -45,14 +48,33 @@ class AppRouter {
     redirect: _redirect,
     routes: <RouteBase>[
       GoRoute(
-        name: Routes.home.name,
+        path: Routes.fortune.path,
+        name: Routes.fortune.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: FortuneView(),
+        ),
+      ),
+      GoRoute(
         path: Routes.home.path,
+        name: Routes.home.name,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: HomeView(),
         ),
       ),
       GoRoute(
+
+        path: Routes.profile.path,
+        name: Routes.profile.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: ProfileView(),
+        ),
+      ),
+
+
+        GoRoute(
         name: Routes.goal.name,
         path: Routes.goal.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
@@ -60,6 +82,7 @@ class AppRouter {
           child: OnboardingGoalView(),
         ),
       ),
+
       // Auth
       // GoRoute(
       //   path: Routes.auth.path,
