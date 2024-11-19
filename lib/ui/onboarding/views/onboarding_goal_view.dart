@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
-import '../../common/consts/assets.dart';
 import '../../common/widgets/custom_text_field.dart';
 import '../onboarding_state.dart';
 import '../onboarding_view_model.dart';
+import '../widgets/check_icon_widget.dart';
+import '../widgets/onboarding_bottom_button.dart';
+import '../widgets/onboarding_layout.dart';
+import '../widgets/onboarding_top_widget.dart';
 
 Color shadowColor = const Color(0xffA6C1EE).withOpacity(0.15);
 
@@ -86,7 +88,7 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
                       .map((MapEntry<int, GoalSuggestionModel> entry) {
                     final int index = entry.key;
                     final GoalSuggestionModel model = entry.value;
-                    return GoalSuggestion(
+                    return GoalSuggestionWidget(
                       index: index,
                       model: model,
                       onPressedCheck: () =>
@@ -107,172 +109,12 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
   }
 }
 
-class OnboardingLayout extends StatelessWidget {
-  final VoidCallback onPressedBackButton;
-  final Widget topWidget;
-  final Widget content;
-  final Widget bottomButton;
-
-  const OnboardingLayout({
-    required this.onPressedBackButton,
-    required this.topWidget,
-    required this.content,
-    required this.bottomButton,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: LuckitColors.background,
-      appBar: AppBar(
-        scrolledUnderElevation: 0.0,
-        backgroundColor: LuckitColors.white,
-        leading: IconButton(
-          onPressed: onPressedBackButton,
-          icon: SvgPicture.asset(
-            Assets.arrowLeft,
-          ),
-        ),
-      ),
-      body: Column(
-        children: <Widget>[topWidget, content, bottomButton],
-      ),
-    );
-}
-
-class OnboardingBottomButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final bool activated;
-
-  const OnboardingBottomButton({
-    required this.onPressed,
-    required this.activated,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) => TextButton(
-        onPressed: activated ? onPressed : null,
-        style: TextButton.styleFrom(
-          minimumSize: Size(MediaQuery.of(context).size.width, 64.0),
-          backgroundColor: activated ? LuckitColors.main : LuckitColors.gray20,
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0),
-          ),
-        ),
-        child: Text(
-          '기간 설정하기',
-          style: LuckitTypos.suitR20.copyWith(
-            color: activated ? LuckitColors.white : LuckitColors.gray80,
-          ),
-        ),
-      );
-}
-
-class CheckIcon extends StatelessWidget {
-  final bool isChecked;
-  final VoidCallback onPressed;
-
-  const CheckIcon(
-      {required this.isChecked, required this.onPressed, super.key});
-
-  @override
-  Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        icon: Container(
-          // margin: const EdgeInsets.all(2.67),
-          width: 32,
-          height: 32,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: isChecked ? LuckitColors.main : LuckitColors.gray20,
-          ),
-          child: Center(
-            child: SvgPicture.asset(
-              Assets.done,
-              width: 32,
-              height: 32,
-              colorFilter: const ColorFilter.mode(
-                Colors.white,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-        ),
-      );
-}
-
-class OnboardingTopWidget extends StatelessWidget {
-  final String title;
-  final String text;
-  final String boldText;
-  final bool showShadow;
-
-  const OnboardingTopWidget({
-    required this.title,
-    required this.text,
-    required this.boldText,
-    this.showShadow = true,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          color: LuckitColors.white,
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(16.0),
-            bottomRight: Radius.circular(16.0),
-          ),
-          boxShadow: showShadow
-              ? <BoxShadow>[
-                  BoxShadow(
-                    blurRadius: 10.0,
-                    color: shadowColor,
-                  )
-                ]
-              : null,
-        ),
-        width: double.infinity,
-        padding: const EdgeInsets.only(
-            left: 24.0, right: 24.0, top: 12.0, bottom: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              title,
-              style: LuckitTypos.suitEB32.copyWith(
-                color: LuckitColors.main,
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Text.rich(
-              TextSpan(
-                children: <InlineSpan>[
-                  TextSpan(
-                    text: boldText,
-                    style: LuckitTypos.suitSB16,
-                  ),
-                  TextSpan(
-                    text: text,
-                    style: LuckitTypos.suitR16,
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      );
-}
-
-class GoalSuggestion extends ConsumerWidget {
+class GoalSuggestionWidget extends ConsumerWidget {
   final int index;
   final GoalSuggestionModel model;
   final VoidCallback onPressedCheck;
 
-  const GoalSuggestion({
+  const GoalSuggestionWidget({
     required this.index,
     required this.model,
     required this.onPressedCheck,
@@ -335,7 +177,7 @@ class GoalSuggestion extends ConsumerWidget {
               ),
             ],
           ),
-          CheckIcon(
+          CheckIconWidget(
             isChecked: index == state.selectedSuggestion,
             onPressed: onPressedCheck,
           ),
