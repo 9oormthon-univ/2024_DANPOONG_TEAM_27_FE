@@ -44,19 +44,31 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
   }) {
     // 같은 것 선택 -> 취소 & text field 활성화
     if (index == state.selectedSuggestion) {
-      state = state.copyWith(selectedSuggestion: -1);
+      state = state.copyWith(
+        selectedSuggestion: -1,
+        goal:
+            state.goalInputFieldText.isNotEmpty ? state.goalInputFieldText : '',
+      );
+      debugPrint('현재 목표: ${state.goal}');
     }
     // 새로운 것 선택 -> 선택 & text field 비활성화
     else {
-      state = state.copyWith(selectedSuggestion: index);
+      state = state.copyWith(
+        selectedSuggestion: index,
+        goal: state.suggestions[index].suggestedGoal,
+      );
+      debugPrint('현재 목표: ${state.goal}');
     }
   }
 
   void onChangedGoalTextField({
     required String text,
   }) {
-    state = state.copyWith(goalInputFieldText: text);
-    debugPrint('텍스트 변경: ${state.goalInputFieldText}');
+    state = state.copyWith(
+      goalInputFieldText: text,
+      goal: text,
+    );
+    debugPrint('현재 목표: ${state.goal}');
   }
 
   void onTapNextButtonInGoal() {}

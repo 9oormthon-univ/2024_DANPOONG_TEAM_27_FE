@@ -9,6 +9,7 @@ class OnboardingState extends Equatable {
   final String userName;
   final String goalInputFieldText;
   final String goalInputFieldErrorMsg;
+  final String goal;
 
   // text field enable, goal 결정, 선택된 목표 인덱스 저장
   final int selectedSuggestion;
@@ -22,6 +23,7 @@ class OnboardingState extends Equatable {
     required this.goalInputFieldErrorMsg,
     required this.suggestions,
     required this.selectedSuggestion,
+    required this.goal,
   });
 
   factory OnboardingState.init() => const OnboardingState(
@@ -32,6 +34,7 @@ class OnboardingState extends Equatable {
         goalInputFieldErrorMsg: '',
         suggestions: <GoalSuggestionModel>[],
         selectedSuggestion: -1,
+        goal: '',
       );
 
   OnboardingState copyWith({
@@ -42,6 +45,7 @@ class OnboardingState extends Equatable {
     String? goalInputFieldErrorMsg,
     int? selectedSuggestion,
     List<GoalSuggestionModel>? suggestions,
+    String? goal,
   }) =>
       OnboardingState(
         getUserNameLoading: getUserNameLoading ?? this.getUserNameLoading,
@@ -53,6 +57,7 @@ class OnboardingState extends Equatable {
         goalInputFieldErrorMsg:
             goalInputFieldErrorMsg ?? this.goalInputFieldErrorMsg,
         suggestions: suggestions ?? this.suggestions,
+        goal: goal ?? this.goal,
       );
 
   @override
@@ -62,6 +67,7 @@ class OnboardingState extends Equatable {
         goalInputFieldErrorMsg,
         selectedSuggestion,
         suggestions,
+        goal,
         // goalNextButtonLabel,
         // isFinishedGoal,
       ];
