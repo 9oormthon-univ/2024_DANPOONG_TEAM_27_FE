@@ -12,11 +12,6 @@ class Routes {
   //   path: 'sign-in',
   // );
 
-  // static const RouteInfo signUp = RouteInfo(
-  //   name: '/auth/sign-up',
-  //   path: 'sign-up',
-  // );
-
   // 홈(메인)페이지
   static const RouteInfo home = RouteInfo(
     name: '/home',

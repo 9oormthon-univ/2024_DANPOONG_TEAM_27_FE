@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:booklog/ui/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../ui/common/widget/navigation_bar/scaffold_with_navigation.dart';
 import '../ui/fortune/fortune_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
+import '../ui/profile/profile_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
 import 'routes.dart';
@@ -36,7 +35,7 @@ class AppRouter {
       _appRouterInterceptor.redirect(context, state);
 
   late final GoRouter _router = GoRouter(
-    initialLocation: Routes.home.name,
+    initialLocation: Routes.fortune.name,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
@@ -48,8 +47,8 @@ class AppRouter {
     redirect: _redirect,
     routes: <RouteBase>[
       GoRoute(
-        path: Routes.fortune.path,
         name: Routes.fortune.name,
+        path: Routes.fortune.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: FortuneView(),
@@ -64,7 +63,6 @@ class AppRouter {
         ),
       ),
       GoRoute(
-
         path: Routes.profile.path,
         name: Routes.profile.name,
         pageBuilder: (BuildContext context, GoRouterState state) =>
@@ -73,8 +71,7 @@ class AppRouter {
         ),
       ),
 
-
-        GoRoute(
+      GoRoute(
         name: Routes.goal.name,
         path: Routes.goal.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
