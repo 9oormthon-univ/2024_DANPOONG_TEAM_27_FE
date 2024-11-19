@@ -3,7 +3,9 @@
 // import 'fortune_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
+import '../common/widget/bottom_navigation_bar.dart';
 import 'widgets/chip_list_widget.dart';
 import 'widgets/fortune_app_bar_widget.dart';
 import 'widgets/fortune_card_widget.dart';
@@ -20,9 +22,12 @@ class FortuneView extends ConsumerStatefulWidget {
 
 class _FortuneViewState extends ConsumerState<FortuneView> {
   @override
-  Widget build(BuildContext context) => const Scaffold(
+  Widget build(BuildContext context) => Scaffold(
+        bottomNavigationBar: BottomNavigationBarWidget(
+          currentRouteName: Routes.fortune.name,
+        ),
         backgroundColor: LuckitColors.background,
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

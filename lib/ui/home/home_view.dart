@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'package:go_router/go_router.dart';
-
-
-
-import '../../routes/app_router.dart';
 import '../../routes/routes.dart';
+import '../common/widget/bottom_navigation_bar.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
 
@@ -33,6 +30,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
     final HomeState state = ref.watch(homeViewModelProvider);
     final HomeViewModel viewModel = ref.read(homeViewModelProvider.notifier);
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBarWidget(
+        currentRouteName: Routes.home.name,
+      ),
       appBar: AppBar(),
       body: Column(
         children: <Widget>[
@@ -57,9 +57,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
           TextButton(
             onPressed: () => context.go(Routes.goal.path),
-            child: Text("온보딩"),
+            child: const Text('온보딩'),
           ),
-
         ],
       ),
     );
