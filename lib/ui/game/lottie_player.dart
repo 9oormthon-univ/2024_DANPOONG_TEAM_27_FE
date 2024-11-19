@@ -7,6 +7,8 @@ import 'package:flame/components.dart';
 import 'package:flame_lottie/flame_lottie.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme/luckit_colors.dart';
+import '../../theme/luckit_typos.dart';
 import 'character_data.dart';
 
 enum CharacterState {
@@ -78,18 +80,7 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
       levelText = TextComponent(
         text: data.name,
         textRenderer: TextPaint(
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            shadows: [
-              Shadow(
-                color: Colors.black,
-                offset: Offset(1, 1),
-                blurRadius: 2,
-              ),
-            ],
-          ),
+          style: LuckitTypos.suitR12.copyWith(color: LuckitColors.white)
         ),
         position: Vector2(size.x / 2, -10),
         anchor: Anchor.center,
