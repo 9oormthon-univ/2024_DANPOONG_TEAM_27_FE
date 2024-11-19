@@ -14,9 +14,6 @@ class OnboardingState extends Equatable {
   final int selectedSuggestion;
   final List<GoalSuggestionModel> suggestions;
 
-  // final String goalNextButtonLabel;
-  // final bool isFinishedGoal;
-
   const OnboardingState({
     required this.getUserNameLoading,
     required this.getSuggestionsLoading,
@@ -24,8 +21,6 @@ class OnboardingState extends Equatable {
     required this.goalInputFieldText,
     required this.goalInputFieldErrorMsg,
     required this.suggestions,
-    // required this.goalNextButtonLabel,
-    // required this.isFinishedGoal,
     required this.selectedSuggestion,
   });
 
@@ -37,8 +32,6 @@ class OnboardingState extends Equatable {
         goalInputFieldErrorMsg: '',
         suggestions: <GoalSuggestionModel>[],
         selectedSuggestion: -1,
-        // goalNextButtonLabel: '다음',
-        // isFinishedGoal: false,
       );
 
   OnboardingState copyWith({
@@ -46,11 +39,9 @@ class OnboardingState extends Equatable {
     LoadingStatus? getSuggestionsLoading,
     String? userName,
     String? goalInputFieldText,
-    String? goalTextFieldErrorMsg,
+    String? goalInputFieldErrorMsg,
     int? selectedSuggestion,
     List<GoalSuggestionModel>? suggestions,
-    // String? goalNextButtonLabel,
-    // bool? isFinishedGoal,
   }) =>
       OnboardingState(
         getUserNameLoading: getUserNameLoading ?? this.getUserNameLoading,
@@ -60,10 +51,8 @@ class OnboardingState extends Equatable {
         goalInputFieldText: goalInputFieldText ?? this.goalInputFieldText,
         selectedSuggestion: selectedSuggestion ?? this.selectedSuggestion,
         goalInputFieldErrorMsg:
-            goalTextFieldErrorMsg ?? this.goalInputFieldErrorMsg,
+            goalInputFieldErrorMsg ?? this.goalInputFieldErrorMsg,
         suggestions: suggestions ?? this.suggestions,
-        // goalNextButtonLabel: goalNextButtonLabel ?? this.goalNextButtonLabel,
-        // isFinishedGoal: isFinishedGoal ?? this.isFinishedGoal,
       );
 
   @override
