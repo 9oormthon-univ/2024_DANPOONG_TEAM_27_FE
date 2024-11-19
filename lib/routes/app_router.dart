@@ -35,7 +35,7 @@ class AppRouter {
       _appRouterInterceptor.redirect(context, state);
 
   late final GoRouter _router = GoRouter(
-    initialLocation: Routes.fortune.name,
+    initialLocation: Routes.home.name,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
