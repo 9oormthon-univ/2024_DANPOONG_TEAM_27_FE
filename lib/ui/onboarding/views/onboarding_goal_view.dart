@@ -107,7 +107,7 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
         ),
       ),
       bottomButton: OnboardingBottomButton(
-        onPressed: () => context.push('/onboarding/duration'),
+        onPressed: () => context.pushNamed('/onboarding/duration'),
         activated: viewModel.activateNextButtonInGoal,
       ),
     );
