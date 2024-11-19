@@ -40,7 +40,7 @@ class Assets {
   static const String puzzle = 'assets/icons/puzzle.svg';
   static const String sleep = 'assets/icons/sleep.svg';
   static const String sort = 'assets/icons/sort.svg';
-  static const String verticlaDots = 'assets/icons/verticlaDots.svg';
+  static const String verticalDots = 'assets/icons/vertical_dots.svg';
 
   //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
@@ -48,7 +48,7 @@ class Assets {
   static const String loginLogo = 'assets/images/login_logo.svg';
 
   //게임 배경
-  static const String gameBackground = 'game_background.png';
+  static const String gameBackground = 'assets/images/game_background.png';
 
   //애니메이션
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';
@@ -64,7 +64,6 @@ class Assets {
   static const String snakeStop = 'assets/animation/stop/snake_stop.json';
   static const String tigerStop = 'assets/animation/stop/tiger_stop.json';
 
-
   static const String chickenMove = 'assets/animation/move/chicken_move.json';
   static const String cowMove = 'assets/animation/move/cow_move.json';
   static const String dogMove = 'assets/animation/move/dog_move.json';
@@ -77,5 +76,4 @@ class Assets {
   static const String sheepMove = 'assets/animation/move/sheep_move.json';
   static const String snakeMove = 'assets/animation/move/snake_move.json';
   static const String tigerMove = 'assets/animation/move/tiger_move.json';
-
 }
