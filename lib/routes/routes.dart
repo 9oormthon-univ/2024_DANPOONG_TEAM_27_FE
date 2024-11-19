@@ -22,4 +22,10 @@ class Routes {
     name: '/home',
     path: '/home',
   );
+
+  // 온보딩
+  static const RouteInfo goal = RouteInfo(
+    name: '/onboarding/goal',
+    path: '/onboarding/goal',
+  );
 }
