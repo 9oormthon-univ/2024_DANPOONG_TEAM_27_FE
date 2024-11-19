@@ -46,51 +46,29 @@ class AppRouter {
     ),
     redirect: _redirect,
     routes: <RouteBase>[
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return ScaffoldWithNavigation(
-            navigationShell: navigationShell,
-            child: navigationShell,
-          );
-        },
-        branches: [
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.fortune.path,
-                name: Routes.fortune.name,
-                pageBuilder: (BuildContext context, GoRouterState state) =>
-                const NoTransitionPage<dynamic>(
-                  child: FortuneView(),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.home.path,
-                name: Routes.home.name,
-                pageBuilder: (BuildContext context, GoRouterState state) =>
-                const NoTransitionPage<dynamic>(
-                  child: HomeView(),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.profile.path,
-                name: Routes.profile.name,
-                pageBuilder: (BuildContext context, GoRouterState state) =>
-                const NoTransitionPage<dynamic>(
-                  child: ProfileView(),
-                ),
-              ),
-            ],
-          ),
-        ],
+      GoRoute(
+        path: Routes.fortune.path,
+        name: Routes.fortune.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: FortuneView(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.home.path,
+        name: Routes.home.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: HomeView(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.profile.path,
+        name: Routes.profile.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: ProfileView(),
+        ),
       ),
 
       // Auth
