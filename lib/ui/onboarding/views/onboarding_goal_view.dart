@@ -71,8 +71,12 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
                     enabledBorderColor: LuckitColors.gray40,
                     focusedBorderColor: LuckitColors.main,
                     textInputType: TextInputType.text,
-                    hintTextStyle: LuckitTypos.suitR12.copyWith(
+                    textStyle: LuckitTypos.suitR16.copyWith(
+                      height: 0.0
+                    ),
+                    hintTextStyle: LuckitTypos.suitR16.copyWith(
                       color: LuckitColors.gray40,
+                      height: 0.0
                     ),
                   ),
                   const Padding(
