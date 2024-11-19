@@ -10,61 +10,61 @@ class CustomNavigationBar extends StatelessWidget {
   final List<CustomNavigationBarItem> items;
 
   const CustomNavigationBar({
-    Key? key,
     required this.currentIndex,
     required this.onTap,
     required this.items,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 27.0),
-      padding: EdgeInsets.symmetric(horizontal: 48.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: List.generate(items.length, (index) {
-          return InkWell(
-            onTap: () => onTap(index),
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  currentIndex == index
-                      ? SvgPicture.asset(items[index].activeIcon)
-                      : SvgPicture.asset(
-                          items[index].icon,
-                          // color: Color(0xFFD0D6E1),
-                        ),
-                  SizedBox(height: 4),
-                  Text(
-                    items[index].label,
-                    style: LuckitTypos.suitSB12.copyWith(
-                        color: currentIndex == index
-                            ? LuckitColors.main
-                            : LuckitColors.gray20),
-                  ),
-                ],
-              ),
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.symmetric(vertical: 27.0),
+        padding: const EdgeInsets.symmetric(horizontal: 48.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
             ),
-          );
-        }),
-      ),
-    );
-  }
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(
+              items.length,
+              (int index) => InkWell(
+                    onTap: () => onTap(index),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          if (currentIndex == index)
+                            SvgPicture.asset(items[index].activeIcon)
+                          else
+                            SvgPicture.asset(
+                              items[index].icon,
+                              // color: Color(0xFFD0D6E1),
+                            ),
+                          const SizedBox(height: 4),
+                          Text(
+                            items[index].label,
+                            style: LuckitTypos.suitSB12.copyWith(
+                                color: currentIndex == index
+                                    ? LuckitColors.main
+                                    : LuckitColors.gray20),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+        ),
+      );
 }
 
 class CustomNavigationBarItem {
