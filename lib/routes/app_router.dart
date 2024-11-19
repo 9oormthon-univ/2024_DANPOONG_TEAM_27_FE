@@ -47,8 +47,8 @@ class AppRouter {
     redirect: _redirect,
     routes: <RouteBase>[
       GoRoute(
-        path: Routes.fortune.path,
         name: Routes.fortune.name,
+        path: Routes.fortune.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: FortuneView(),
@@ -77,15 +77,6 @@ class AppRouter {
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: OnboardingGoalView(),
-        ),
-      ),
-
-      GoRoute(
-        name: Routes.fortune.name,
-        path: Routes.fortune.path,
-        pageBuilder: (BuildContext context, GoRouterState state) =>
-            const NoTransitionPage<dynamic>(
-          child: FortuneView(),
         ),
       ),
 
