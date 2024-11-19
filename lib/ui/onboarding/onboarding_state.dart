@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/loading_status.dart';
 
@@ -25,6 +26,18 @@ class OnboardingState extends Equatable {
   final String endMonth;
   final String endDay;
 
+  // birth
+  final Gender gender;
+  final BirthType birthType;
+  final DayPeriod dayPeriod;
+  final String birthYear;
+  final String birthMonth;
+  final String birthDay;
+  final String birthHour;
+  final String birthMinute;
+  final bool dontKnow;
+  final bool agree;
+
   const OnboardingState({
     required this.getUserNameLoading,
     required this.getSuggestionsLoading,
@@ -41,6 +54,16 @@ class OnboardingState extends Equatable {
     required this.endYear,
     required this.endMonth,
     required this.endDay,
+    required this.gender,
+    required this.birthType,
+    required this.dayPeriod,
+    required this.birthYear,
+    required this.birthMonth,
+    required this.birthDay,
+    required this.birthHour,
+    required this.birthMinute,
+    required this.dontKnow,
+    required this.agree,
   });
 
   factory OnboardingState.init() => const OnboardingState(
@@ -59,6 +82,16 @@ class OnboardingState extends Equatable {
         endYear: '',
         endMonth: '',
         endDay: '',
+        gender: Gender.man,
+        birthType: BirthType.solar,
+        dayPeriod: DayPeriod.am,
+        birthYear: '',
+        birthMonth: '',
+        birthDay: '',
+        birthHour: '',
+        birthMinute: '',
+        dontKnow: false,
+        agree: true,
       );
 
   OnboardingState copyWith({
@@ -77,6 +110,16 @@ class OnboardingState extends Equatable {
     String? endYear,
     String? endMonth,
     String? endDay,
+    Gender? gender,
+    BirthType? birthType,
+    DayPeriod? dayPeriod,
+    String? birthYear,
+    String? birthMonth,
+    String? birthDay,
+    String? birthHour,
+    String? birthMinute,
+    bool? dontKnow,
+    bool? agree,
   }) =>
       OnboardingState(
         getUserNameLoading: getUserNameLoading ?? this.getUserNameLoading,
@@ -96,6 +139,16 @@ class OnboardingState extends Equatable {
         endYear: endYear ?? this.endYear,
         endMonth: endMonth ?? this.endMonth,
         endDay: endDay ?? this.endDay,
+        gender: gender ?? this.gender,
+        birthType: birthType ?? this.birthType,
+        dayPeriod: dayPeriod ?? this.dayPeriod,
+        birthYear: birthYear ?? this.birthYear,
+        birthMonth: birthMonth ?? this.birthMonth,
+        birthDay: birthDay ?? this.birthDay,
+        birthHour: birthHour ?? this.birthHour,
+        birthMinute: birthMinute ?? this.birthMinute,
+        dontKnow: dontKnow ?? this.dontKnow,
+        agree: agree ?? this.agree,
       );
 
   @override
@@ -120,3 +173,7 @@ class GoalSuggestionModel {
     required this.suggestedDuration,
   });
 }
+
+enum Gender { man, woman }
+
+enum BirthType { solar, lunar }

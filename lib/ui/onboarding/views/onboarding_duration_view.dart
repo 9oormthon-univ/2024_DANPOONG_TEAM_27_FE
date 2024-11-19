@@ -11,6 +11,7 @@ import '../widgets/onboarding_bottom_button.dart';
 import '../widgets/onboarding_layout.dart';
 import '../widgets/onboarding_top_widget.dart';
 import '../widgets/suggested_duration_widget.dart';
+import 'onboarding_birth_view.dart';
 import 'onboarding_goal_view.dart';
 
 class OnboardingDurationView extends ConsumerWidget {
@@ -126,7 +127,7 @@ class OnboardingDurationView extends ConsumerWidget {
         ),
       ),
       bottomButton: OnboardingBottomButton(
-        onPressed: () {},
+        onPressed: () => context.pushNamed('/onboarding/birth'),
         activated: viewModel.activateNextButtonInDuration,
         label: viewModel.activateNextButtonInDuration ? '운세 정보 입력' : '설정완료',
       ),
@@ -158,27 +159,54 @@ class OnboardingDurationInputWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            flex: 2,
-            child: OnboardingDateInputField(
-              hintText: 'YYYY',
-              onChanged: onChangedYear,
-              errorText: yearErrorText,
+            child: Column(
+              children: <Widget>[
+                OnboardingDateInputField(
+                  hintText: 'YYYY',
+                  onChanged: onChangedYear,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ErrorTextWidget(
+                    errorTexts: <String?, TextAlign>{
+                      yearErrorText: TextAlign.start,
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(width: 8.0),
           Expanded(
-            child: OnboardingDateInputField(
-              hintText: 'MM',
-              onChanged: onChangedMonth,
-              errorText: monthErrorText,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: OnboardingDateInputField(
-              hintText: 'DD',
-              onChanged: onChangedDay,
-              errorText: dayErrorText,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: OnboardingDateInputField(
+                        hintText: 'MM',
+                        onChanged: onChangedMonth,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: OnboardingDateInputField(
+                        hintText: 'DD',
+                        onChanged: onChangedDay,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ErrorTextWidget(
+                    errorTexts: <String?, TextAlign>{
+                      monthErrorText: TextAlign.start,
+                      dayErrorText: TextAlign.end,
+                    },
+                  ),
+                )
+              ],
             ),
           ),
         ],

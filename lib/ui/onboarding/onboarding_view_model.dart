@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/loading_status.dart';
@@ -98,6 +98,47 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     state = state.copyWith(endDay: value);
   }
 
+  // -----birth-----
+  void onPressedGender({required Gender gender}) {
+    state = state.copyWith(gender: gender);
+  }
+
+  void onPressedBirthType({required BirthType birthType}) {
+    state = state.copyWith(birthType: birthType);
+  }
+
+  void onPressedDayPeriod({required DayPeriod dayPeriod}) {
+    state = state.copyWith(dayPeriod: dayPeriod);
+  }
+
+  void onChangedBirthYear({required String value}) {
+    state = state.copyWith(birthYear: value);
+  }
+
+  void onChangedBirthMonth({required String value}) {
+    state = state.copyWith(birthMonth: value);
+  }
+
+  void onChangedBirthDay({required String value}) {
+    state = state.copyWith(birthDay: value);
+  }
+
+  void onChangedBirthHour({required String value}) {
+    state = state.copyWith(birthHour: value);
+  }
+
+  void onChangedBirthMinute({required String value}) {
+    state = state.copyWith(birthMinute: value);
+  }
+
+  void onPressedDontKnow() {
+    state = state.copyWith(dontKnow: !state.dontKnow);
+  }
+
+  void onPressedAgree() {
+    state = state.copyWith(agree: !state.agree);
+  }
+
   // -----validation-----
   String? startYearValidation({required String value}) {
     if (value.isEmpty) {
@@ -122,6 +163,21 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
       final int year = int.parse(value);
       if (year < DateTime.now().year) {
         return '연도를 정확히 입력해주세요';
+      }
+      return null;
+    } on Exception {
+      return '숫자만 입력해주세요';
+    }
+  }
+
+  String? birthYearValidation({required String value}) {
+    if (value.isEmpty) {
+      return null;
+    }
+    try {
+      final int year = int.parse(value);
+      if (year >= DateTime.now().year) {
+        return '태어난 연도를 정확히 입력해주세요';
       }
       return null;
     } on Exception {
@@ -159,6 +215,36 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     }
   }
 
+  String? hourValidation({required String value}) {
+    if (value.isEmpty) {
+      return null;
+    }
+    try {
+      final int hour = int.parse(value);
+      if (hour < 1 || hour > 12) {
+        return '시간을 정확히 입력해주세요';
+      }
+      return null;
+    } on Exception {
+      return '숫자만 입력해주세요';
+    }
+  }
+
+  String? minuteValidation({required String value}) {
+    if (value.isEmpty) {
+      return null;
+    }
+    try {
+      final int minute = int.parse(value);
+      if (minute < 0 || minute > 59) {
+        return '분을 정확히 입력해주세요';
+      }
+      return null;
+    } on Exception {
+      return '숫자만 입력해주세요';
+    }
+  }
+
   bool get enableGoalInputField => state.selectedSuggestion == -1;
 
   bool get activateNextButtonInGoal =>
@@ -189,4 +275,29 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
       endYearErrorText == null &&
       endMonthErrorText == null &&
       endDayErrorText == null;
+
+  String? get birthYearErrorText => birthYearValidation(value: state.birthYear);
+
+  String? get birthMonthErrorText => monthValidation(value: state.birthMonth);
+
+  String? get birthDayErrorText => dayValidation(value: state.birthDay);
+
+  String? get birthHourErrorText => hourValidation(value: state.birthHour);
+
+  String? get birthMinuteErrorText =>
+      minuteValidation(value: state.birthMinute);
+
+  bool get activateNextButtonInBirth =>
+      state.agree &&
+      state.birthYear.isNotEmpty &&
+      state.birthMonth.isNotEmpty &&
+      state.birthDay.isNotEmpty &&
+      birthYearErrorText == null &&
+      birthMonthErrorText == null &&
+      birthDayErrorText == null &&
+      (state.dontKnow ||
+          (state.birthHour.isNotEmpty &&
+              state.birthMinute.isNotEmpty &&
+              birthHourErrorText == null &&
+              birthHourErrorText == null));
 }
