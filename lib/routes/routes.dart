@@ -22,6 +22,7 @@ class Routes {
     name: '/home',
     path: '/home',
   );
+
   // 운세 페이지
   static const RouteInfo fortune = RouteInfo(
     name: '/fortune',
@@ -31,5 +32,11 @@ class Routes {
   static const RouteInfo profile = RouteInfo(
     name: '/profile',
     path: '/profile',
+  );
+
+  // 온보딩
+  static const RouteInfo goal = RouteInfo(
+    name: '/onboarding/goal',
+    path: '/onboarding/goal',
   );
 }

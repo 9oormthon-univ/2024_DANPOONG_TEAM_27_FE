@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../ui/common/widget/navigation_bar/scaffold_with_navigation.dart';
 import '../ui/fortune/fortune_view.dart';
 import '../ui/home/home_view.dart';
+import '../ui/onboarding/views/onboarding_goal_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
 import 'routes.dart';
@@ -63,11 +64,22 @@ class AppRouter {
         ),
       ),
       GoRoute(
+
         path: Routes.profile.path,
         name: Routes.profile.name,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: ProfileView(),
+        ),
+      ),
+
+
+        GoRoute(
+        name: Routes.goal.name,
+        path: Routes.goal.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: OnboardingGoalView(),
         ),
       ),
 

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-// import 'package:go_router/go_router.dart';
 
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import 'package:go_router/go_router.dart';
+
+
+
+import '../../routes/app_router.dart';
+import '../../routes/routes.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
 
@@ -35,6 +41,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
             onPressed: viewModel.onToggleExample,
             child: const Text('toggleExample'),
           ),
+
           /// dot_indicator 예시 코드
           // SmoothPageIndicator(
           //   controller: pageController,
@@ -47,6 +54,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
           //     expansionFactor: 4,
           //   ),
           // ),
+
+          TextButton(
+            onPressed: () => context.go(Routes.goal.path),
+            child: Text("온보딩"),
+          ),
+
         ],
       ),
     );
