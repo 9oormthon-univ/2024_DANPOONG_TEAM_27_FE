@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../ui/home/home_view.dart';
+import '../ui/onboarding/views/onboarding_birth_view.dart';
+import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
@@ -58,6 +60,22 @@ class AppRouter {
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: OnboardingGoalView(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.duration.name,
+        path: Routes.duration.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: OnboardingDurationView(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.birth.name,
+        path: Routes.birth.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: OnboardingBirthView(),
         ),
       ),
       // Auth

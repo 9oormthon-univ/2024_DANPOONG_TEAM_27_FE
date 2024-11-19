@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OnboardingFortuneView extends StatelessWidget {
-  const OnboardingFortuneView({super.key});
+class OnboardingBirthView extends StatelessWidget {
+  const OnboardingBirthView({super.key});
 
   @override
   Widget build(BuildContext context) {

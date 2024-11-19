@@ -28,4 +28,14 @@ class Routes {
     name: '/onboarding/goal',
     path: '/onboarding/goal',
   );
+
+  static const RouteInfo duration = RouteInfo(
+    name: '/onboarding/duration',
+    path: '/onboarding/duration',
+  );
+
+  static const RouteInfo birth = RouteInfo(
+    name: '/onboarding/birth',
+    path: '/onboarding/birth',
+  );
 }
