@@ -36,130 +36,109 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
         ref.read(onboardingViewModelProvider.notifier);
     final OnboardingState state = ref.watch(onboardingViewModelProvider);
 
-    return Scaffold(
+    return OnboardingLayout(
+      onPressedBackButton: () => context.go('/home'),
+      topWidget: OnboardingTopWidget(
+        title: '이루고 싶은 목표는\n무엇인가요?',
+        text: '님이 목표에 한 발짝 더\n가까워질 수 있도록 도와드릴게요!',
+        boldText: state.userName,
+      ),
+      content: Expanded(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(<Widget>[
+                  const Padding(
+                    padding:
+                        EdgeInsets.only(left: 3.0, bottom: 10.0, top: 16.0),
+                    child: Text(
+                      '이루고 싶은 목표를 적어주세요',
+                      style: LuckitTypos.suitR16,
+                    ),
+                  ),
+                  CustomTextField(
+                    fieldHeight: 52.0,
+                    hintText: '예) 매일 30분씩 어떤 공부든 하기',
+                    enabled: viewModel.enableGoalInputField,
+                    onChanged: (String text) =>
+                        viewModel.onChangedGoalTextField(text: text),
+                    fillColor: LuckitColors.white,
+                    enabledBorderColor: LuckitColors.gray40,
+                    focusedBorderColor: LuckitColors.main,
+                    textInputType: TextInputType.text,
+                    hintTextStyle: LuckitTypos.suitR12.copyWith(
+                      color: LuckitColors.gray40,
+                    ),
+                  ),
+                  const Padding(
+                    padding:
+                        EdgeInsets.only(left: 3.0, bottom: 10.0, top: 44.0),
+                    child: Text(
+                      '아직 고민 중이시라면, 이런 목표에 도전해보세요!',
+                      style: LuckitTypos.suitR16,
+                    ),
+                  ),
+                  ...state.suggestions
+                      .asMap()
+                      .entries
+                      .map((MapEntry<int, GoalSuggestionModel> entry) {
+                    final int index = entry.key;
+                    final GoalSuggestionModel model = entry.value;
+                    return GoalSuggestion(
+                      index: index,
+                      model: model,
+                      onPressedCheck: () =>
+                          viewModel.onTapSuggestion(index: index),
+                    );
+                  }),
+                ]),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomButton: OnboardingBottomButton(
+        onPressed: () => viewModel.onTapNextButtonInGoal,
+        activated: viewModel.activateNextButtonInGoal,
+      ),
+    );
+  }
+}
+
+class OnboardingLayout extends StatelessWidget {
+  final VoidCallback onPressedBackButton;
+  final Widget topWidget;
+  final Widget content;
+  final Widget bottomButton;
+
+  const OnboardingLayout({
+    required this.onPressedBackButton,
+    required this.topWidget,
+    required this.content,
+    required this.bottomButton,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: LuckitColors.background,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
         backgroundColor: LuckitColors.white,
         leading: IconButton(
-          onPressed: () => context.go('/home'),
+          onPressed: onPressedBackButton,
           icon: SvgPicture.asset(
             Assets.arrowLeft,
           ),
         ),
       ),
       body: Column(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: LuckitColors.white,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  blurRadius: 10.0,
-                  color: shadowColor,
-                )
-              ],
-            ),
-            width: double.infinity,
-            padding: const EdgeInsets.only(
-                left: 24.0, right: 24.0, top: 12.0, bottom: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '이루고 싶은 목표는\n무엇인가요?',
-                  style: LuckitTypos.suitEB32.copyWith(
-                    color: LuckitColors.main,
-                  ),
-                ),
-                const SizedBox(height: 8.0),
-                Text.rich(
-                  TextSpan(
-                    children: <InlineSpan>[
-                      TextSpan(
-                        text: state.userName,
-                        style: LuckitTypos.suitSB16,
-                      ),
-                      const TextSpan(
-                        text: '님이 목표에 한 발짝 더\n가까워질 수 있도록 도와드릴게요!',
-                        style: LuckitTypos.suitR16,
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  sliver: SliverList(
-                    delegate: SliverChildListDelegate(<Widget>[
-                      const Padding(
-                        padding:
-                            EdgeInsets.only(left: 3.0, bottom: 10.0, top: 16.0),
-                        child: Text(
-                          '이루고 싶은 목표를 적어주세요',
-                          style: LuckitTypos.suitR16,
-                        ),
-                      ),
-                      CustomTextField(
-                        fieldHeight: 52.0,
-                        hintText: '예) 매일 30분씩 어떤 공부든 하기',
-                        enabled: viewModel.enableGoalInputField,
-                        onChanged: (String text) =>
-                            viewModel.onChangedGoalTextField(text: text),
-                        fillColor: LuckitColors.white,
-                        enabledBorderColor: LuckitColors.gray40,
-                        focusedBorderColor: LuckitColors.main,
-                        textInputType: TextInputType.text,
-                        hintTextStyle: LuckitTypos.suitR12.copyWith(
-                          color: LuckitColors.gray40,
-                        ),
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.only(left: 3.0, bottom: 10.0, top: 44.0),
-                        child: Text(
-                          '아직 고민 중이시라면, 이런 목표에 도전해보세요!',
-                          style: LuckitTypos.suitR16,
-                        ),
-                      ),
-                      ...state.suggestions
-                          .asMap()
-                          .entries
-                          .map((MapEntry<int, GoalSuggestionModel> entry) {
-                        final int index = entry.key;
-                        final GoalSuggestionModel model = entry.value;
-                        return GoalSuggestion(
-                          index: index,
-                          model: model,
-                          onPressedCheck: () =>
-                              viewModel.onTapSuggestion(index: index),
-                        );
-                      }),
-                    ]),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          OnboardingBottomButton(
-            // onPressed는 router 추가 후 변경 예정
-            onPressed: () => viewModel.onTapNextButtonInGoal,
-            activated: viewModel.activateNextButtonInGoal,
-          ),
-        ],
+        children: <Widget>[topWidget, content, bottomButton],
       ),
     );
-  }
 }
 
 class OnboardingBottomButton extends StatelessWidget {
@@ -174,7 +153,6 @@ class OnboardingBottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TextButton(
-        // viewModelX navigation으로 수정
         onPressed: activated ? onPressed : null,
         style: TextButton.styleFrom(
           minimumSize: Size(MediaQuery.of(context).size.width, 64.0),
@@ -222,6 +200,69 @@ class CheckIcon extends StatelessWidget {
               ),
             ),
           ),
+        ),
+      );
+}
+
+class OnboardingTopWidget extends StatelessWidget {
+  final String title;
+  final String text;
+  final String boldText;
+  final bool showShadow;
+
+  const OnboardingTopWidget({
+    required this.title,
+    required this.text,
+    required this.boldText,
+    this.showShadow = true,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) => Container(
+        decoration: BoxDecoration(
+          color: LuckitColors.white,
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(16.0),
+            bottomRight: Radius.circular(16.0),
+          ),
+          boxShadow: showShadow
+              ? <BoxShadow>[
+                  BoxShadow(
+                    blurRadius: 10.0,
+                    color: shadowColor,
+                  )
+                ]
+              : null,
+        ),
+        width: double.infinity,
+        padding: const EdgeInsets.only(
+            left: 24.0, right: 24.0, top: 12.0, bottom: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              title,
+              style: LuckitTypos.suitEB32.copyWith(
+                color: LuckitColors.main,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Text.rich(
+              TextSpan(
+                children: <InlineSpan>[
+                  TextSpan(
+                    text: boldText,
+                    style: LuckitTypos.suitSB16,
+                  ),
+                  TextSpan(
+                    text: text,
+                    style: LuckitTypos.suitR16,
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       );
 }
