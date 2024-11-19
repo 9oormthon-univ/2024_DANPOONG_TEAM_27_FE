@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
-import '../common/widget/bottom_navigation_bar.dart';
+import '../common/widget/bottom_navigation_bar_widget.dart';
 import 'widgets/chip_list_widget.dart';
 import 'widgets/fortune_app_bar_widget.dart';
 import 'widgets/fortune_card_widget.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../routes/routes.dart';
-import '../common/widget/bottom_navigation_bar.dart';
+import '../common/widget/bottom_navigation_bar_widget.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
