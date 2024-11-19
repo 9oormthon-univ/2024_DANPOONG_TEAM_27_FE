@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../routes/app_router.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/widgets/custom_text_field.dart';
@@ -36,7 +35,7 @@ class OnboardingDurationView extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 3.0, bottom: 10.0, top: 16.0),
@@ -186,7 +185,7 @@ class OnboardingDurationInputWidget extends StatelessWidget {
       );
 }
 
-// TODO errorText 개선
+// TODO(dodo): errorText 개선
 class OnboardingDateInputField extends StatelessWidget {
   final Function(String)? onChanged;
   final String hintText;
