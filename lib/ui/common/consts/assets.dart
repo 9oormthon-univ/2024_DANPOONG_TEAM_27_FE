@@ -42,7 +42,40 @@ class Assets {
   static const String sort = 'assets/icons/sort.svg';
   static const String verticlaDots = 'assets/icons/verticlaDots.svg';
 
+  //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
   static const String loginBackground = 'assets/images/login_background.png';
   static const String loginLogo = 'assets/images/login_logo.svg';
+
+  //게임 배경
+  static const String gameBackground = 'game_background.png';
+
+  //애니메이션
+  static const String chickenStop = 'assets/animation/stop/chicken_stop.json';
+  static const String cowStop = 'assets/animation/stop/cow_stop.json';
+  static const String dogStop = 'assets/animation/stop/dog_stop.json';
+  static const String dragonStop = 'assets/animation/stop/dragon_stop.json';
+  static const String horseStop = 'assets/animation/stop/horse_stop.json';
+  static const String monkeyStop = 'assets/animation/stop/monkey_stop.json';
+  static const String mouseStop = 'assets/animation/stop/mouse_stop.json';
+  static const String pigStop = 'assets/animation/stop/pig_stop.json';
+  static const String rabbitStop = 'assets/animation/stop/rabbit_stop.json';
+  static const String sheepStop = 'assets/animation/stop/sheep_stop.json';
+  static const String snakeStop = 'assets/animation/stop/snake_stop.json';
+  static const String tigerStop = 'assets/animation/stop/tiger_stop.json';
+
+
+  static const String chickenMove = 'assets/animation/move/chicken_move.json';
+  static const String cowMove = 'assets/animation/move/cow_move.json';
+  static const String dogMove = 'assets/animation/move/dog_move.json';
+  static const String dragonMove = 'assets/animation/move/dragon_move.json';
+  static const String horseMove = 'assets/animation/move/horse_move.json';
+  static const String monkeyMove = 'assets/animation/move/monkey_move.json';
+  static const String mouseMove = 'assets/animation/move/mouse_move.json';
+  static const String pigMove = 'assets/animation/move/pig_move.json';
+  static const String rabbitMove = 'assets/animation/move/rabbit_move.json';
+  static const String sheepMove = 'assets/animation/move/sheep_move.json';
+  static const String snakeMove = 'assets/animation/move/snake_move.json';
+  static const String tigerMove = 'assets/animation/move/tiger_move.json';
+
 }
