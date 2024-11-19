@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../theme/luckit_colors.dart';
+import '../../../../theme/luckit_typos.dart';
+
 class CustomNavigationBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
@@ -43,16 +46,16 @@ class CustomNavigationBar extends StatelessWidget {
                   currentIndex == index
                       ? SvgPicture.asset(items[index].activeIcon)
                       : SvgPicture.asset(
-                    items[index].icon,
-                    // color: Color(0xFFD0D6E1),
-                  ),
+                          items[index].icon,
+                          // color: Color(0xFFD0D6E1),
+                        ),
                   SizedBox(height: 4),
                   Text(
                     items[index].label,
-                    style: TextStyle(
-                      color: currentIndex == index ? Colors.blue : Colors.grey,
-                      fontSize: 12,
-                    ),
+                    style: LuckitTypos.suitSB12.copyWith(
+                        color: currentIndex == index
+                            ? LuckitColors.main
+                            : LuckitColors.gray20),
                   ),
                 ],
               ),
