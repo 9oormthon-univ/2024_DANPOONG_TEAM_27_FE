@@ -31,6 +31,8 @@ class Assets {
   static const String heartOutlined = 'assets/icons/heart_outlined.svg';
   static const String homeColored = 'assets/icons/home_colored.svg';
   static const String homeOutlined = 'assets/icons/home_outlined.svg';
+  static const String homeFilled = 'assets/icons/home_filled.svg';
+  static const String homeMainFilled = 'assets/icons/home_main_filled.svg';
   static const String note = 'assets/icons/note.svg';
   static const String pigFilled = 'assets/icons/pig_filled.svg';
   static const String pigOutlined = 'assets/icons/pig_outlined.svg';
@@ -48,7 +50,9 @@ class Assets {
   static const String loginLogo = 'assets/images/login_logo.svg';
 
   //게임 배경
-  static const String gameBackground = 'assets/images/game_background.png';
+  static const String gameBackground = 'game_background.png';
+  static const String farmBackground = 'farm_background.png';
+  static const String farmBackgroundLandscape = 'farm_background_landscape.png';
 
   //애니메이션
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';

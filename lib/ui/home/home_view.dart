@@ -1,3 +1,6 @@
+import '../game/mission_character_provider.dart';
+import 'package:flame/components.dart';
+
 import 'dart:ui';
 
 import 'package:flame/game.dart';
@@ -12,7 +15,6 @@ import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../game/character_data.dart';
-import '../game/character_provider.dart';
 import '../game/walking_game.dart';
 
 import 'home_state.dart';
@@ -49,11 +51,13 @@ class _HomeViewState extends ConsumerState<HomeView>
           screenSize.height - paddingTop - appBarHeight;
       final double gameHeight = availableHeight * 0.3;
 
-      final List<CharacterData> characters = ref.read(charactersProvider);
+      final List<CharacterData> characters =
+          ref.read(missionCharactersProvider);
 
       game = WalkingGame(
         boundarySize: Vector2(screenSize.width, gameHeight),
         characterTypes: characters,
+        gameBackground: Assets.gameBackground,
       );
       setState(() {});
     });
@@ -81,7 +85,8 @@ class _HomeViewState extends ConsumerState<HomeView>
         PageController(viewportFraction: 300 / 375);
 
     //게임 관련
-    final List<CharacterData> characters = ref.watch(charactersProvider);
+
+    final List<CharacterData> characters = ref.watch(missionCharactersProvider);
     final Size screenSize = MediaQuery.of(context).size;
     final double gameHeight = screenSize.width / 375 * 300;
     // final double paddingTop = MediaQuery.of(context).padding.top;
