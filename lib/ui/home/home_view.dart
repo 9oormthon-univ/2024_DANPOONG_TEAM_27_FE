@@ -171,6 +171,10 @@ class _HomeViewState extends ConsumerState<HomeView>
             onPressed: () => context.go(Routes.farm.path),
             child: Text("농장"),
           ),
+          TextButton(
+            onPressed: () => context.go(Routes.goalComplete.path),
+            child: Text("목표 달성"),
+          ),
         ],
       ),
     );

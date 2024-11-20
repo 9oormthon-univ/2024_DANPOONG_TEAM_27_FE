@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../ui/farm/farm_view.dart';
 import '../ui/fortune/fortune_view.dart';
+import '../ui/goal_complete/goal_complete_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
 import '../ui/profile/profile_view.dart';
@@ -86,6 +87,14 @@ class AppRouter {
         pageBuilder: (BuildContext context, GoRouterState state) =>
         const NoTransitionPage<dynamic>(
           child: FarmView(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.goalComplete.name,
+        path: Routes.goalComplete.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: GoalCompleteView(),
         ),
       ),
 
