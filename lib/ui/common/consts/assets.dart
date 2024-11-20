@@ -49,6 +49,7 @@ class Assets {
   static const String loginBackground = 'assets/images/login_background.png';
   static const String loginLogo = 'assets/images/login_logo.svg';
 
+  static const String gameBackgroundAsset = 'assets/images/game_background.png';
   //게임 배경
   static const String gameBackground = 'game_background.png';
   static const String farmBackground = 'farm_background.png';

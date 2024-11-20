@@ -118,7 +118,7 @@ class _HomeViewState extends ConsumerState<HomeView>
                         bottom: Radius.circular(16),
                       ),
                       image: DecorationImage(
-                        image: AssetImage(Assets.gameBackground),
+                        image: AssetImage(Assets.gameBackgroundAsset),
                         fit: BoxFit.fitHeight,
                       ),
                     ),
