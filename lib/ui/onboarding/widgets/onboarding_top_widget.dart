@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
-import '../views/onboarding_goal_view.dart';
 
 class OnboardingTopWidget extends StatelessWidget {
   final String title;
@@ -35,7 +34,7 @@ class OnboardingTopWidget extends StatelessWidget {
             ? <BoxShadow>[
                 BoxShadow(
                   blurRadius: 10.0,
-                  color: shadowColor,
+                  color: LuckitColors.shadow2.withOpacity(0.15),
                 )
               ]
             : null,

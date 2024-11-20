@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/luckit_colors.dart';
-import '../../../theme/luckit_typos.dart';
 import '../../common/widgets/rounded_grey_text_widget.dart';
 
 class SuggestedDurationWidget extends StatelessWidget {

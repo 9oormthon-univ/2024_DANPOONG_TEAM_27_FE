@@ -10,9 +10,9 @@ import '../onboarding_view_model.dart';
 import '../widgets/check_icon_widget.dart';
 import '../widgets/error_text_widget.dart';
 import '../widgets/onboarding_bottom_button.dart';
+import '../widgets/onboarding_date_input_row_widget.dart';
 import '../widgets/onboarding_layout.dart';
 import '../widgets/onboarding_top_widget.dart';
-import 'onboarding_duration_view.dart';
 
 class OnboardingBirthView extends ConsumerWidget {
   const OnboardingBirthView({super.key});
@@ -272,7 +272,7 @@ class OnboardingBirthView extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 12.0),
-          OnboardingDurationInputWidget(
+          OnboardingDateInputRowWidget(
             onChangedYear: (String value) => viewModel.onChangedBirthYear(
               value: value,
             ),
