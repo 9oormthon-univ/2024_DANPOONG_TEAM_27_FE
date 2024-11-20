@@ -71,13 +71,9 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
                     enabledBorderColor: LuckitColors.gray40,
                     focusedBorderColor: LuckitColors.main,
                     textInputType: TextInputType.text,
-                    textStyle: LuckitTypos.suitR16.copyWith(
-                      height: 0.0
-                    ),
-                    hintTextStyle: LuckitTypos.suitR16.copyWith(
-                      color: LuckitColors.gray40,
-                      height: 0.0
-                    ),
+                    textStyle: LuckitTypos.suitR16.copyWith(height: 0.0),
+                    hintTextStyle: LuckitTypos.suitR16
+                        .copyWith(color: LuckitColors.gray40, height: 0.0),
                   ),
                   const Padding(
                     padding:
@@ -158,7 +154,9 @@ class GoalSuggestionWidget extends ConsumerWidget {
               Text(
                 model.suggestedGoal,
                 style: LuckitTypos.suitSB16.copyWith(
-                  color: isChecked ? LuckitColors.main : LuckitColors.gray40,
+                  color: state.goal.isEmpty || state.selectedSuggestion > -1
+                      ? LuckitColors.main
+                      : (isChecked ? LuckitColors.main : LuckitColors.gray40),
                 ),
               ),
               const SizedBox(height: 8.0),
