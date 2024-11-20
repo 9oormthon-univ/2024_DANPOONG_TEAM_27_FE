@@ -47,35 +47,36 @@ class CustomTextField extends StatelessWidget {
       height: fieldHeight,
       width: fieldWidth,
       child: TextField(
+        onTapOutside: (PointerDownEvent event) =>
+            FocusManager.instance.primaryFocus?.unfocus(),
         textAlign: textAlign,
         maxLines: 1,
         onChanged: onChanged,
         keyboardType: textInputType,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 14.0),
-          filled: true,
-          fillColor: fillColor ?? LuckitColors.gray10,
-          border: baseBorder,
-          enabled: enabled,
-          disabledBorder: baseBorder,
-          enabledBorder: baseBorder.copyWith(
-            borderSide: BorderSide(
-              color: enabledBorderColor,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 14.0),
+            filled: true,
+            fillColor: fillColor ?? LuckitColors.gray10,
+            border: baseBorder,
+            enabled: enabled,
+            disabledBorder: baseBorder,
+            enabledBorder: baseBorder.copyWith(
+              borderSide: BorderSide(
+                color: enabledBorderColor,
+              ),
             ),
-          ),
-          focusedBorder: baseBorder.copyWith(
-            borderSide: BorderSide(
-              color: focusedBorderColor,
+            focusedBorder: baseBorder.copyWith(
+              borderSide: BorderSide(
+                color: focusedBorderColor,
+              ),
             ),
-          ),
-          errorBorder: baseBorder.copyWith(
-            borderSide: const BorderSide(
-              color: LuckitColors.error,
+            errorBorder: baseBorder.copyWith(
+              borderSide: const BorderSide(
+                color: LuckitColors.error,
+              ),
             ),
-          ),
-          hintText: hintText,
-          hintStyle: hintTextStyle.copyWith()
-        ),
+            hintText: hintText,
+            hintStyle: hintTextStyle.copyWith()),
         cursorWidth: 1.0,
         cursorColor: LuckitColors.gray80,
         enableInteractiveSelection: false,
