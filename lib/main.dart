@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'routes/app_router.dart';
+import 'theme/luckit_colors.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -16,6 +17,7 @@ class MainApp extends ConsumerWidget {
         title: 'boiler plate',
         theme: ThemeData(
           fontFamily: 'SUIT',
+          scaffoldBackgroundColor: LuckitColors.background,
         ),
       );
 }
