@@ -5,8 +5,6 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame_lottie/flame_lottie.dart';
 
-import '../../theme/luckit_colors.dart';
-import '../../theme/luckit_typos.dart';
 import 'character_data.dart';
 import 'walking_game.dart';
 
@@ -26,7 +24,6 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
   static const double CHARACTER_SPEED = 80.0;
 
   late PositionComponent characterContainer;
-  late TextComponent levelText;
 
   double stateTimer = 0;
   double currentStateDuration = 0;
@@ -55,9 +52,9 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
       add(characterContainer);
 
       final LottieComposition idleComposition =
-          await AssetLottie(data.idleAnimation).load();
+      await AssetLottie(data.idleAnimation).load();
       final LottieComposition walkComposition =
-          await AssetLottie(data.walkAnimation).load();
+      await AssetLottie(data.walkAnimation).load();
 
       idleAnimation = LottieComponent(
         idleComposition,
@@ -73,15 +70,6 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
 
       currentAnimation = idleAnimation;
       characterContainer.add(currentAnimation!);
-
-      levelText = TextComponent(
-        text: data.name,
-        textRenderer: TextPaint(
-            style: LuckitTypos.suitR12.copyWith(color: LuckitColors.white)),
-        position: Vector2(size.x / 2, -10),
-        anchor: Anchor.center,
-      );
-      characterContainer.add(levelText);
 
       setNewTargetPosition();
       isReady.complete();
@@ -104,10 +92,7 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
     }
 
     if (currentAnimation != null) {
-      characterContainer
-        ..add(currentAnimation!)
-        ..remove(levelText)
-        ..add(levelText);
+      characterContainer..add(currentAnimation!);
     }
   }
 
@@ -133,9 +118,9 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
   }
 
   double getRandomDuration() => switch (state) {
-        CharacterState.idle => 1.0 + random.nextDouble() * 2.0,
-        CharacterState.moving => 2.0 + random.nextDouble() * 3.0,
-      };
+    CharacterState.idle => 1.0 + random.nextDouble() * 2.0,
+    CharacterState.moving => 2.0 + random.nextDouble() * 3.0,
+  };
 
   void setNewTargetPosition() {
     final double margin = size.x;
@@ -155,11 +140,9 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
     if (direction.x > 0 && !facingRight) {
       facingRight = true;
       characterContainer.scale.x = -1;
-      levelText.scale.x = -1;
     } else if (direction.x < 0 && facingRight) {
       facingRight = false;
       characterContainer.scale.x = 1;
-      levelText.scale.x = 1;
     }
   }
 
