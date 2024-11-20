@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../routes/app_router.dart';
 import '../../routes/app_router_interceptor.dart';
@@ -29,9 +30,10 @@ class _FarmViewState extends ConsumerState<FarmView>
 
   @override
   void initState() {
+    super.initState();
     initializeGame();
     WidgetsBinding.instance.addObserver(this);
-    super.initState();
+    WakelockPlus.enable();
   }
 
   void initializeGame() {
@@ -64,6 +66,7 @@ class _FarmViewState extends ConsumerState<FarmView>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     game?.removeAll(game!.children);
+    WakelockPlus.disable();
     super.dispose();
   }
 
