@@ -49,31 +49,52 @@ class OnboardingBirthView extends ConsumerWidget {
       ),
       bottomButton: Column(
         children: <Widget>[
-          // TODO(dodo): 여기 예쁘게 만들기
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  CheckIconWidget(
-                    isChecked: state.agree,
-                    onPressed: viewModel.onPressedAgree,
-                    size: 24.0,
+          Padding(
+            padding: const EdgeInsets.only(left: 22.0, right: 24.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    CheckIconWidget(
+                      isChecked: state.agree,
+                      onPressed: viewModel.onPressedAgree,
+                      size: 24.0,
+                    ),
+                    // const SizedBox(width: 0.0),
+                    Text(
+                      '(필수) 운세정보 수집/이용 동의',
+                      style: LuckitTypos.suitR14.copyWith(
+                        color: LuckitColors.gray60,
+                        height: 0.0,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  //width: 44,
+                  height: 20,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                    border: Border.all(color: LuckitColors.gray10),
                   ),
-                  const SizedBox(width: 8.0),
-                  Text(
-                    '(필수) 운세정보 수집/이용 동의',
-                    style: LuckitTypos.suitR14.copyWith(
-                      color: LuckitColors.gray60,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4.0,
+                    vertical: 2.0,
+                  ),
+                  child: Text(
+                    '약관보기',
+                    style: LuckitTypos.suitR10.copyWith(
+                      color: LuckitColors.gray80,
+                      height: 0.0,
                     ),
                   ),
-                ],
-              ),
-              // 아 너무 힘드러요
-              const Text('약관보기'),
-            ],
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 12.0),
+          const SizedBox(height: 8.0),
           OnboardingBottomButton(
             onPressed: () => context.goNamed('/home'),
             activated: viewModel.activateNextButtonInBirth,
@@ -134,13 +155,14 @@ class OnboardingBirthView extends ConsumerWidget {
                         CheckIconWidget(
                           isChecked: state.dontKnow,
                           onPressed: () => viewModel.onPressedDontKnow(),
-                          size: 24.0,
+                          size: 16.0,
                         ),
-                        const SizedBox(width: 2.0),
                         Text(
                           '태어난 시간을 알지 못합니다',
-                          style: LuckitTypos.suitR10
-                              .copyWith(color: LuckitColors.gray80),
+                          style: LuckitTypos.suitR10.copyWith(
+                            color: LuckitColors.gray80,
+                            height: 0.0,
+                          ),
                         ),
                       ],
                     ),

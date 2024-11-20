@@ -20,6 +20,12 @@ class CheckIconWidget extends StatelessWidget {
   Widget build(BuildContext context) => IconButton(
         onPressed: onPressed,
         icon: Container(
+          constraints: BoxConstraints(  // 이 부분 추가
+            minHeight: size,
+            minWidth: size,
+            maxHeight: size,
+            maxWidth: size,
+          ),
           // margin: const EdgeInsets.all(2.67),
           width: size,
           height: size,
