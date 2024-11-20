@@ -9,6 +9,9 @@ class LuckitColors {
   static const Color error = Color(0xFFFD6F6F);
   static const Color background = Color(0xFFF9FAFC);
 
+  // border
+  static const Color inputBorder = Color(0xFF3B4D6F);
+
   // shadow
   static const Color shadow1 = Color(0xFF2F56A5);
   static const Color shadow2 = Color(0xFFA6C1EE);
