@@ -34,6 +34,7 @@ class OnboardingBirthView extends ConsumerWidget {
       ),
       content: Expanded(
         child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
