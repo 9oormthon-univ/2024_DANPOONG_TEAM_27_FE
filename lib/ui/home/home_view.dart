@@ -14,6 +14,7 @@ import '../game/walking_game.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
 import 'widget/add_mission_bottom_sheet.dart';
+import 'widget/mission_complete_dialog.dart';
 import 'widget/mission_manage_bottom_sheet.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -114,14 +115,26 @@ class _HomeViewState extends ConsumerState<HomeView>
       });
     }
 
-
+    void _showMissionCompleteDialog() {
+      showDialog<void>(
+        context: context,
+        builder: (BuildContext context) => MissionCompleteDialog(
+          missionTitle: '한 달 안에 긍정적인 사람 되어보기',
+          onComplete: () {
+            // TODO: 목표 달성 처리 로직
+          },
+        ),
+      );
+    }
 
     void _showMissionManageBottomSheet() {
       showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (context) => MissionManageBottomSheet(title: '거울 볼 때마다 미소짓기',),
+        builder: (context) => MissionManageBottomSheet(
+          title: '거울 볼 때마다 미소짓기',
+        ),
       );
     }
 
@@ -230,7 +243,10 @@ class _HomeViewState extends ConsumerState<HomeView>
               ),
             ],
           ),
-
+          TextButton(
+            onPressed: () => _showMissionCompleteDialog(),
+            child: Text("미션완료 다이얼로그"),
+          ),
         ],
       ),
     );
