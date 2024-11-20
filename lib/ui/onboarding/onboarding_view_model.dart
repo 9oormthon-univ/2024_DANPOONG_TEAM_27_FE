@@ -200,21 +200,6 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     }
   }
 
-  String? dayValidation({required String value}) {
-    if (value.isEmpty) {
-      return null;
-    }
-    try {
-      final int day = int.parse(value);
-      if (day < 1 || day > 31) {
-        return '일을 정확히 입력해주세요';
-      }
-      return null;
-    } on Exception {
-      return '숫자만 입력해주세요';
-    }
-  }
-
   String? hourValidation({required String value}) {
     if (value.isEmpty) {
       return null;
@@ -247,7 +232,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
 
   bool isValidDate(String year, String month, String day) {
     if (year.isEmpty || month.isEmpty || day.isEmpty) {
-      return false;
+      return true;
     }
 
     try {
@@ -255,72 +240,112 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
       final int m = int.parse(month);
       final int d = int.parse(day);
 
-      // DateTime 객체 생성을 시도하여 유효한 날짜인지 확인
       final DateTime date = DateTime(y, m, d);
-
-      // 입력된 값과 DateTime이 생성한 값이 같은지 확인
-      // (예: 2024-02-31은 2024-03-02로 변환되므로 이런 경우 체크)
       return date.year == y && date.month == m && date.day == d;
     } on Exception {
       return false;
     }
   }
 
-  int daysBetween(String startYear, String startMonth, String startDay,
-      String endYear, String endMonth, String endDay) {
-    try {
-      final DateTime start = DateTime(
-        int.parse(startYear),
-        int.parse(startMonth),
-        int.parse(startDay),
-      );
-      final DateTime end = DateTime(
-        int.parse(endYear),
-        int.parse(endMonth),
-        int.parse(endDay),
-      );
-      return end.difference(start).inDays;
-    } on Exception {
-      return -1;
-    }
-  }
-
-  String? validateDateRange({
-    required String startYear,
-    required String startMonth,
-    required String startDay,
-    required String endYear,
-    required String endMonth,
-    required String endDay,
+  String? startDayValidation({
+    required String day,
+    required String month,
+    required String year,
+    bool isBirthday = false,
   }) {
-    if (<String>[startYear, startMonth, startDay, endYear, endMonth, endDay]
-        .any((String field) => field.isEmpty)) {
+    if (day.isEmpty || month.isEmpty || year.isEmpty) {
       return null;
     }
 
-    if (!isValidDate(startYear, startMonth, startDay)) {
-      return '시작일이 유효하지 않습니다';
+    try {
+      int.parse(day);
+    } on Exception {
+      return '숫자만 입력해주세요';
+    }
+
+    final int intDay = int.parse(day);
+    if (intDay < 1 || intDay > 31) {
+      return '일을 정확히 입력해주세요';
+    }
+
+    if (!isValidDate(year, month, day)) {
+      return '유효하지 않은 날짜입니다';
+    }
+
+    if (!isBirthday && year.isNotEmpty && month.isNotEmpty) {
+      try {
+        final DateTime inputDate = DateTime(
+          int.parse(year),
+          int.parse(month),
+          int.parse(day),
+        );
+        final DateTime today = DateTime.now();
+        if (inputDate.isBefore(DateTime(today.year, today.month, today.day))) {
+          return '오늘보다 이전 날짜는 선택할 수 없습니다';
+        }
+      } on Exception {
+        //
+      }
+    }
+
+    return null;
+  }
+
+  String? endDayValidation({
+    required String endDay,
+    required String endMonth,
+    required String endYear,
+    required String startDay,
+    required String startMonth,
+    required String startYear,
+  }) {
+    if (endDay.isEmpty) {
+      return null;
+    }
+
+    try {
+      int.parse(endDay);
+    } on Exception {
+      return '숫자만 입력해주세요';
+    }
+
+    final int intDay = int.parse(endDay);
+    if (intDay < 1 || intDay > 31) {
+      return '일을 정확히 입력해주세요';
     }
 
     if (!isValidDate(endYear, endMonth, endDay)) {
-      return '종료일이 유효하지 않습니다';
+      return '유효하지 않은 날짜입니다';
     }
 
-    final int days = daysBetween(
-      startYear,
-      startMonth,
-      startDay,
-      endYear,
-      endMonth,
-      endDay,
-    );
+    if (startYear.isNotEmpty &&
+        startMonth.isNotEmpty &&
+        startDay.isNotEmpty &&
+        endYear.isNotEmpty &&
+        endMonth.isNotEmpty) {
+      try {
+        final DateTime startDate = DateTime(
+          int.parse(startYear),
+          int.parse(startMonth),
+          int.parse(startDay),
+        );
+        final DateTime endDate = DateTime(
+          int.parse(endYear),
+          int.parse(endMonth),
+          int.parse(endDay),
+        );
 
-    if (days < 0) {
-      return '종료일이 시작일보다 빠를 수 없습니다';
-    }
+        if (endDate.isBefore(startDate)) {
+          return '종료일이 시작일보다 빠를 수 없습니다';
+        }
 
-    if (days < 14) {
-      return '기간은 최소 14일 이상이어야 합니다';
+        final int difference = endDate.difference(startDate).inDays;
+        if (difference < 14) {
+          return '기간은 최소 14일 이상이어야 합니다';
+        }
+      } on Exception {
+        //
+      }
     }
 
     return null;
@@ -335,22 +360,24 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
 
   String? get startMonthErrorText => monthValidation(value: state.startMonth);
 
-  String? get startDayErrorText => dayValidation(value: state.startDay);
+  String? get startDayErrorText => startDayValidation(
+        day: state.startDay,
+        month: state.startMonth,
+        year: state.startYear,
+      );
 
   String? get endYearErrorText => endYearValidation(value: state.endYear);
 
   String? get endMonthErrorText => monthValidation(value: state.endMonth);
 
-  String? get endDayErrorText => dayValidation(value: state.endDay);
-
-  String? get dateRangeErrorText => validateDateRange(
-    startYear: state.startYear,
-    startMonth: state.startMonth,
-    startDay: state.startDay,
-    endYear: state.endYear,
-    endMonth: state.endMonth,
-    endDay: state.endDay,
-  );
+  String? get endDayErrorText => endDayValidation(
+        endDay: state.endDay,
+        endMonth: state.endMonth,
+        endYear: state.endYear,
+        startDay: state.startDay,
+        startMonth: state.startMonth,
+        startYear: state.startYear,
+      );
 
   bool get activateNextButtonInDuration =>
       state.startYear.isNotEmpty &&
@@ -364,13 +391,18 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
       startDayErrorText == null &&
       endYearErrorText == null &&
       endMonthErrorText == null &&
-      endDayErrorText == null&&dateRangeErrorText == null;
+      endDayErrorText == null;
 
   String? get birthYearErrorText => birthYearValidation(value: state.birthYear);
 
   String? get birthMonthErrorText => monthValidation(value: state.birthMonth);
 
-  String? get birthDayErrorText => dayValidation(value: state.birthDay);
+  String? get birthDayErrorText => startDayValidation(
+        day: state.birthDay,
+        month: state.birthMonth,
+        year: state.birthYear,
+        isBirthday: true,
+      );
 
   String? get birthHourErrorText => hourValidation(value: state.birthHour);
 
