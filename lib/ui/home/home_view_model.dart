@@ -13,4 +13,12 @@ class HomeViewModel extends StateNotifier<HomeState> {
   HomeViewModel({
     required HomeState state,
   }) : super(state);
+
+  void toggleGoalButtons({required bool isCurrentOpen}) {
+    state = state.copyWith(isGoalButtonOpen: !isCurrentOpen);
+  }
+
+  void toggleGoalEdit({required bool isCurrentEditing}) {
+    state = state.copyWith(isGoalEditing: !isCurrentEditing);
+  }
 }
