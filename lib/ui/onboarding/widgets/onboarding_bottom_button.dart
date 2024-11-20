@@ -6,10 +6,12 @@ import '../../../theme/luckit_typos.dart';
 class OnboardingBottomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool activated;
+  final String label;
 
   const OnboardingBottomButton({
     required this.onPressed,
     required this.activated,
+    this.label = '기간 설정하기',
     super.key,
   });
 
@@ -25,9 +27,10 @@ class OnboardingBottomButton extends StatelessWidget {
       ),
     ),
     child: Text(
-      '기간 설정하기',
+      label,
       style: LuckitTypos.suitR20.copyWith(
         color: activated ? LuckitColors.white : LuckitColors.gray80,
+        height: 0.0,
       ),
     ),
   );
