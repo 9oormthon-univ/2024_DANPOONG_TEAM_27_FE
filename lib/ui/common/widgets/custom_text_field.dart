@@ -18,6 +18,7 @@ class CustomTextField extends StatelessWidget {
   final TextStyle hintTextStyle;
   final TextInputType textInputType;
   final Color? fillColor;
+  final TextEditingController? controller;
 
   const CustomTextField({
     required this.enabledBorderColor,
@@ -34,6 +35,7 @@ class CustomTextField extends StatelessWidget {
     this.hintTextStyle = LuckitTypos.suitR16,
     this.textAlign = TextAlign.start,
     this.fillColor,
+    this.controller,
   });
 
   @override
@@ -47,6 +49,7 @@ class CustomTextField extends StatelessWidget {
       height: fieldHeight,
       width: fieldWidth,
       child: TextField(
+        controller: controller,
         onTapOutside: (PointerDownEvent event) =>
             FocusManager.instance.primaryFocus?.unfocus(),
         textAlign: textAlign,

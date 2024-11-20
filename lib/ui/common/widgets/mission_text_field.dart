@@ -9,12 +9,16 @@ class MissionTextField extends StatelessWidget {
   final double? fieldWidth;
   final Function(String)? onChanged;
   final String? errorText;
+  final TextEditingController? controller;
+  final String? hintText;
 
   const MissionTextField({
     super.key,
     this.fieldWidth,
     this.onChanged,
     this.errorText,
+    this.controller,
+    this.hintText,
   });
 
   @override
@@ -22,15 +26,17 @@ class MissionTextField extends StatelessWidget {
         fieldHeight: 52.0,
         fieldWidth: fieldWidth,
         onChanged: onChanged,
-        hintText: "할 일을 적어주세요",
-        enabledBorderColor: LuckitColors.transparent,
-        focusedBorderColor: LuckitColors.gray40,
+        controller: controller,
+        hintText: hintText ?? '예시) 마인드 컨트롤 관련 책 5장 읽기',
+        enabledBorderColor: LuckitColors.gray20,
+        focusedBorderColor: LuckitColors.gray20,
         textInputType: TextInputType.text,
         textStyle: LuckitTypos.suitR16.copyWith(
-          color: LuckitColors.black,
+          color: LuckitColors.gray80,
         ),
         hintTextStyle: LuckitTypos.suitR12.copyWith(
           color: LuckitColors.gray40,
         ),
+    fillColor: LuckitColors.white,
       );
 }
