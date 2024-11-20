@@ -89,7 +89,6 @@ class _HomeViewState extends ConsumerState<HomeView>
     if (game == null) return const Center(child: CircularProgressIndicator());
 
     // 바텀시트를 호출하는 곳에서
-    final TextEditingController _missionController = TextEditingController();
 
     void _showAddMissionBottomSheet() {
       showModalBottomSheet<String>(
@@ -108,9 +107,7 @@ class _HomeViewState extends ConsumerState<HomeView>
         ),
       ).then((missionText) {
         if (missionText != null) {
-          setState(() {
-            _missionController.text = missionText; // 입력된 텍스트 저장
-          });
+         // 추가 로직
         }
       });
     }
@@ -138,11 +135,7 @@ class _HomeViewState extends ConsumerState<HomeView>
       );
     }
 
-    @override
-    void dispose() {
-      _missionController.dispose();
-      super.dispose();
-    }
+
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBarWidget(
