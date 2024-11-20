@@ -163,7 +163,7 @@ class _HomeViewState extends ConsumerState<HomeView>
           // ),
 
           TextButton(
-            onPressed: () => context.go(Routes.goal.path),
+            onPressed: () => context.goNamed('/onboarding/birth'),
             child: const Text('온보딩'),
           ),
 

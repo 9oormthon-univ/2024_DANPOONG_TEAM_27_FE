@@ -90,7 +90,7 @@ class OnboardingDurationView extends ConsumerWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: OnboardingBottomButton(
-              onPressed: () => context.pushNamed('/onboarding/home'),
+              onPressed: () => context.goNamed('/home'),
               activated: viewModel.activateNextButtonInDuration,
               label: '기간 설정 완료',
             ),

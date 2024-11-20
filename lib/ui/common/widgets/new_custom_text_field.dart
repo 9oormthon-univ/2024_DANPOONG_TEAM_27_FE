@@ -25,6 +25,7 @@ class NewCustomTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final bool autofocus;
   final TextEditingController? controller;
+  final int? maxLength;
 
   const NewCustomTextField({
     this.textInputType = TextInputType.text,
@@ -48,6 +49,7 @@ class NewCustomTextField extends StatelessWidget {
     this.focusNode,
     this.autofocus = false,
     this.controller,
+    this.maxLength,
   });
 
   @override
@@ -70,11 +72,20 @@ class NewCustomTextField extends StatelessWidget {
         onTapOutside: (PointerDownEvent event) =>
             FocusManager.instance.primaryFocus?.unfocus(),
         textAlign: textAlign,
-        onChanged: onChanged,
+        onChanged: (String value) {
+          onChanged?.call(value);
+          if (maxLength != null && value.length == maxLength) {
+            if (textInputAction == TextInputAction.next) {
+              FocusScope.of(context).nextFocus();
+            } else {
+              FocusScope.of(context).unfocus();
+            }
+          }
+        },
         keyboardType: textInputType,
         decoration: InputDecoration(
           contentPadding:
-          contentPadding ?? const EdgeInsets.symmetric(horizontal: 14.0),
+              contentPadding ?? const EdgeInsets.symmetric(horizontal: 14.0),
           filled: true,
           fillColor: fillColor ?? LuckitColors.white,
           border: baseBorder,

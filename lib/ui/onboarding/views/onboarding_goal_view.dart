@@ -38,9 +38,7 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
     final OnboardingState state = ref.watch(onboardingViewModelProvider);
 
     return Scaffold(
-      appBar: OnboardingAppBar(
-        onPressed: () => context.goNamed('home'),
-      ),
+      appBar: const OnboardingAppBar(),
       backgroundColor: LuckitColors.background,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,6 +50,7 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
           ),
           Expanded(
             child: SingleChildScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(

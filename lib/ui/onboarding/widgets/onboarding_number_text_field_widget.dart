@@ -27,6 +27,7 @@ class OnboardingNumberTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => NewCustomTextField(
+    maxLength: maxLength,
         onSubmitted: onSubmitted,
         hintText: hintText,
         onChanged: onChanged,
