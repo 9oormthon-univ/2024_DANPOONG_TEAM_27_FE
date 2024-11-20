@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 
-import '../common/consts/assets.dart';
 import 'character_data.dart';
 import 'lottie_player.dart';
 

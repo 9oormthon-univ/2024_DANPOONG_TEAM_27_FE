@@ -2,13 +2,13 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'walking_game.dart';
 import 'package:flame/components.dart';
 import 'package:flame_lottie/flame_lottie.dart';
 
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import 'character_data.dart';
+import 'walking_game.dart';
 
 enum CharacterState { idle, moving }
 
@@ -104,9 +104,10 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
     }
 
     if (currentAnimation != null) {
-      characterContainer.add(currentAnimation!);
-      characterContainer.remove(levelText);
-      characterContainer.add(levelText);
+      characterContainer
+        ..add(currentAnimation!)
+        ..remove(levelText)
+        ..add(levelText);
     }
   }
 
@@ -193,14 +194,15 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
       updateDirection(direction);
       position += direction * CHARACTER_SPEED * dt;
 
-      position.x = position.x.clamp(
-        size.x,
-        gameRef.gameSize.x - size.x,
-      );
-      position.y = position.y.clamp(
-        size.y,
-        gameRef.gameSize.y - size.y,
-      );
+      position
+        ..x = position.x.clamp(
+          size.x,
+          gameRef.gameSize.x - size.x,
+        )
+        ..y = position.y.clamp(
+          size.y,
+          gameRef.gameSize.y - size.y,
+        );
     }
   }
 }

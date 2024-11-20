@@ -15,8 +15,8 @@ import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../game/character_data.dart';
+import '../game/mission_character_provider.dart';
 import '../game/walking_game.dart';
-
 import 'home_state.dart';
 import 'home_view_model.dart';
 import 'widgets/animated_card_widget.dart';

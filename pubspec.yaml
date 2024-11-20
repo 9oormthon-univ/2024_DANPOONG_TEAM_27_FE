@@ -46,6 +46,8 @@ flutter:
     - assets/images/kakao_login_large_wide.png
     - assets/animation/move/
     - assets/animation/stop/
+    - assets/animation/appear/
+    - assets/frame/
 
   fonts:
     - family: SUIT
