@@ -19,7 +19,7 @@ class MissionCompleteDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 16, bottom: 0),
+        padding: const EdgeInsets.only(top: 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

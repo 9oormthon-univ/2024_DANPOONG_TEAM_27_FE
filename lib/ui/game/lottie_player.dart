@@ -92,7 +92,7 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
     }
 
     if (currentAnimation != null) {
-      characterContainer..add(currentAnimation!);
+      characterContainer.add(currentAnimation!);
     }
   }
 

@@ -66,6 +66,7 @@ class MissionManageBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           InkWell(
+            onTap: _showEditMissionBottomSheet,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: Row(
@@ -87,7 +88,6 @@ class MissionManageBottomSheet extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: _showEditMissionBottomSheet,
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),

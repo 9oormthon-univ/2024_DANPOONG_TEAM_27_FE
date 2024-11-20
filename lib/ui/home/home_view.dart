@@ -1,14 +1,9 @@
-import '../game/mission_character_provider.dart';
-import 'package:flame/components.dart';
-
-import 'dart:ui';
-
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
