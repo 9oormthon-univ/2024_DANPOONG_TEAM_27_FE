@@ -1,17 +1,14 @@
-
-import 'package:booklog/ui/game/mission_character_provider.dart';
-import 'package:flame/components.dart';
-
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../routes/routes.dart';
 import '../common/consts/assets.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../game/character_data.dart';
+import '../game/mission_character_provider.dart';
 import '../game/walking_game.dart';
-
 import 'home_state.dart';
 import 'home_view_model.dart';
 
@@ -45,9 +42,8 @@ class _HomeViewState extends ConsumerState<HomeView>
           screenSize.height - paddingTop - appBarHeight;
       final double gameHeight = availableHeight * 0.3;
 
-
-      final List<CharacterData> characters = ref.read(missionCharactersProvider);
-
+      final List<CharacterData> characters =
+          ref.read(missionCharactersProvider);
 
       game = WalkingGame(
         boundarySize: Vector2(screenSize.width, gameHeight),
@@ -85,8 +81,9 @@ class _HomeViewState extends ConsumerState<HomeView>
         screenSize.height - paddingTop - appBarHeight;
     final double gameHeight = availableHeight * 0.3;
 
-
-    if (game == null) return const Center(child: CircularProgressIndicator());
+    if (game == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBarWidget(
@@ -116,14 +113,13 @@ class _HomeViewState extends ConsumerState<HomeView>
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-
                     ref.read(missionCharactersProvider.notifier).addCharacter(
-                      CharacterData(
-                        idleAnimation: Assets.dogStop,
-                        walkAnimation: Assets.dogMove,
-                        name: '개',
-                      ),
-                    );
+                          CharacterData(
+                            idleAnimation: Assets.dogStop,
+                            walkAnimation: Assets.dogMove,
+                            name: '개',
+                          ),
+                        );
 
                     initializeGame();
                   },
@@ -133,8 +129,8 @@ class _HomeViewState extends ConsumerState<HomeView>
                 if (characters.isNotEmpty)
                   ElevatedButton(
                     onPressed: () {
-
-                      ref.read(missionCharactersProvider.notifier)
+                      ref
+                          .read(missionCharactersProvider.notifier)
                           .removeCharacter(characters.length - 1);
                       initializeGame();
                     },
@@ -169,11 +165,11 @@ class _HomeViewState extends ConsumerState<HomeView>
 
           TextButton(
             onPressed: () => context.go(Routes.farm.path),
-            child: Text("농장"),
+            child: const Text('농장'),
           ),
           TextButton(
             onPressed: () => context.go(Routes.goalComplete.path),
-            child: Text("목표 달성"),
+            child: const Text('목표 달성'),
           ),
         ],
       ),

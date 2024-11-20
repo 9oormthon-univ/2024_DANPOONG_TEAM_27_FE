@@ -1,12 +1,14 @@
-import 'package:booklog/core/loading_status.dart';
-import 'package:booklog/ui/common/consts/assets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../core/loading_status.dart';
+import '../common/consts/assets.dart';
 import 'goal_complete_state.dart';
 
-
-final goalCompleteViewModelProvider =
+final StateNotifierProvider<GoalCompleteViewModel, GoalCompleteState>
+    goalCompleteViewModelProvider =
     StateNotifierProvider<GoalCompleteViewModel, GoalCompleteState>(
-  (ref) => GoalCompleteViewModel(),
+  (StateNotifierProviderRef<GoalCompleteViewModel, GoalCompleteState> ref) =>
+      GoalCompleteViewModel(),
 );
 
 class GoalCompleteViewModel extends StateNotifier<GoalCompleteState> {
@@ -14,7 +16,7 @@ class GoalCompleteViewModel extends StateNotifier<GoalCompleteState> {
 
   Future<void> init() async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
-    
+
     try {
       await _loadGoalCompleteData();
       state = state.copyWith(loadingStatus: LoadingStatus.success);
@@ -30,7 +32,7 @@ class GoalCompleteViewModel extends StateNotifier<GoalCompleteState> {
       startDate: DateTime(2024, 11, 15),
       endDate: DateTime(2024, 12, 15),
       completedMissions: 74,
-      animalCounts: {
+      animalCounts: <String, int>{
         Assets.mouseFrame: 12,
         Assets.cowFrame: 9,
         Assets.tigerFrame: 5,
@@ -49,7 +51,5 @@ class GoalCompleteViewModel extends StateNotifier<GoalCompleteState> {
     );
   }
 
-  int getDurationInDays() {
-    return state.endDate.difference(state.startDate).inDays;
-  }
-} 
+  int getDurationInDays() => state.endDate.difference(state.startDate).inDays;
+}

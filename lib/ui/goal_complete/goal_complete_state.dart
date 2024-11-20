@@ -22,13 +22,13 @@ class GoalCompleteState extends Equatable {
     required this.characterStopAnimation,
   });
 
-   GoalCompleteState.init()
+  GoalCompleteState.init()
       : loadingStatus = LoadingStatus.none,
         kingName = '',
         startDate = DateTime.now(),
         endDate = DateTime.now(),
         completedMissions = 0,
-        animalCounts = {},
+        animalCounts = <String, int>{},
         characterAppearAnimation = '',
         characterStopAnimation = '';
 
@@ -41,19 +41,22 @@ class GoalCompleteState extends Equatable {
     Map<String, int>? animalCounts,
     String? characterAppearAnimation,
     String? characterStopAnimation,
-  }) => GoalCompleteState(
+  }) =>
+      GoalCompleteState(
         loadingStatus: loadingStatus ?? this.loadingStatus,
         kingName: kingName ?? this.kingName,
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
         completedMissions: completedMissions ?? this.completedMissions,
         animalCounts: animalCounts ?? this.animalCounts,
-        characterAppearAnimation: characterAppearAnimation ?? this.characterAppearAnimation,
-        characterStopAnimation: characterStopAnimation ?? this.characterStopAnimation,
+        characterAppearAnimation:
+            characterAppearAnimation ?? this.characterAppearAnimation,
+        characterStopAnimation:
+            characterStopAnimation ?? this.characterStopAnimation,
       );
 
   @override
-  List<Object> get props => [
+  List<Object> get props => <Object>[
         loadingStatus,
         kingName,
         startDate,
