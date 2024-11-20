@@ -22,7 +22,7 @@ class OnboardingLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    resizeToAvoidBottomInset: false,
+    // resizeToAvoidBottomInset: false,
     backgroundColor: backgroundColor,
     appBar: AppBar(
       scrolledUnderElevation: 0.0,

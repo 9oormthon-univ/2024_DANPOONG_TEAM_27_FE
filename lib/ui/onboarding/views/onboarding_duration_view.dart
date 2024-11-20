@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
+import '../../common/consts/assets.dart';
 import '../../common/widgets/custom_text_field.dart';
 import '../onboarding_state.dart';
 import '../onboarding_view_model.dart';
@@ -27,10 +29,26 @@ class OnboardingDurationView extends ConsumerWidget {
 
     return OnboardingLayout(
       onPressedBackButton: () => context.pop(),
-      topWidget: const OnboardingTopWidget(
+      topWidget: OnboardingTopWidget(
         title: '목표에 도전할\n기간을 정해주세요',
         text: '과 목표 달성을 위해 함께\n달려갈 시간을 입력해주세요!',
         boldText: 'LUCKIT',
+        message: Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
+          child: Row(
+            children: <Widget>[
+              SvgPicture.asset(Assets.warning),
+              const SizedBox(width: 4.0),
+              Text(
+                '목표는 최소 14일 이상 설정해야 해요.',
+                style: LuckitTypos.suitR12.copyWith(
+                  color: LuckitColors.error,
+                  height: 0.0,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       content: Expanded(
         child: SingleChildScrollView(

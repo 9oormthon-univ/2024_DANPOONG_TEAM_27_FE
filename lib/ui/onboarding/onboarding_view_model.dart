@@ -245,6 +245,87 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     }
   }
 
+  bool isValidDate(String year, String month, String day) {
+    if (year.isEmpty || month.isEmpty || day.isEmpty) {
+      return false;
+    }
+
+    try {
+      final int y = int.parse(year);
+      final int m = int.parse(month);
+      final int d = int.parse(day);
+
+      // DateTime 객체 생성을 시도하여 유효한 날짜인지 확인
+      final DateTime date = DateTime(y, m, d);
+
+      // 입력된 값과 DateTime이 생성한 값이 같은지 확인
+      // (예: 2024-02-31은 2024-03-02로 변환되므로 이런 경우 체크)
+      return date.year == y && date.month == m && date.day == d;
+    } on Exception {
+      return false;
+    }
+  }
+
+  int daysBetween(String startYear, String startMonth, String startDay,
+      String endYear, String endMonth, String endDay) {
+    try {
+      final DateTime start = DateTime(
+        int.parse(startYear),
+        int.parse(startMonth),
+        int.parse(startDay),
+      );
+      final DateTime end = DateTime(
+        int.parse(endYear),
+        int.parse(endMonth),
+        int.parse(endDay),
+      );
+      return end.difference(start).inDays;
+    } on Exception {
+      return -1;
+    }
+  }
+
+  String? validateDateRange({
+    required String startYear,
+    required String startMonth,
+    required String startDay,
+    required String endYear,
+    required String endMonth,
+    required String endDay,
+  }) {
+    if (<String>[startYear, startMonth, startDay, endYear, endMonth, endDay]
+        .any((String field) => field.isEmpty)) {
+      return null;
+    }
+
+    if (!isValidDate(startYear, startMonth, startDay)) {
+      return '시작일이 유효하지 않습니다';
+    }
+
+    if (!isValidDate(endYear, endMonth, endDay)) {
+      return '종료일이 유효하지 않습니다';
+    }
+
+    final int days = daysBetween(
+      startYear,
+      startMonth,
+      startDay,
+      endYear,
+      endMonth,
+      endDay,
+    );
+
+    if (days < 0) {
+      return '종료일이 시작일보다 빠를 수 없습니다';
+    }
+
+    if (days < 14) {
+      return '기간은 최소 14일 이상이어야 합니다';
+    }
+
+    return null;
+  }
+
   bool get enableGoalInputField => state.selectedSuggestion == -1;
 
   bool get activateNextButtonInGoal =>
@@ -262,6 +343,15 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
 
   String? get endDayErrorText => dayValidation(value: state.endDay);
 
+  String? get dateRangeErrorText => validateDateRange(
+    startYear: state.startYear,
+    startMonth: state.startMonth,
+    startDay: state.startDay,
+    endYear: state.endYear,
+    endMonth: state.endMonth,
+    endDay: state.endDay,
+  );
+
   bool get activateNextButtonInDuration =>
       state.startYear.isNotEmpty &&
       state.startMonth.isNotEmpty &&
@@ -274,7 +364,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
       startDayErrorText == null &&
       endYearErrorText == null &&
       endMonthErrorText == null &&
-      endDayErrorText == null;
+      endDayErrorText == null&&dateRangeErrorText == null;
 
   String? get birthYearErrorText => birthYearValidation(value: state.birthYear);
 
