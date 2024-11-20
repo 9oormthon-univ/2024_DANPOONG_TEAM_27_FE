@@ -1,20 +1,18 @@
+
 import 'package:booklog/ui/game/mission_character_provider.dart';
 import 'package:flame/components.dart';
+
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import 'package:go_router/go_router.dart';
-
-
-
-import '../common/consts/assets.dart';
-import '../game/character_data.dart';
-import '../game/walking_game.dart';
-import '../../routes/app_router.dart';
 import '../../routes/routes.dart';
+import '../common/consts/assets.dart';
+import '../common/widget/bottom_navigation_bar_widget.dart';
+import '../game/character_data.dart';
+import '../game/character_provider.dart';
+import '../game/walking_game.dart';
+
 import 'home_state.dart';
 import 'home_view_model.dart';
 
@@ -25,7 +23,8 @@ class HomeView extends ConsumerStatefulWidget {
   ConsumerState<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver{
+class _HomeViewState extends ConsumerState<HomeView>
+    with WidgetsBindingObserver {
   WalkingGame? game;
 
   @override
@@ -40,13 +39,16 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
 
   void initializeGame() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final screenSize = MediaQuery.of(context).size;
-      final paddingTop = MediaQuery.of(context).padding.top;
-      final appBarHeight = AppBar().preferredSize.height;
-      final availableHeight = screenSize.height - paddingTop - appBarHeight;
-      final gameHeight = availableHeight * 0.3;
+      final Size screenSize = MediaQuery.of(context).size;
+      final double paddingTop = MediaQuery.of(context).padding.top;
+      final double appBarHeight = AppBar().preferredSize.height;
+      final double availableHeight =
+          screenSize.height - paddingTop - appBarHeight;
+      final double gameHeight = availableHeight * 0.3;
 
-      final characters = ref.read(missionCharactersProvider);
+
+      final List<CharacterData> characters = ref.read(missionCharactersProvider);
+
 
       game = WalkingGame(
         boundarySize: Vector2(screenSize.width, gameHeight),
@@ -75,31 +77,36 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
     final HomeViewModel viewModel = ref.read(homeViewModelProvider.notifier);
 
     //게임 관련
-    final characters = ref.watch(missionCharactersProvider);
-    final screenSize = MediaQuery.of(context).size;
-    final paddingTop = MediaQuery.of(context).padding.top;
-    final appBarHeight = AppBar().preferredSize.height;
-    final availableHeight = screenSize.height - paddingTop - appBarHeight;
-    final gameHeight = availableHeight * 0.3;
+
+    final List<CharacterData> characters = ref.watch(missionCharactersProvider);
+    final Size screenSize = MediaQuery.of(context).size;
+    final double paddingTop = MediaQuery.of(context).padding.top;
+    final double appBarHeight = AppBar().preferredSize.height;
+    final double availableHeight =
+        screenSize.height - paddingTop - appBarHeight;
+    final double gameHeight = availableHeight * 0.3;
+
 
     if (game == null) return const Center(child: CircularProgressIndicator());
 
-
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBarWidget(
+        currentRouteName: Routes.home.name,
+      ),
       appBar: AppBar(),
       body: Column(
         children: <Widget>[
-          Container(
+          SizedBox(
             width: screenSize.width,
             height: gameHeight,
             child: ClipRect(
-              child: GameWidget(game: game!),
+              child: GameWidget<WalkingGame>(game: game!),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              children: [
+              children: <Widget>[
                 Text(
                   '현재 캐릭터 수: ${characters.length}',
                   style: const TextStyle(
@@ -110,6 +117,7 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
+
                     ref.read(missionCharactersProvider.notifier).addCharacter(
                       CharacterData(
                         idleAnimation: Assets.dogStop,
@@ -117,6 +125,7 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
                         name: '개',
                       ),
                     );
+
                     initializeGame();
                   },
                   child: const Text('새 캐릭터 추가'),
@@ -125,6 +134,7 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
                 if (characters.isNotEmpty)
                   ElevatedButton(
                     onPressed: () {
+
                       ref.read(missionCharactersProvider.notifier)
                           .removeCharacter(characters.length - 1);
                       initializeGame();
@@ -155,13 +165,13 @@ class _HomeViewState extends ConsumerState<HomeView> with WidgetsBindingObserver
 
           TextButton(
             onPressed: () => context.go(Routes.goal.path),
-            child: Text("온보딩"),
+            child: const Text('온보딩'),
           ),
+
           TextButton(
             onPressed: () => context.go(Routes.farm.path),
             child: Text("농장"),
           ),
-
         ],
       ),
     );
