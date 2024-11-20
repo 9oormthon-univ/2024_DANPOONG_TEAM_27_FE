@@ -12,7 +12,9 @@ class DeleteDialog extends StatelessWidget {
   final VoidCallback? onConfirm;
 
   const DeleteDialog({
-    required this.title, required this.content, super.key,
+    required this.title,
+    required this.content,
+    super.key,
     this.cancelText = '취소',
     this.confirmText = '삭제하기',
     this.onCancel,
@@ -43,7 +45,7 @@ class DeleteDialog extends StatelessWidget {
                   Text(
                     content,
                     style: LuckitTypos.suitR16
-                      .copyWith(color: LuckitColors.gray80),
+                        .copyWith(color: LuckitColors.gray80),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -59,7 +61,7 @@ class DeleteDialog extends StatelessWidget {
                     child: Text(
                       cancelText,
                       style: LuckitTypos.suitR16
-                        .copyWith(color: LuckitColors.gray80),
+                          .copyWith(color: LuckitColors.gray80),
                     ),
                   ),
                 ),
@@ -74,7 +76,7 @@ class DeleteDialog extends StatelessWidget {
                     child: Text(
                       confirmText,
                       style: LuckitTypos.suitR16
-                        .copyWith(color: LuckitColors.error),
+                          .copyWith(color: LuckitColors.error),
                     ),
                   ),
                 ),

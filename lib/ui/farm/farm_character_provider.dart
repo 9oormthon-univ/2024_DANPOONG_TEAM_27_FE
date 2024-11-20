@@ -82,6 +82,5 @@ final StateNotifierProvider<FarmCharactersNotifier, List<CharacterData>>
     farmCharactersProvider =
     StateNotifierProvider<FarmCharactersNotifier, List<CharacterData>>(
         (StateNotifierProviderRef<FarmCharactersNotifier, List<CharacterData>>
-            ref) {
-  return FarmCharactersNotifier();
-});
+                ref) =>
+            FarmCharactersNotifier());

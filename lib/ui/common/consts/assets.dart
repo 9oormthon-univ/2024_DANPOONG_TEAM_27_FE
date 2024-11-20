@@ -43,6 +43,24 @@ class Assets {
   static const String sleep = 'assets/icons/sleep.svg';
   static const String sort = 'assets/icons/sort.svg';
   static const String verticlaDots = 'assets/icons/verticlaDots.svg';
+  static const String cloud1 = 'assets/icons/cloud_1.svg';
+  static const String cloud2 = 'assets/icons/cloud_2.svg';
+  static const String cloud3 = 'assets/icons/cloud_3.svg';
+  static const String cloud4 = 'assets/icons/cloud_4.svg';
+
+  //프레임
+  static const String chickenFrame = 'assets/frame/chicken_frame.svg';
+  static const String cowFrame = 'assets/frame/cow_frame.svg';
+  static const String dogFrame = 'assets/frame/dog_frame.svg';
+  static const String dragonFrame = 'assets/frame/dragon_frame.svg';
+  static const String horseFrame = 'assets/frame/horse_frame.svg';
+  static const String monkeyFrame = 'assets/frame/monkey_frame.svg';
+  static const String mouseFrame = 'assets/frame/mouse_frame.svg';
+  static const String pigFrame = 'assets/frame/pig_frame.svg';
+  static const String rabbitFrame = 'assets/frame/rabbit_frame.svg';
+  static const String sheepFrame = 'assets/frame/sheep_frame.svg';
+  static const String snakeFrame = 'assets/frame/snake_frame.svg';
+  static const String tigerFrame = 'assets/frame/tiger_frame.svg';
 
   //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
@@ -53,6 +71,7 @@ class Assets {
   static const String gameBackground = 'game_background.png';
   static const String farmBackground = 'farm_background.png';
   static const String farmBackgroundLandscape = 'farm_background_landscape.png';
+  static const String kingBackground = 'assets/images/king_background.png';
 
   //애니메이션
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';
@@ -67,6 +86,7 @@ class Assets {
   static const String sheepStop = 'assets/animation/stop/sheep_stop.json';
   static const String snakeStop = 'assets/animation/stop/snake_stop.json';
   static const String tigerStop = 'assets/animation/stop/tiger_stop.json';
+  static const String kingMouseStop = 'assets/animation/stop/king_mouse_stop.json';
 
 
   static const String chickenMove = 'assets/animation/move/chicken_move.json';
@@ -81,5 +101,8 @@ class Assets {
   static const String sheepMove = 'assets/animation/move/sheep_move.json';
   static const String snakeMove = 'assets/animation/move/snake_move.json';
   static const String tigerMove = 'assets/animation/move/tiger_move.json';
+
+
+  static const String kingMouseAppear = 'assets/animation/appear/king_mouse_appear.json';
 
 }
