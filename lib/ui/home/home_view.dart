@@ -1,16 +1,14 @@
-import 'package:booklog/ui/game/mission_character_provider.dart';
-import 'package:flame/components.dart';
-
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../routes/routes.dart';
 import '../common/consts/assets.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../game/character_data.dart';
+import '../game/mission_character_provider.dart';
 import '../game/walking_game.dart';
-
 import 'home_state.dart';
 import 'home_view_model.dart';
 import 'widget/add_mission_bottom_sheet.dart';
@@ -86,7 +84,9 @@ class _HomeViewState extends ConsumerState<HomeView>
         screenSize.height - paddingTop - appBarHeight;
     final double gameHeight = availableHeight * 0.3;
 
-    if (game == null) return const Center(child: CircularProgressIndicator());
+    if (game == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
     // 바텀시트를 호출하는 곳에서
 
@@ -95,19 +95,19 @@ class _HomeViewState extends ConsumerState<HomeView>
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (context) => Padding(
+        builder: (BuildContext context) => Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: AddMissionBottomSheet(
+          child: const AddMissionBottomSheet(
             title: '새로운 미션 추가하기',
             subtitle: '도전할 미션을 작성해보세요!',
             buttonLabel: '추가하기',
           ),
         ),
-      ).then((missionText) {
+      ).then((String? missionText) {
         if (missionText != null) {
-         // 추가 로직
+          // 추가 로직
         }
       });
     }
@@ -129,13 +129,11 @@ class _HomeViewState extends ConsumerState<HomeView>
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (context) => MissionManageBottomSheet(
+        builder: (BuildContext context) => const MissionManageBottomSheet(
           title: '거울 볼 때마다 미소짓기',
         ),
       );
     }
-
-
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBarWidget(
@@ -212,33 +210,33 @@ class _HomeViewState extends ConsumerState<HomeView>
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               TextButton(
                 onPressed: () => context.go(Routes.goal.path),
                 child: const Text('온보딩'),
               ),
               TextButton(
                 onPressed: () => context.go(Routes.farm.path),
-                child: Text("농장"),
+                child: const Text('농장'),
               ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               TextButton(
-                onPressed: () => _showAddMissionBottomSheet(),
-                child: Text("미션추가 바텀시트"),
+                onPressed: _showAddMissionBottomSheet,
+                child: const Text('미션추가 바텀시트'),
               ),
               TextButton(
-                onPressed: () => _showMissionManageBottomSheet(),
-                child: Text("미션수정 바텀시트"),
+                onPressed: _showMissionManageBottomSheet,
+                child: const Text('미션수정 바텀시트'),
               ),
             ],
           ),
           TextButton(
-            onPressed: () => _showMissionCompleteDialog(),
-            child: Text("미션완료 다이얼로그"),
+            onPressed: _showMissionCompleteDialog,
+            child: const Text('미션완료 다이얼로그'),
           ),
         ],
       ),

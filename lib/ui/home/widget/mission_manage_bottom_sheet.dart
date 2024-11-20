@@ -9,7 +9,7 @@ import 'mission_delete_bottom_sheet.dart';
 class MissionManageBottomSheet extends StatelessWidget {
   final String title;
 
-  const MissionManageBottomSheet({super.key, required this.title});
+  const MissionManageBottomSheet({required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,37 +18,37 @@ class MissionManageBottomSheet extends StatelessWidget {
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (context) => Padding(
+        builder: (BuildContext context) => Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: AddMissionBottomSheet(
+          child: const AddMissionBottomSheet(
             title: '미션 수정',
             subtitle: '미션 내용을 수정해보세요!',
             buttonLabel: '수정완료',
             initialText: '거울 볼 때마다 미소짓기',
           ),
         ),
-      ).then((missionText) {
+      ).then((String? missionText) {
         if (missionText != null) {
           // 수정 로직
         }
       });
     }
 
-    return Container(
+    return DecoratedBox(
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <Widget>[
                 Text(
                   title,
                   style: LuckitTypos.suitSB16.copyWith(
@@ -69,7 +69,7 @@ class MissionManageBottomSheet extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: Row(
-                children: [
+                children: <Widget>[
                   SvgPicture.asset(
                     Assets.edit,
                     colorFilter: const ColorFilter.mode(
@@ -87,10 +87,10 @@ class MissionManageBottomSheet extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () => _showEditMissionBottomSheet(),
+            onTap: _showEditMissionBottomSheet,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 24),
+            margin: const EdgeInsets.symmetric(horizontal: 24),
             width: double.infinity,
             height: 1,
             color: LuckitColors.gray10,
@@ -102,13 +102,16 @@ class MissionManageBottomSheet extends StatelessWidget {
                 context: context,
                 isScrollControlled: true,
                 backgroundColor: Colors.transparent,
-                builder: (context) => MissionDeleteBottomSheet(title: '거울 볼 때마다 미소짓기',),
+                builder: (BuildContext context) =>
+                    const MissionDeleteBottomSheet(
+                  title: '거울 볼 때마다 미소짓기',
+                ),
               );
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: Row(
-                children: [
+                children: <Widget>[
                   SvgPicture.asset(
                     Assets.delete,
                     colorFilter: const ColorFilter.mode(

@@ -50,8 +50,7 @@ class _AddMissionBottomSheetState extends State<AddMissionBottomSheet> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => DecoratedBox(
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -59,12 +58,12 @@ class _AddMissionBottomSheetState extends State<AddMissionBottomSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <Widget>[
                 Text(
                   widget.title,
                   style: LuckitTypos.suitSB16.copyWith(
@@ -85,7 +84,7 @@ class _AddMissionBottomSheetState extends State<AddMissionBottomSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 Text(
                   widget.subtitle,
                   style: LuckitTypos.suitR14.copyWith(
@@ -112,5 +111,4 @@ class _AddMissionBottomSheetState extends State<AddMissionBottomSheet> {
         ],
       ),
     );
-  }
 }

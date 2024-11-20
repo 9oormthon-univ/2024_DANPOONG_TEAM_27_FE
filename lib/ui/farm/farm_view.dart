@@ -51,7 +51,9 @@ class _FarmViewState extends ConsumerState<FarmView>
 
   @override
   void didChangeMetrics() {
-    if (game == null) return;
+    if (game == null) {
+      return;
+    }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final bool isLandscape =

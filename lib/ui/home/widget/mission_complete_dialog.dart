@@ -13,8 +13,7 @@ class MissionCompleteDialog extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Dialog(
+  Widget build(BuildContext context) => Dialog(
       backgroundColor: LuckitColors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -23,7 +22,7 @@ class MissionCompleteDialog extends StatelessWidget {
         padding: const EdgeInsets.only(top: 16, bottom: 0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Text(
               missionTitle,
               style: LuckitTypos.suitR12.copyWith(
@@ -49,7 +48,7 @@ class MissionCompleteDialog extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             Row(
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: TextButton(
                     onPressed: () => Navigator.pop(context),
@@ -82,5 +81,4 @@ class MissionCompleteDialog extends StatelessWidget {
         ),
       ),
     );
-  }
 } 
