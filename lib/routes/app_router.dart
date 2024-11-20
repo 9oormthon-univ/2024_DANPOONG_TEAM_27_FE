@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../ui/farm/farm_view.dart';
+import '../ui/fortune/fortune_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/onboarding/views/onboarding_birth_view.dart';
 import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
+import '../ui/profile/profile_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
 import 'routes.dart';
@@ -47,13 +50,30 @@ class AppRouter {
     redirect: _redirect,
     routes: <RouteBase>[
       GoRoute(
-        name: Routes.home.name,
+        name: Routes.fortune.name,
+        path: Routes.fortune.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: FortuneView(),
+        ),
+      ),
+      GoRoute(
         path: Routes.home.path,
+        name: Routes.home.name,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: HomeView(),
         ),
       ),
+      GoRoute(
+        path: Routes.profile.path,
+        name: Routes.profile.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: ProfileView(),
+        ),
+      ),
+
       GoRoute(
         name: Routes.goal.name,
         path: Routes.goal.path,
@@ -78,6 +98,15 @@ class AppRouter {
           child: OnboardingBirthView(),
         ),
       ),
+      GoRoute(
+        name: Routes.farm.name,
+        path: Routes.farm.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: FarmView(),
+        ),
+      ),
+
       // Auth
       // GoRoute(
       //   path: Routes.auth.path,

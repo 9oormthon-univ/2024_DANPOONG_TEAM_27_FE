@@ -9,6 +9,10 @@ class LuckitColors {
   static const Color error = Color(0xFFFD6F6F);
   static const Color background = Color(0xFFF9FAFC);
 
+  // shadow
+  static const Color shadow1 = Color(0xFF2F56A5);
+  static const Color shadow2 = Color(0xFFA6C1EE);
+
   // Gray
   static const Color gray80 = Color(0xFF525058);
   static const Color gray60 = Color(0xFF71747A);
