@@ -23,6 +23,7 @@ class Routes {
     name: '/fortune',
     path: '/fortune',
   );
+
   // 프로필 페이지
   static const RouteInfo profile = RouteInfo(
     name: '/profile',
@@ -33,5 +34,11 @@ class Routes {
   static const RouteInfo goal = RouteInfo(
     name: '/onboarding/goal',
     path: '/onboarding/goal',
+  );
+
+  // 농장
+  static const RouteInfo farm = RouteInfo(
+    name: '/farm',
+    path: '/farm',
   );
 }

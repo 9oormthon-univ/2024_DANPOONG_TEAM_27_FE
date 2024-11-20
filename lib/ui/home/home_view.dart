@@ -1,3 +1,7 @@
+
+import 'package:booklog/ui/game/mission_character_provider.dart';
+import 'package:flame/components.dart';
+
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,11 +46,14 @@ class _HomeViewState extends ConsumerState<HomeView>
           screenSize.height - paddingTop - appBarHeight;
       final double gameHeight = availableHeight * 0.3;
 
-      final List<CharacterData> characters = ref.read(charactersProvider);
+
+      final List<CharacterData> characters = ref.read(missionCharactersProvider);
+
 
       game = WalkingGame(
         boundarySize: Vector2(screenSize.width, gameHeight),
         characterTypes: characters,
+        gameBackground: Assets.gameBackground,
       );
       setState(() {});
     });
@@ -70,13 +77,15 @@ class _HomeViewState extends ConsumerState<HomeView>
     final HomeViewModel viewModel = ref.read(homeViewModelProvider.notifier);
 
     //게임 관련
-    final List<CharacterData> characters = ref.watch(charactersProvider);
+
+    final List<CharacterData> characters = ref.watch(missionCharactersProvider);
     final Size screenSize = MediaQuery.of(context).size;
     final double paddingTop = MediaQuery.of(context).padding.top;
     final double appBarHeight = AppBar().preferredSize.height;
     final double availableHeight =
         screenSize.height - paddingTop - appBarHeight;
     final double gameHeight = availableHeight * 0.3;
+
 
     if (game == null) return const Center(child: CircularProgressIndicator());
 
@@ -108,13 +117,15 @@ class _HomeViewState extends ConsumerState<HomeView>
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    ref.read(charactersProvider.notifier).addCharacter(
-                          CharacterData(
-                            idleAnimation: Assets.dogStop,
-                            walkAnimation: Assets.dogMove,
-                            name: '개',
-                          ),
-                        );
+
+                    ref.read(missionCharactersProvider.notifier).addCharacter(
+                      CharacterData(
+                        idleAnimation: Assets.dogStop,
+                        walkAnimation: Assets.dogMove,
+                        name: '개',
+                      ),
+                    );
+
                     initializeGame();
                   },
                   child: const Text('새 캐릭터 추가'),
@@ -123,8 +134,8 @@ class _HomeViewState extends ConsumerState<HomeView>
                 if (characters.isNotEmpty)
                   ElevatedButton(
                     onPressed: () {
-                      ref
-                          .read(charactersProvider.notifier)
+
+                      ref.read(missionCharactersProvider.notifier)
                           .removeCharacter(characters.length - 1);
                       initializeGame();
                     },
@@ -155,6 +166,11 @@ class _HomeViewState extends ConsumerState<HomeView>
           TextButton(
             onPressed: () => context.go(Routes.goal.path),
             child: const Text('온보딩'),
+          ),
+
+          TextButton(
+            onPressed: () => context.go(Routes.farm.path),
+            child: Text("농장"),
           ),
         ],
       ),

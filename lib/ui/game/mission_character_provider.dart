@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../common/consts/assets.dart';
 import 'character_data.dart';
 
-class CharactersNotifier extends StateNotifier<List<CharacterData>> {
-  CharactersNotifier() : super([
+class MissionCharactersNotifier extends StateNotifier<List<CharacterData>> {
+  MissionCharactersNotifier() : super([
     CharacterData(
       idleAnimation: Assets.chickenStop,
       walkAnimation: Assets.chickenMove,
@@ -77,6 +77,6 @@ class CharactersNotifier extends StateNotifier<List<CharacterData>> {
 }
 
 // Provider 정의
-final charactersProvider = StateNotifierProvider<CharactersNotifier, List<CharacterData>>((ref) {
-  return CharactersNotifier();
+final missionCharactersProvider = StateNotifierProvider<MissionCharactersNotifier, List<CharacterData>>((ref) {
+  return MissionCharactersNotifier();
 });
