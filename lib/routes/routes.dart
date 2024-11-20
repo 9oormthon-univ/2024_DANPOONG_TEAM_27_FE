@@ -51,4 +51,10 @@ class Routes {
     name: '/farm',
     path: '/farm',
   );
+
+  // 목표 달성
+  static const RouteInfo goalComplete = RouteInfo(
+    name: '/goal-complete',
+    path: '/goal-complete',
+  );
 }
