@@ -7,12 +7,14 @@ import '../../../theme/luckit_typos.dart';
 import '../../common/widgets/rounded_text_button_widget.dart';
 import '../onboarding_state.dart';
 import '../onboarding_view_model.dart';
+import '../widgets/birth_time_input_container_widget.dart';
 import '../widgets/check_icon_widget.dart';
 import '../widgets/error_text_widget.dart';
+import '../widgets/onboarding_app_bar.dart';
 import '../widgets/onboarding_bottom_button.dart';
-import '../widgets/onboarding_layout.dart';
+import '../widgets/onboarding_date_input_row_widget.dart';
+import '../widgets/onboarding_description_text_widget.dart';
 import '../widgets/onboarding_top_widget.dart';
-import 'onboarding_duration_view.dart';
 
 class OnboardingBirthView extends ConsumerWidget {
   const OnboardingBirthView({super.key});
@@ -23,61 +25,46 @@ class OnboardingBirthView extends ConsumerWidget {
         ref.read(onboardingViewModelProvider.notifier);
     final OnboardingState state = ref.watch(onboardingViewModelProvider);
 
-    return OnboardingLayout(
+    return Scaffold(
+      appBar: OnboardingAppBar(onPressed: () => context.goNamed('/home')),
       backgroundColor: LuckitColors.white,
-      onPressedBackButton: () => context.pop(),
-      topWidget: const OnboardingTopWidget(
-        showShadow: false,
-        title: '정보를 입력해주세요',
-        text: '입력 정보를 기반으로\n운세와 맞춤 목표를 추천드릴게요!',
-        boldText: '',
-      ),
-      content: Expanded(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _buildGender(state, viewModel),
-                _buildBirthDate(state, viewModel),
-                _buildBirthTime(state, viewModel),
-              ],
-            ),
-          ),
-        ),
-      ),
-      bottomButton: Column(
+      body: Column(
         children: <Widget>[
-          // TODO(dodo): 여기 예쁘게 만들기
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
-                  CheckIconWidget(
-                    isChecked: state.agree,
-                    onPressed: viewModel.onPressedAgree,
-                    size: 24.0,
+                  const OnboardingTopWidget(
+                    title: '정보를 입력해주세요',
+                    text: '입력 정보를 기반으로\n운세와 맞춤 목표를 추천드릴게요!',
+                    boldText: '',
+                    showShadow: false,
                   ),
-                  const SizedBox(width: 8.0),
-                  Text(
-                    '(필수) 운세정보 수집/이용 동의',
-                    style: LuckitTypos.suitR14.copyWith(
-                      color: LuckitColors.gray60,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Column(
+                      children: <Widget>[
+                        _buildGender(state, viewModel),
+                        _buildBirthDate(state, viewModel),
+                      ],
                     ),
                   ),
+                  _buildBirthTime(state, viewModel),
                 ],
               ),
-              // 아 너무 힘드러요
-              const Text('약관보기'),
-            ],
+            ),
           ),
-          const SizedBox(height: 12.0),
-          OnboardingBottomButton(
-            onPressed: () => context.goNamed('/home'),
-            activated: viewModel.activateNextButtonInBirth,
-            label: '입력완료',
+          AgreeRowWidget(
+            isChecked: state.agree,
+            onPressed: viewModel.onPressedAgree,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: OnboardingBottomButton(
+              onPressed: () => context.pushNamed('/onboarding/goal'),
+              activated: viewModel.activateNextButtonInBirth,
+              label: '입력 완료',
+            ),
           ),
         ],
       ),
@@ -92,10 +79,10 @@ class OnboardingBirthView extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Padding(
-            padding: EdgeInsets.only(left: 4.0, top: 28, bottom: 10),
-            child: Text(
-              '태어난 시간',
-              style: LuckitTypos.suitR16,
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: OnboardingDescriptionTextWidget(
+              text: '태어난 시간',
+              topPadding: 28.0,
             ),
           ),
           Row(
@@ -106,6 +93,7 @@ class OnboardingBirthView extends ConsumerWidget {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
+                        const SizedBox(width: 24.0),
                         Expanded(
                           child: RoundedTextButtonWidget(
                             isSelected: state.dayPeriod == DayPeriod.am,
@@ -131,79 +119,62 @@ class OnboardingBirthView extends ConsumerWidget {
                     ),
                     Row(
                       children: <Widget>[
+                        const SizedBox(width: 12),
                         CheckIconWidget(
                           isChecked: state.dontKnow,
-                          onPressed: () => viewModel.onPressedDontKnow(),
-                          size: 24.0,
+                          onPressed: viewModel.onPressedDontKnow,
+                          size: 16.0,
                         ),
-                        const SizedBox(width: 2.0),
                         Text(
                           '태어난 시간을 알지 못합니다',
-                          style: LuckitTypos.suitR10
-                              .copyWith(color: LuckitColors.gray80),
+                          style: LuckitTypos.suitR10.copyWith(
+                            color: LuckitColors.gray80,
+                            height: 0.0,
+                          ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8.0)
                   ],
                 ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.topCenter,
-                      height: 40.0,
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      decoration: BoxDecoration(
-                        color: LuckitColors.white,
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: state.dontKnow
-                              ? LuckitColors.gray10
-                              : LuckitColors.gray20,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 24.0),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.center,
+                        height: 40.0,
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        decoration: BoxDecoration(
+                          color: LuckitColors.white,
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(
+                            color: state.dontKnow
+                                ? LuckitColors.gray10
+                                : LuckitColors.gray20,
+                          ),
+                        ),
+                        child: BirthTimeInputContainerWidget(
+                          enabled: !state.dontKnow,
+                          onChangedHour: (String value) =>
+                              viewModel.onChangedBirthHour(value: value),
+                          onChangedMinute: (String value) =>
+                              viewModel.onChangedBirthMinute(value: value),
                         ),
                       ),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: BirthTimeInputField(
-                              enabled: !state.dontKnow,
-                              hintText: 'HH',
-                              onChanged: (String value) =>
-                                  viewModel.onChangedBirthHour(
-                                value: value,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            ':',
-                            style: LuckitTypos.suitR20.copyWith(
-                              color: LuckitColors.gray80,
-                            ),
-                          ),
-                          Expanded(
-                            child: BirthTimeInputField(
-                              enabled: !state.dontKnow,
-                              hintText: 'MM',
-                              onChanged: (String value) =>
-                                  viewModel.onChangedBirthMinute(
-                                value: value,
-                              ),
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        width: double.infinity,
+                        child: ErrorTextWidget(
+                          errorTexts: <String?, TextAlign>{
+                            viewModel.birthHourErrorText: TextAlign.start,
+                            viewModel.birthMinuteErrorText: TextAlign.end,
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ErrorTextWidget(errorTexts: <String?, TextAlign>{
-                        viewModel.birthHourErrorText: TextAlign.start,
-                        viewModel.birthMinuteErrorText: TextAlign.end,
-                      }),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -218,12 +189,9 @@ class OnboardingBirthView extends ConsumerWidget {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(left: 4.0, top: 48, bottom: 10),
-            child: Text(
-              '생년월일',
-              style: LuckitTypos.suitR16,
-            ),
+          const OnboardingDescriptionTextWidget(
+            text: '생년월일',
+            topPadding: 48.0,
           ),
           Row(
             children: <Widget>[
@@ -249,16 +217,13 @@ class OnboardingBirthView extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 12.0),
-          OnboardingDurationInputWidget(
-            onChangedYear: (String value) => viewModel.onChangedBirthYear(
-              value: value,
-            ),
-            onChangedMonth: (String value) => viewModel.onChangedBirthMonth(
-              value: value,
-            ),
-            onChangedDay: (String value) => viewModel.onChangedBirthDay(
-              value: value,
-            ),
+          OnboardingDateInputRowWidget(
+            onChangedYear: (String value) =>
+                viewModel.onChangedBirthYear(value: value),
+            onChangedMonth: (String value) =>
+                viewModel.onChangedBirthMonth(value: value),
+            onChangedDay: (String value) =>
+                viewModel.onChangedBirthDay(value: value),
             yearErrorText: viewModel.birthYearErrorText,
             monthErrorText: viewModel.birthMonthErrorText,
             dayErrorText: viewModel.birthDayErrorText,
@@ -266,16 +231,16 @@ class OnboardingBirthView extends ConsumerWidget {
         ],
       );
 
-  Column _buildGender(OnboardingState state, OnboardingViewModel viewModel) =>
+  Column _buildGender(
+    OnboardingState state,
+    OnboardingViewModel viewModel,
+  ) =>
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(left: 4.0, top: 38, bottom: 10),
-            child: Text(
-              '성별',
-              style: LuckitTypos.suitR16,
-            ),
+          const OnboardingDescriptionTextWidget(
+            text: '성별',
+            topPadding: 38.0,
           ),
           Row(
             children: <Widget>[
@@ -304,41 +269,59 @@ class OnboardingBirthView extends ConsumerWidget {
       );
 }
 
-class BirthTimeInputField extends StatelessWidget {
-  final bool enabled;
-  final String hintText;
-  final Function(String) onChanged;
+class AgreeRowWidget extends StatelessWidget {
+  final bool isChecked;
+  final VoidCallback onPressed;
 
-  const BirthTimeInputField({
-    required this.enabled,
-    required this.hintText,
-    required this.onChanged,
+  const AgreeRowWidget({
+    required this.isChecked,
+    required this.onPressed,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        child: TextField(
-          enabled: enabled,
-          onChanged: onChanged,
-          style: LuckitTypos.suitR20.copyWith(
-            height: 0.0,
-            color: LuckitColors.gray80,
-          ),
-          textAlign: TextAlign.center,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hintText,
-            fillColor: LuckitColors.white,
-            filled: true,
-            hintStyle: LuckitTypos.suitR20.copyWith(
-              height: 0.0,
-              color: LuckitColors.gray20,
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(left: 12.0, right: 24.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                CheckIconWidget(
+                  isChecked: isChecked,
+                  onPressed: onPressed,
+                  size: 24.0,
+                ),
+                Text(
+                  '(필수) 운세정보 수집/이용 동의',
+                  style: LuckitTypos.suitR14.copyWith(
+                    color: LuckitColors.gray60,
+                    height: 0.0,
+                  ),
+                ),
+              ],
             ),
-          ),
-          cursorColor: LuckitColors.gray80,
-          cursorWidth: 1.0,
+            Container(
+              //width: 44,
+              height: 20,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                border: Border.all(color: LuckitColors.gray10),
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 4.0,
+                vertical: 2.0,
+              ),
+              child: Text(
+                '약관보기',
+                style: LuckitTypos.suitR10.copyWith(
+                  color: LuckitColors.gray80,
+                  height: 0.0,
+                ),
+              ),
+            ),
+          ],
         ),
       );
 }

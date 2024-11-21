@@ -200,21 +200,6 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     }
   }
 
-  String? dayValidation({required String value}) {
-    if (value.isEmpty) {
-      return null;
-    }
-    try {
-      final int day = int.parse(value);
-      if (day < 1 || day > 31) {
-        return '일을 정확히 입력해주세요';
-      }
-      return null;
-    } on Exception {
-      return '숫자만 입력해주세요';
-    }
-  }
-
   String? hourValidation({required String value}) {
     if (value.isEmpty) {
       return null;
@@ -245,6 +230,127 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     }
   }
 
+  bool isValidDate(String year, String month, String day) {
+    if (year.isEmpty || month.isEmpty || day.isEmpty) {
+      return true;
+    }
+
+    try {
+      final int y = int.parse(year);
+      final int m = int.parse(month);
+      final int d = int.parse(day);
+
+      final DateTime date = DateTime(y, m, d);
+      return date.year == y && date.month == m && date.day == d;
+    } on Exception {
+      return false;
+    }
+  }
+
+  String? startDayValidation({
+    required String day,
+    required String month,
+    required String year,
+    bool isBirthday = false,
+  }) {
+    if (day.isEmpty || month.isEmpty || year.isEmpty) {
+      return null;
+    }
+
+    try {
+      int.parse(day);
+    } on Exception {
+      return '숫자만 입력해주세요';
+    }
+
+    final int intDay = int.parse(day);
+    if (intDay < 1 || intDay > 31) {
+      return '일을 정확히 입력해주세요';
+    }
+
+    if (!isValidDate(year, month, day)) {
+      return '유효하지 않은 날짜입니다';
+    }
+
+    if (!isBirthday && year.isNotEmpty && month.isNotEmpty) {
+      try {
+        final DateTime inputDate = DateTime(
+          int.parse(year),
+          int.parse(month),
+          int.parse(day),
+        );
+        final DateTime today = DateTime.now();
+        if (inputDate.isBefore(DateTime(today.year, today.month, today.day))) {
+          return '오늘보다 이전 날짜는 선택할 수 없습니다';
+        }
+      } on Exception {
+        //
+      }
+    }
+
+    return null;
+  }
+
+  String? endDayValidation({
+    required String endDay,
+    required String endMonth,
+    required String endYear,
+    required String startDay,
+    required String startMonth,
+    required String startYear,
+  }) {
+    if (endDay.isEmpty) {
+      return null;
+    }
+
+    try {
+      int.parse(endDay);
+    } on Exception {
+      return '숫자만 입력해주세요';
+    }
+
+    final int intDay = int.parse(endDay);
+    if (intDay < 1 || intDay > 31) {
+      return '일을 정확히 입력해주세요';
+    }
+
+    if (!isValidDate(endYear, endMonth, endDay)) {
+      return '유효하지 않은 날짜입니다';
+    }
+
+    if (startYear.isNotEmpty &&
+        startMonth.isNotEmpty &&
+        startDay.isNotEmpty &&
+        endYear.isNotEmpty &&
+        endMonth.isNotEmpty) {
+      try {
+        final DateTime startDate = DateTime(
+          int.parse(startYear),
+          int.parse(startMonth),
+          int.parse(startDay),
+        );
+        final DateTime endDate = DateTime(
+          int.parse(endYear),
+          int.parse(endMonth),
+          int.parse(endDay),
+        );
+
+        if (endDate.isBefore(startDate)) {
+          return '종료일이 시작일보다 빠를 수 없습니다';
+        }
+
+        final int difference = endDate.difference(startDate).inDays;
+        if (difference < 14) {
+          return '기간은 최소 14일 이상이어야 합니다';
+        }
+      } on Exception {
+        //
+      }
+    }
+
+    return null;
+  }
+
   bool get enableGoalInputField => state.selectedSuggestion == -1;
 
   bool get activateNextButtonInGoal =>
@@ -254,13 +360,24 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
 
   String? get startMonthErrorText => monthValidation(value: state.startMonth);
 
-  String? get startDayErrorText => dayValidation(value: state.startDay);
+  String? get startDayErrorText => startDayValidation(
+        day: state.startDay,
+        month: state.startMonth,
+        year: state.startYear,
+      );
 
   String? get endYearErrorText => endYearValidation(value: state.endYear);
 
   String? get endMonthErrorText => monthValidation(value: state.endMonth);
 
-  String? get endDayErrorText => dayValidation(value: state.endDay);
+  String? get endDayErrorText => endDayValidation(
+        endDay: state.endDay,
+        endMonth: state.endMonth,
+        endYear: state.endYear,
+        startDay: state.startDay,
+        startMonth: state.startMonth,
+        startYear: state.startYear,
+      );
 
   bool get activateNextButtonInDuration =>
       state.startYear.isNotEmpty &&
@@ -280,7 +397,12 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
 
   String? get birthMonthErrorText => monthValidation(value: state.birthMonth);
 
-  String? get birthDayErrorText => dayValidation(value: state.birthDay);
+  String? get birthDayErrorText => startDayValidation(
+        day: state.birthDay,
+        month: state.birthMonth,
+        year: state.birthYear,
+        isBirthday: true,
+      );
 
   String? get birthHourErrorText => hourValidation(value: state.birthHour);
 

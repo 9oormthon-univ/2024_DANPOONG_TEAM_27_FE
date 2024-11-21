@@ -42,6 +42,7 @@ class Assets {
   static const String puzzle = 'assets/icons/puzzle.svg';
   static const String sleep = 'assets/icons/sleep.svg';
   static const String sort = 'assets/icons/sort.svg';
+  static const String warning = 'assets/icons/warning.svg';
   static const String verticalDots = 'assets/icons/vertical_dots.svg';
   static const String cloud1 = 'assets/icons/cloud_1.svg';
   static const String cloud2 = 'assets/icons/cloud_2.svg';

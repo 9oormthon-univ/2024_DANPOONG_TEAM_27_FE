@@ -91,7 +91,7 @@ class OnboardingState extends Equatable {
         birthHour: '',
         birthMinute: '',
         dontKnow: false,
-        agree: true,
+        agree: false,
       );
 
   OnboardingState copyWith({
