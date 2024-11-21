@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame_lottie/flame_lottie.dart';
 
-import '../../theme/luckit_colors.dart';
-import '../common/consts/assets.dart';
 import 'character_data.dart';
 import 'walking_game.dart';
 
