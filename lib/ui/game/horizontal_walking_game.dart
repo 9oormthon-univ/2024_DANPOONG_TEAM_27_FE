@@ -11,7 +11,6 @@ class HorizontalWalkingGame extends WalkingGame {
   static const double CHARACTER_GAP = 200.0;
   static const double MOVEMENT_SPEED = 100.0;
 
-  // 애니메이션 캐시 저장용
   final Map<String, LottieComposition> _animationCache =
       <String, LottieComposition>{};
 
@@ -22,7 +21,6 @@ class HorizontalWalkingGame extends WalkingGame {
 
   @override
   Future<void> onLoad() async {
-    // 카메라, 배경 설정
     camera = CameraComponent(world: world);
     camera.viewport.size = boundarySize;
     camera.viewport.position = Vector2.zero();
@@ -33,26 +31,48 @@ class HorizontalWalkingGame extends WalkingGame {
       sprite: backgroundSprite,
       size: boundarySize,
     );
-    add(background); // world.add 대신 직접 add
+    add(background);
 
-    // 먼저 모든 애니메이션을 로드
-    for (final CharacterData character in characterTypes) {
+    final List<CharacterData> orderedCharacters = <CharacterData>[
+      characterTypes.firstWhere((CharacterData c) => c.name == '쥐'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '소'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '호랑이'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '토끼'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '용'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '뱀'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '말'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '양'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '원숭이'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '꼬꼬'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '개'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '돼지'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '쥐'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '소'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '호랑이'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '토끼'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '용'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '뱀'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '말'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '양'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '원숭이'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '꼬꼬'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '개'),
+      characterTypes.firstWhere((CharacterData c) => c.name == '돼지'),
+    ];
+
+    for (final CharacterData character in orderedCharacters) {
       _animationCache[character.walkAnimation] =
           await AssetLottie(character.walkAnimation).load();
     }
 
-    // 그 다음 캐릭터들 생성
-    const int characterCount = 10;
+    const int characterCount = 24;
     for (int i = 0; i < characterCount; i++) {
-      final CharacterData characterData =
-          characterTypes[i % characterTypes.length];
       final double startX = boundarySize.x + (i * CHARACTER_GAP / 2);
-      await spawnCharacter(characterData, startX);
+      await spawnCharacter(orderedCharacters[i], startX);
     }
   }
 
   Future<void> spawnCharacter(CharacterData character, [double? startX]) async {
-    // 미리 로드된 애니메이션 사용
     final HorizontalLottiePlayer player = HorizontalLottiePlayer(
       character,
       preloadedAnimation: _animationCache[character.walkAnimation]!,
@@ -104,9 +124,5 @@ class HorizontalLottiePlayer extends PositionComponent
   @override
   void update(double dt) {
     position.x -= HorizontalWalkingGame.MOVEMENT_SPEED * dt;
-
-    if (position.x < -size.x) {
-      position.x = gameRef.gameSize.x + HorizontalWalkingGame.CHARACTER_GAP;
-    }
   }
 }
