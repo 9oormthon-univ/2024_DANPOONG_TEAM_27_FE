@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   dio: ^5.7.0
+  dotted_line: ^3.2.3
   equatable: ^2.0.5
   fl_chart: ^0.68.0
   flame: ^1.21.0
