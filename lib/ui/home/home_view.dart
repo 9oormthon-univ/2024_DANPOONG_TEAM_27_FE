@@ -248,7 +248,6 @@ class _HomeViewState extends ConsumerState<HomeView>
                 ),
               ],
             ),
-            TextButton(onPressed: () => context.go(Routes.farm.path), child: Text('농장')),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),

@@ -8,7 +8,7 @@ class CharacterBoxWidget extends StatelessWidget {
   final String number;
   final String frame;
 
-  CharacterBoxWidget({
+  const CharacterBoxWidget({
     required this.number,
     required this.frame,
     super.key,

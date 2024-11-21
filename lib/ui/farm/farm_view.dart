@@ -1,7 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
@@ -98,15 +97,15 @@ class _FarmViewState extends ConsumerState<FarmView>
             left: 0,
             right: 0,
             child: Column(
-              children: [
-                if (!isLandscape) ...[
+              children: <Widget>[
+                if (!isLandscape) ...<Widget>[
                   Text(
                     'LUCKIT',
                     style: LuckitTypos.tenadaEB20
                         .copyWith(color: LuckitColors.background),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                 ],
@@ -223,7 +222,7 @@ class _FarmViewState extends ConsumerState<FarmView>
               offset: isLandscape 
                 ? Offset(0.0, _animalSelected ? 0.0 : -1.0)
                 : Offset(_animalSelected ? 0.0 : -1.0, 0.0),
-              child: AnimalGlass(),
+              child: const AnimalGlass(),
             ),
           ),
         ],

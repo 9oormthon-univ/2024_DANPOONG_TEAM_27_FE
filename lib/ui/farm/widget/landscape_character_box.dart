@@ -8,7 +8,7 @@ class LandscapeCharacterBox extends StatelessWidget {
   final String number;
   final String frame;
 
-  LandscapeCharacterBox({
+  const LandscapeCharacterBox({
     required this.number,
     required this.frame,
     super.key,
