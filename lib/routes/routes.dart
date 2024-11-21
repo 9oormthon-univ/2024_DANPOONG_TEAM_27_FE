@@ -57,4 +57,10 @@ class Routes {
     name: '/goal-complete',
     path: '/goal-complete',
   );
+
+  // 튜토리얼
+  static const RouteInfo tutorial = RouteInfo(
+    name: '/tutorial',
+    path: '/tutorial',
+  );
 }
