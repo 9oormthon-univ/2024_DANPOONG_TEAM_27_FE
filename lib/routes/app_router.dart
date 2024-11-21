@@ -11,6 +11,7 @@ import '../ui/onboarding/views/onboarding_birth_view.dart';
 import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
 import '../ui/profile/profile_view.dart';
+import '../ui/tutorial/start_view.dart';
 import '../ui/tutorial/tutorial_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
@@ -122,6 +123,14 @@ class AppRouter {
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: TutorialView(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.start.name,
+        path: Routes.start.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: StartView(),
         ),
       ),
 

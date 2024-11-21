@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame_lottie/flame_lottie.dart';
 
+import '../../theme/luckit_colors.dart';
 import '../common/consts/assets.dart';
 import 'character_data.dart';
 import 'walking_game.dart';
@@ -14,10 +16,11 @@ class HorizontalWalkingGame extends WalkingGame {
   final Map<String, LottieComposition> _animationCache =
       <String, LottieComposition>{};
 
-  HorizontalWalkingGame(
-      {required super.boundarySize,
-      required super.characterTypes,
-      required super.gameBackground});
+  HorizontalWalkingGame({
+    required super.boundarySize,
+    required super.characterTypes,
+    required super.gameBackground,
+  });
 
   @override
   Future<void> onLoad() async {
@@ -26,7 +29,7 @@ class HorizontalWalkingGame extends WalkingGame {
     camera.viewport.position = Vector2.zero();
     camera.viewfinder.anchor = Anchor.topLeft;
 
-    final Sprite backgroundSprite = await Sprite.load(Assets.gameBackground);
+    final Sprite backgroundSprite = await Sprite.load(gameBackground);
     background = SpriteComponent(
       sprite: backgroundSprite,
       size: boundarySize,

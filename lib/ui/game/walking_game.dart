@@ -13,11 +13,11 @@ class WalkingGame extends FlameGame {
   final String gameBackground;
   late SpriteComponent background;
 
-  WalkingGame(
-      {required this.boundarySize,
-        required this.characterTypes,
-        required this.gameBackground})
-      : super(world: World());
+  WalkingGame({
+    required this.boundarySize,
+    required this.characterTypes,
+    required this.gameBackground,
+  }) : super(world: World());
 
   @override
   Future<void> onLoad() async {
@@ -93,17 +93,19 @@ class WalkingGame extends FlameGame {
   }
 
   void removeLastCharacter() {
-    final List<LottiePlayer> players = world.children.whereType<LottiePlayer>().toList();
+    final List<LottiePlayer> players =
+        world.children.whereType<LottiePlayer>().toList();
     if (players.isNotEmpty) {
       world.remove(players.last);
     }
   }
 
   void removeCharacterByName(String name) {
-    final List<LottiePlayer> players = world.children.whereType<LottiePlayer>().toList();
+    final List<LottiePlayer> players =
+        world.children.whereType<LottiePlayer>().toList();
     try {
       final LottiePlayer playerToRemove = players.firstWhere(
-            (LottiePlayer player) => player.data.name == name,
+        (LottiePlayer player) => player.data.name == name,
       );
       world.remove(playerToRemove);
     } catch (e) {
@@ -114,7 +116,8 @@ class WalkingGame extends FlameGame {
 
   // 또는 인덱스로 삭제하는 메서드
   void removeCharacterAt(int index) {
-    final List<LottiePlayer> players = world.children.whereType<LottiePlayer>().toList();
+    final List<LottiePlayer> players =
+        world.children.whereType<LottiePlayer>().toList();
     if (index >= 0 && index < players.length) {
       world.remove(players[index]);
     }

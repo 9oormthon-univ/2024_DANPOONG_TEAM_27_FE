@@ -63,4 +63,9 @@ class Routes {
     name: '/tutorial',
     path: '/tutorial',
   );
+
+  static const RouteInfo start = RouteInfo(
+    name: '/start',
+    path: '/start',
+  );
 }

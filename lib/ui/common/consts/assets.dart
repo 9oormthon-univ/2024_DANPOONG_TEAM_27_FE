@@ -88,6 +88,7 @@ class Assets {
   static const String farmBackground = 'farm_background.png';
   static const String farmBackgroundLandscape = 'farm_background_landscape.png';
   static const String kingBackground = 'assets/images/king_background.png';
+  static const String whiteBackground = 'white_background.png';
 
   //애니메이션
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';

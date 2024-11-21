@@ -65,6 +65,9 @@ class _TutorialViewState extends ConsumerState<TutorialView>
         ref.read(tutorialViewModelProvider.notifier);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.goNamed('/start'),
+      ),
       backgroundColor: LuckitColors.background,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
