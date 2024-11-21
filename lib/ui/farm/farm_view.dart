@@ -15,6 +15,7 @@ import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../game/character_data.dart';
 import '../game/walking_game.dart';
 import 'farm_character_provider.dart';
+import 'widget/animal_glass.dart';
 import 'widget/goal_glass.dart';
 
 class FarmView extends ConsumerStatefulWidget {
@@ -155,7 +156,9 @@ class _FarmViewState extends ConsumerState<FarmView>
                         unselectedAsset: Assets.animalFilled,
                         isSelected: _animalSelected,
                         onTap: () {
-                          // context.goNamed(Routes.fortune.name);
+                          setState(() {
+                            _animalSelected = !_animalSelected;
+                          });
                         },
                       ),
                       BottomNavigationBarItemWidget(
@@ -207,6 +210,17 @@ class _FarmViewState extends ConsumerState<FarmView>
                   ),
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            child: AnimatedSlide(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              offset: Offset(_animalSelected ? 0.0 : -1.0, 0.0),
+              child: AnimalGlass(),
             ),
           ),
         ],

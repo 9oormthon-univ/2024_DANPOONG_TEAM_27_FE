@@ -8,7 +8,7 @@ class CharacterBoxWidget extends StatelessWidget {
   final String number;
   final String frame;
 
-  const CharacterBoxWidget({
+  CharacterBoxWidget({
     required this.number,
     required this.frame,
     super.key,
@@ -18,7 +18,7 @@ class CharacterBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) => DecoratedBox(
     decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        border: Border.all(color: LuckitColors.gray10)),
+        border: Border.all(color: LuckitColors.gray10,)),
     child: Stack(
       children: <Widget>[
         Positioned(
