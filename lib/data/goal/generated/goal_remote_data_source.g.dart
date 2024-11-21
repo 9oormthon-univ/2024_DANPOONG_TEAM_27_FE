@@ -22,7 +22,7 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<GoalEntity>> getGoal() async {
+  Future<List<GoalEntity>> getGoalList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
