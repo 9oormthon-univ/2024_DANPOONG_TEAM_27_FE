@@ -1,4 +1,6 @@
+import 'package:booklog/ui/tutorial/tutorial_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -6,16 +8,17 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../theme/luckit_colors.dart';
 import '../common/consts/assets.dart';
 import '../onboarding/widgets/onboarding_bottom_button.dart';
+import 'tutorial_state.dart';
 import 'widgets/tutorial_pages.dart';
 
-class TutorialView extends StatefulWidget {
+class TutorialView extends ConsumerStatefulWidget {
   const TutorialView({super.key});
 
   @override
-  State<TutorialView> createState() => _TutorialViewState();
+  ConsumerState<TutorialView> createState() => _TutorialViewState();
 }
 
-class _TutorialViewState extends State<TutorialView> {
+class _TutorialViewState extends ConsumerState<TutorialView> {
   late PageController _controller;
 
   @override
@@ -31,62 +34,71 @@ class _TutorialViewState extends State<TutorialView> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: LuckitColors.background,
-        appBar: AppBar(
-          scrolledUnderElevation: 0.0,
-          backgroundColor: LuckitColors.transparent,
-          leading: IconButton(
-            onPressed: () => context.pop(),
-            icon: SvgPicture.asset(Assets.arrowLeft),
-          ),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () => context.goNamed('/home'),
-              icon: SvgPicture.asset(
-                Assets.closeMD,
-                colorFilter: const ColorFilter.mode(
-                  LuckitColors.gray80,
-                  BlendMode.srcIn,
-                ),
+  Widget build(BuildContext context) {
+    final TutorialState state = ref.watch(tutorialViewModelProvider);
+    final TutorialViewModel viewModel =
+        ref.read(tutorialViewModelProvider.notifier);
+
+    return Scaffold(
+      backgroundColor: LuckitColors.background,
+      appBar: AppBar(
+        scrolledUnderElevation: 0.0,
+        backgroundColor: LuckitColors.transparent,
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: SvgPicture.asset(Assets.arrowLeft),
+        ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => context.goNamed('/home'),
+            icon: SvgPicture.asset(
+              Assets.closeMD,
+              colorFilter: const ColorFilter.mode(
+                LuckitColors.gray80,
+                BlendMode.srcIn,
               ),
             ),
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 50.0),
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 560,
-                  child: PageView.builder(
-                    controller: _controller,
-                    itemCount: pages.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        pages[index],
-                  ),
-                ),
-                SmoothPageIndicator(
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 50.0),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 560,
+                child: PageView.builder(
                   controller: _controller,
-                  count: pages.length,
-                  effect: const ExpandingDotsEffect(
-                    dotColor: LuckitColors.gray20,
-                    activeDotColor: LuckitColors.main,
-                    dotHeight: 8,
-                    dotWidth: 8,
-                    expansionFactor: 2,
-                    spacing: 4,
-                  ),
+                  onPageChanged: (int index) =>
+                      viewModel.activateButton(index: index),
+                  itemCount: pages.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      pages[index],
                 ),
-                const Expanded(child: SizedBox()),
-                OnboardingBottomButton(
-                  onPressed: () {},
-                  activated: true,
+              ),
+              SmoothPageIndicator(
+                controller: _controller,
+                count: pages.length,
+                effect: const ExpandingDotsEffect(
+                  dotColor: LuckitColors.gray20,
+                  activeDotColor: LuckitColors.main,
+                  dotHeight: 8,
+                  dotWidth: 8,
+                  expansionFactor: 2,
+                  spacing: 4,
                 ),
-              ],
-            ),
+              ),
+              const Expanded(child: SizedBox()),
+              OnboardingBottomButton(
+                onPressed: () => context.goNamed('/home'),
+                activated: state.activated,
+                label: '시작하기',
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
 }
