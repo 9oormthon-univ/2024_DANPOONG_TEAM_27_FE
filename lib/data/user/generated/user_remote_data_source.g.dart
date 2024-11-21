@@ -1,15 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../book_remote_data_source.dart';
+part of '../user_remote_data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _BookRemoteDataSource implements BookRemoteDataSource {
-  _BookRemoteDataSource(
+class _UserRemoteDataSource implements UserRemoteDataSource {
+  _UserRemoteDataSource(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -22,52 +22,19 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<RandomBookListEntity> getBookList({required int size}) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'size': size};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<RandomBookListEntity>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/books',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late RandomBookListEntity _value;
-    try {
-      _value = RandomBookListEntity.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<BookTitleEntity> getBookByIsbn({required String isbn}) async {
+  Future<BirthInfoEntity> getUserBirthInfo() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BookTitleEntity>(Options(
+    final _options = _setStreamType<BirthInfoEntity>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/books/${isbn}',
+          '/user/fortune',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -77,9 +44,9 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BookTitleEntity _value;
+    late BirthInfoEntity _value;
     try {
-      _value = BookTitleEntity.fromJson(_result.data!);
+      _value = BirthInfoEntity.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -88,19 +55,19 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
   }
 
   @override
-  Future<UserBookActivityEntity> getMyBookActivity() async {
+  Future<LoginInfoEntity> getUserLoginInfo() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<UserBookActivityEntity>(Options(
+    final _options = _setStreamType<LoginInfoEntity>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/books/me',
+          '/user',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -110,9 +77,9 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late UserBookActivityEntity _value;
+    late LoginInfoEntity _value;
     try {
-      _value = UserBookActivityEntity.fromJson(_result.data!);
+      _value = LoginInfoEntity.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -121,28 +88,20 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
   }
 
   @override
-  Future<BookSearchResultEntity> searchBook({
-    int? page,
-    int? size,
-    required String keyword,
-  }) async {
+  Future<void> registerUserBirthInfo(
+      {required RegisterBirthInfoRequestBody body}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'page': page,
-      r'size': size,
-      r'keyword': keyword,
-    };
-    queryParameters.removeWhere((k, v) => v == null);
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BookSearchResultEntity>(Options(
-      method: 'GET',
+    final _data = body;
+    final _options = _setStreamType<void>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/books/search',
+          '/user/fortune',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -151,15 +110,7 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BookSearchResultEntity _value;
-    try {
-      _value = BookSearchResultEntity.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
+    await _dio.fetch<void>(_options);
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
