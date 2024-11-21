@@ -32,11 +32,11 @@ class AuthRepository extends Repository {
       return switch (statusCode) {
         400 => FailureRepositoryResult<AuthTokenEntity>(
             error: e,
-            messages: <String>['아이디가 중복됩니다.'],
+            messages: <String>['잘못된 요청'],
           ),
         _ => FailureRepositoryResult<AuthTokenEntity>(
             error: e,
-            messages: <String>['아이디 중복 검사 요청 실패'],
+            messages: <String>['관리자 문의'],
           ),
       };
     }
