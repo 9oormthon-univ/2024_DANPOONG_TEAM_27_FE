@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
@@ -8,7 +9,16 @@ import '../../../theme/luckit_typos.dart';
 class GoalGlass extends StatelessWidget {
   const GoalGlass({
     super.key,
+    required this.userName,
+    required this.startDate,
+    required this.endDate,
+    required this.goalTitle,
   });
+
+  final String userName;
+  final DateTime startDate;
+  final DateTime endDate;
+  final String goalTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +31,6 @@ class GoalGlass extends StatelessWidget {
               BoxShadow(
                 blurRadius: 15,
                 color: const Color(0xFF2F56A5).withOpacity(0.15),
-
               )
             ],
             borderRadius: BorderRadius.circular(8),
@@ -32,28 +41,35 @@ class GoalGlass extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 12, 24 ,14),
+            padding: const EdgeInsets.fromLTRB(24, 12, 24, 14),
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      '수정님의 목표',
-                      style:
-                          LuckitTypos.suitR14.copyWith(color: LuckitColors.white),
+                      '$userName님의 목표',
+                      style: LuckitTypos.suitR14
+                          .copyWith(color: LuckitColors.white),
+                    ),
+                    SizedBox(
+                      width: 54,
                     ),
                     Text(
-                      '2024.11.15 ~ 2024.12.15',
-                      style:
-                          LuckitTypos.suitR14.copyWith(color: LuckitColors.white),
+                      '${DateFormat('yyyy.MM.dd').format(startDate)} ~ ${DateFormat('yyyy.MM.dd').format(endDate)}',
+                      style: LuckitTypos.suitR14
+                          .copyWith(color: LuckitColors.white),
                     ),
                   ],
                 ),
-                SizedBox(height: 12,),
+                SizedBox(
+                  height: 12,
+                ),
                 Text(
-                  '자연스럽게 숨쉬기의 농장',
-                  style: LuckitTypos.suitSB20.copyWith(color: LuckitColors.white),
+                  goalTitle,
+                  style:
+                      LuckitTypos.suitSB20.copyWith(color: LuckitColors.white),
                   textAlign: TextAlign.center,
                 ),
               ],

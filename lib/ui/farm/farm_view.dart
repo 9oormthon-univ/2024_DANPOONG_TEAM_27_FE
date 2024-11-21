@@ -93,23 +93,32 @@ class _FarmViewState extends ConsumerState<FarmView>
         children: <Widget>[
           GameWidget(game: game!),
           Positioned(
-            top: 54,
-            left: 25,
-            right: 25,
+            top: !isLandscape ? 54 : 40,
+            left: 0,
+            right: 0,
             child: Column(
               children: [
-                Text(
-                  'LUCKIT',
-                  style: LuckitTypos.tenadaEB20
-                      .copyWith(color: LuckitColors.background),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Visibility(
-                  visible: !_clockSelected,
-                  child: GoalGlass(),
+                if (!isLandscape) ...[
+                  Text(
+                    'LUCKIT',
+                    style: LuckitTypos.tenadaEB20
+                        .copyWith(color: LuckitColors.background),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                ],
+                AnimatedOpacity(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  opacity: _clockSelected ? 0.0 : 1.0,
+                  child: GoalGlass(
+                    userName: '수정',
+                    startDate: DateTime(2024, 11, 15),
+                    endDate: DateTime(2024, 12, 15),
+                    goalTitle: '자연스럽게 숨쉬기 농장',
+                  ),
                 ),
               ],
             ),
@@ -118,70 +127,88 @@ class _FarmViewState extends ConsumerState<FarmView>
             left: 0,
             right: 0,
             bottom: 27,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 55),
-              padding: const EdgeInsets.symmetric(horizontal: 48),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(100),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
+            child: Center(
+              child: Container(
+                width: isLandscape
+                    ? MediaQuery.of(context).size.height - 110
+                    : MediaQuery.of(context).size.width - 110,
+                padding: const EdgeInsets.symmetric(horizontal: 48),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(100),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: IntrinsicWidth(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      BottomNavigationBarItemWidget(
+                        label: '동물',
+                        selectedAsset: Assets.animalColored,
+                        unselectedAsset: Assets.animalFilled,
+                        isSelected: _animalSelected,
+                        onTap: () {
+                          // context.goNamed(Routes.fortune.name);
+                        },
+                      ),
+                      BottomNavigationBarItemWidget(
+                        label: '홈',
+                        selectedAsset: Assets.homeColored,
+                        unselectedAsset: Assets.homeOutlined,
+                        isSelected: true,
+                        onTap: () {
+                          context.goNamed(Routes.home.name);
+                        },
+                      ),
+                      BottomNavigationBarItemWidget(
+                        label: '시계',
+                        selectedAsset: Assets.clockColored,
+                        unselectedAsset: Assets.clockFilled,
+                        isSelected: _clockSelected,
+                        onTap: () {
+                          setState(() {
+                            _clockSelected = !_clockSelected;
+                          });
+                          // context.goNamed(Routes.profile.name);
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Row(
-                children: <Widget>[
-                  BottomNavigationBarItemWidget(
-                    label: '동물',
-                    selectedAsset: Assets.animalColored,
-                    unselectedAsset: Assets.animalFilled,
-                    isSelected: _animalSelected,
-                    onTap: () {
-                      // context.goNamed(Routes.fortune.name);
-                    },
-                  ),
-                  BottomNavigationBarItemWidget(
-                    label: '홈',
-                    selectedAsset: Assets.homeColored,
-                    unselectedAsset: Assets.homeOutlined,
-                    isSelected: true,
-                    onTap: () {
-                      context.goNamed(Routes.home.name);
-                    },
-                  ),
-                  BottomNavigationBarItemWidget(
-                    label: '시계',
-                    selectedAsset: Assets.clockColored,
-                    unselectedAsset: Assets.clockFilled,
-                    isSelected: _clockSelected,
-                    onTap: () {
-                      // context.goNamed(Routes.profile.name);
-                    },
-                  ),
-                ],
+                ),
               ),
             ),
           ),
-          // Positioned(
-          //   left: 0,
-          //   right: 0,
-          //   top: isLandscape ? 0 : MediaQuery.of(context).size.height * 0.15,
-          //   bottom: isLandscape ? 0 : null,
-          //   child: TimerBuilder.periodic(
-          //     const Duration(seconds: 1),
-          //     builder: (BuildContext context) => Center(
-          //       child: Text(
-          //         DateFormat('HH:mm').format(DateTime.now()),
-          //         style: LuckitTypos.tenadaEB20
-          //             .copyWith(color: LuckitColors.background, fontSize: 100),
-          //         textAlign: TextAlign.center,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          Positioned(
+            left: 0,
+            right: 0,
+            top: isLandscape
+                ? MediaQuery.of(context).size.height * 0.07
+                : MediaQuery.of(context).size.height * 0.15,
+            // bottom: isLandscape ? 0 : null,
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              opacity: _clockSelected ? 1.0 : 0.0,
+              child: TimerBuilder.periodic(
+                const Duration(seconds: 1),
+                builder: (BuildContext context) => Center(
+                  child: Text(
+                    DateFormat('HH:mm').format(DateTime.now()),
+                    style: LuckitTypos.tenadaEB20.copyWith(
+                        color: LuckitColors.background, fontSize: 100),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
