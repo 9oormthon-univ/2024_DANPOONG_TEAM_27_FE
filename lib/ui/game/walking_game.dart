@@ -55,21 +55,36 @@ class WalkingGame extends FlameGame {
     }
   }
 
+  Vector2 get gameSize => camera.viewport.size;
+
   Future<void> updateBackground(
       String newGameBackground, bool isLandscape) async {
     final Sprite newSprite = await Sprite.load(newGameBackground);
     background.sprite = newSprite;
 
-    // Swap width and height for landscape mode
-    if (isLandscape) {
-      camera.viewport.size = Vector2(boundarySize.y, boundarySize.x);
-      background.size = Vector2(boundarySize.y, boundarySize.x);
-    } else {
-      camera.viewport.size = boundarySize;
-      background.size = boundarySize;
-    }
+    // 뷰포트와 배경 크기 업데이트
+    final Vector2 newSize = isLandscape 
+        ? Vector2(boundarySize.y, boundarySize.x)
+        : boundarySize;
+    
+    camera.viewport.size = newSize;
+    background.size = newSize;
     camera.viewport.position = Vector2.zero();
-  }
 
-  Vector2 get gameSize => boundarySize;
+    // 모든 캐릭터의 위치를 새로운 경계 내로 조정
+    for (final Component child in world.children) {
+      if (child is LottiePlayer) {
+        child.position
+          ..x = child.position.x.clamp(
+            child.size.x,
+            newSize.x - child.size.x,
+          )
+          ..y = child.position.y.clamp(
+            child.size.y,
+            newSize.y - child.size.y,
+          );
+        child.setNewTargetPosition(); // 새로운 목표 위치 설정
+      }
+    }
+  }
 }
