@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame_lottie/flame_lottie.dart';
 
+import '../common/consts/assets.dart';
 import 'character_data.dart';
 import 'walking_game.dart';
 
@@ -27,13 +28,12 @@ class HorizontalWalkingGame extends WalkingGame {
     camera.viewport.position = Vector2.zero();
     camera.viewfinder.anchor = Anchor.topLeft;
 
-    final Sprite backgroundSprite = await Sprite.load(gameBackground);
+    final Sprite backgroundSprite = await Sprite.load(Assets.gameBackground);
     background = SpriteComponent(
       sprite: backgroundSprite,
       size: boundarySize,
-      position: Vector2.zero(),
     );
-    add(background);
+    add(background); // world.add 대신 직접 add
 
     // 먼저 모든 애니메이션을 로드
     for (final CharacterData character in characterTypes) {

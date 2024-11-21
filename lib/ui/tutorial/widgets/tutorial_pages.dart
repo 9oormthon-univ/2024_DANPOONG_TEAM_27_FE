@@ -84,10 +84,7 @@ class TutorialFourthPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.width / 375 * 300,
               width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: GameWidget<HorizontalWalkingGame>(game: game!),
-              ),
+              child: GameWidget<HorizontalWalkingGame>(game: game!),
             )
           else Image.asset(Assets.gameBackgroundAsset),
           const Expanded(child: SizedBox()),
