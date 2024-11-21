@@ -42,18 +42,52 @@ class Assets {
   static const String puzzle = 'assets/icons/puzzle.svg';
   static const String sleep = 'assets/icons/sleep.svg';
   static const String sort = 'assets/icons/sort.svg';
-  static const String verticlaDots = 'assets/icons/verticlaDots.svg';
   static const String warning = 'assets/icons/warning.svg';
+  static const String verticalDots = 'assets/icons/vertical_dots.svg';
+  static const String cloud1 = 'assets/icons/cloud_1.svg';
+  static const String cloud2 = 'assets/icons/cloud_2.svg';
+  static const String cloud3 = 'assets/icons/cloud_3.svg';
+  static const String cloud4 = 'assets/icons/cloud_4.svg';
+  static const String roundedArrowUp = 'assets/icons/rounded_arrow_up.svg';
+  static const String roundedArrowDown = 'assets/icons/rounded_arrow_down.svg';
+
+  //프레임
+  static const String chickenFrame = 'assets/frame/chicken_frame.svg';
+  static const String cowFrame = 'assets/frame/cow_frame.svg';
+  static const String dogFrame = 'assets/frame/dog_frame.svg';
+  static const String dragonFrame = 'assets/frame/dragon_frame.svg';
+  static const String horseFrame = 'assets/frame/horse_frame.svg';
+  static const String monkeyFrame = 'assets/frame/monkey_frame.svg';
+  static const String mouseFrame = 'assets/frame/mouse_frame.svg';
+  static const String pigFrame = 'assets/frame/pig_frame.svg';
+  static const String rabbitFrame = 'assets/frame/rabbit_frame.svg';
+  static const String sheepFrame = 'assets/frame/sheep_frame.svg';
+  static const String snakeFrame = 'assets/frame/snake_frame.svg';
+  static const String tigerFrame = 'assets/frame/tiger_frame.svg';
+  static const String transparentChickenFrame = 'assets/frame/transparent_chicken_frame.svg';
+  static const String transparentCowFrame = 'assets/frame/transparent_cow_frame.svg';
+  static const String transparentDogFrame = 'assets/frame/transparent_dog_frame.svg';
+  static const String transparentDragonFrame = 'assets/frame/transparent_dragon_frame.svg';
+  static const String transparentHorseFrame = 'assets/frame/transparent_horse_frame.svg';
+  static const String transparentMonkeyFrame = 'assets/frame/transparent_monkey_frame.svg';
+  static const String transparentMouseFrame = 'assets/frame/transparent_mouse_frame.svg';
+  static const String transparentPigFrame = 'assets/frame/transparent_pig_frame.svg';
+  static const String transparentRabbitFrame = 'assets/frame/transparent_rabbit_frame.svg';
+  static const String transparentSheepFrame = 'assets/frame/transparent_sheep_frame.svg';
+  static const String transparentSnakeFrame = 'assets/frame/transparent_snake_frame.svg';
+  static const String transparentTigerFrame = 'assets/frame/transparent_tiger_frame.svg';
 
   //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
   static const String loginBackground = 'assets/images/login_background.png';
   static const String loginLogo = 'assets/images/login_logo.svg';
 
+  static const String gameBackgroundAsset = 'assets/images/game_background.png';
   //게임 배경
   static const String gameBackground = 'game_background.png';
   static const String farmBackground = 'farm_background.png';
   static const String farmBackgroundLandscape = 'farm_background_landscape.png';
+  static const String kingBackground = 'assets/images/king_background.png';
 
   //애니메이션
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';
@@ -68,7 +102,8 @@ class Assets {
   static const String sheepStop = 'assets/animation/stop/sheep_stop.json';
   static const String snakeStop = 'assets/animation/stop/snake_stop.json';
   static const String tigerStop = 'assets/animation/stop/tiger_stop.json';
-
+  static const String kingMouseStop =
+      'assets/animation/stop/king_mouse_stop.json';
 
   static const String chickenMove = 'assets/animation/move/chicken_move.json';
   static const String cowMove = 'assets/animation/move/cow_move.json';
@@ -83,4 +118,6 @@ class Assets {
   static const String snakeMove = 'assets/animation/move/snake_move.json';
   static const String tigerMove = 'assets/animation/move/tiger_move.json';
 
+  static const String kingMouseAppear =
+      'assets/animation/appear/king_mouse_appear.json';
 }

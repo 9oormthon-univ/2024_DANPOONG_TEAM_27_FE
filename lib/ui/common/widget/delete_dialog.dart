@@ -12,18 +12,17 @@ class DeleteDialog extends StatelessWidget {
   final VoidCallback? onConfirm;
 
   const DeleteDialog({
-    Key? key,
     required this.title,
     required this.content,
+    super.key,
     this.cancelText = '취소',
     this.confirmText = '삭제하기',
     this.onCancel,
     this.onConfirm,
-  }) : super(key: key);
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return Dialog(
+  Widget build(BuildContext context) => Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
@@ -33,11 +32,11 @@ class DeleteDialog extends StatelessWidget {
         padding: const EdgeInsets.only(top: 44),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 48),
+              padding: const EdgeInsets.symmetric(horizontal: 48),
               child: Column(
-                children: [
+                children: <Widget>[
                   Text(
                     title,
                     style: LuckitTypos.suitSB16,
@@ -46,7 +45,7 @@ class DeleteDialog extends StatelessWidget {
                   Text(
                     content,
                     style: LuckitTypos.suitR16
-                      .copyWith(color: LuckitColors.gray80),
+                        .copyWith(color: LuckitColors.gray80),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -55,14 +54,14 @@ class DeleteDialog extends StatelessWidget {
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: TextButton(
                     onPressed: onCancel ?? () => Navigator.pop(context),
                     child: Text(
                       cancelText,
                       style: LuckitTypos.suitR16
-                        .copyWith(color: LuckitColors.gray80),
+                          .copyWith(color: LuckitColors.gray80),
                     ),
                   ),
                 ),
@@ -77,7 +76,7 @@ class DeleteDialog extends StatelessWidget {
                     child: Text(
                       confirmText,
                       style: LuckitTypos.suitR16
-                        .copyWith(color: LuckitColors.error),
+                          .copyWith(color: LuckitColors.error),
                     ),
                   ),
                 ),
@@ -87,5 +86,4 @@ class DeleteDialog extends StatelessWidget {
         ),
       ),
     );
-  }
 }

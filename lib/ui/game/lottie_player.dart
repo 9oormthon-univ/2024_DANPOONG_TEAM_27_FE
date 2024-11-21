@@ -2,19 +2,13 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:booklog/ui/game/walking_game.dart';
 import 'package:flame/components.dart';
 import 'package:flame_lottie/flame_lottie.dart';
-import 'package:flutter/material.dart';
 
-import '../../theme/luckit_colors.dart';
-import '../../theme/luckit_typos.dart';
 import 'character_data.dart';
+import 'walking_game.dart';
 
-enum CharacterState {
-  idle,
-  moving
-}
+enum CharacterState { idle, moving }
 
 // Lottie 플레이어 컴포넌트
 class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
@@ -29,9 +23,7 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
   static const double CHARACTER_SIZE = 50.0;
   static const double CHARACTER_SPEED = 80.0;
 
-
   late PositionComponent characterContainer;
-  late TextComponent levelText;
 
   double stateTimer = 0;
   double currentStateDuration = 0;
@@ -46,7 +38,7 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
   LottiePlayer(this.data) : super(size: Vector2.all(CHARACTER_SIZE));
 
   static Future<LottiePlayer> create(CharacterData data) async {
-    final player = LottiePlayer(data);
+    final LottiePlayer player = LottiePlayer(data);
     return player;
   }
 
@@ -59,8 +51,10 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
       );
       add(characterContainer);
 
-      final idleComposition = await AssetLottie(data.idleAnimation).load();
-      final walkComposition = await AssetLottie(data.walkAnimation).load();
+      final LottieComposition idleComposition =
+      await AssetLottie(data.idleAnimation).load();
+      final LottieComposition walkComposition =
+      await AssetLottie(data.walkAnimation).load();
 
       idleAnimation = LottieComponent(
         idleComposition,
@@ -76,16 +70,6 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
 
       currentAnimation = idleAnimation;
       characterContainer.add(currentAnimation!);
-
-      levelText = TextComponent(
-        text: data.name,
-        textRenderer: TextPaint(
-          style: LuckitTypos.suitR12.copyWith(color: LuckitColors.white)
-        ),
-        position: Vector2(size.x / 2, -10),
-        anchor: Anchor.center,
-      );
-      characterContainer.add(levelText);
 
       setNewTargetPosition();
       isReady.complete();
@@ -109,8 +93,6 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
 
     if (currentAnimation != null) {
       characterContainer.add(currentAnimation!);
-      characterContainer.remove(levelText);
-      characterContainer.add(levelText);
     }
   }
 
@@ -135,16 +117,15 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
     }
   }
 
-  double getRandomDuration() {
-    return switch (state) {
-      CharacterState.idle => 1.0 + random.nextDouble() * 2.0,
-      CharacterState.moving => 2.0 + random.nextDouble() * 3.0,
-    };
-  }
+  double getRandomDuration() => switch (state) {
+    CharacterState.idle => 1.0 + random.nextDouble() * 2.0,
+    CharacterState.moving => 2.0 + random.nextDouble() * 3.0,
+  };
 
   void setNewTargetPosition() {
-    final margin = size.x;
-    double newX, newY;
+    final double margin = size.x;
+    double newX;
+    double newY;
     do {
       newX = margin + random.nextDouble() * (gameRef.gameSize.x - margin * 2);
       newY = margin + random.nextDouble() * (gameRef.gameSize.y - margin * 2);
@@ -159,11 +140,9 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
     if (direction.x > 0 && !facingRight) {
       facingRight = true;
       characterContainer.scale.x = -1;
-      levelText.scale.x = -1;
     } else if (direction.x < 0 && facingRight) {
       facingRight = false;
       characterContainer.scale.x = 1;
-      levelText.scale.x = 1;
     }
   }
 
@@ -198,14 +177,15 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
       updateDirection(direction);
       position += direction * CHARACTER_SPEED * dt;
 
-      position.x = position.x.clamp(
-        size.x,
-        gameRef.gameSize.x - size.x,
-      );
-      position.y = position.y.clamp(
-        size.y,
-        gameRef.gameSize.y - size.y,
-      );
+      position
+        ..x = position.x.clamp(
+          size.x,
+          gameRef.gameSize.x - size.x,
+        )
+        ..y = position.y.clamp(
+          size.y,
+          gameRef.gameSize.y - size.y,
+        );
     }
   }
 }

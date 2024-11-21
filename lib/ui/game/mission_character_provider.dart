@@ -4,7 +4,8 @@ import '../common/consts/assets.dart';
 import 'character_data.dart';
 
 class MissionCharactersNotifier extends StateNotifier<List<CharacterData>> {
-  MissionCharactersNotifier() : super([
+  MissionCharactersNotifier()
+      : super(<CharacterData>[
     CharacterData(
       idleAnimation: Assets.chickenStop,
       walkAnimation: Assets.chickenMove,
@@ -68,15 +69,19 @@ class MissionCharactersNotifier extends StateNotifier<List<CharacterData>> {
   ]);
 
   void addCharacter(CharacterData character) {
-    state = [...state, character];
+    state = <CharacterData>[...state, character];
   }
 
   void removeCharacter(int index) {
-    state = [...state]..removeAt(index);
+    state = <CharacterData>[...state]..removeAt(index);
   }
 }
 
 // Provider 정의
-final missionCharactersProvider = StateNotifierProvider<MissionCharactersNotifier, List<CharacterData>>((ref) {
-  return MissionCharactersNotifier();
-});
+final StateNotifierProvider<MissionCharactersNotifier, List<CharacterData>>
+missionCharactersProvider =
+StateNotifierProvider<MissionCharactersNotifier, List<CharacterData>>(
+        (StateNotifierProviderRef<MissionCharactersNotifier,
+        List<CharacterData>>
+    ref) =>
+        MissionCharactersNotifier());
