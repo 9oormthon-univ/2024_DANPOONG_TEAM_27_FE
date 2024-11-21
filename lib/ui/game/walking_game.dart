@@ -15,8 +15,8 @@ class WalkingGame extends FlameGame {
 
   WalkingGame(
       {required this.boundarySize,
-      required this.characterTypes,
-      required this.gameBackground})
+        required this.characterTypes,
+        required this.gameBackground})
       : super(world: World());
 
   @override
@@ -72,4 +72,51 @@ class WalkingGame extends FlameGame {
   }
 
   Vector2 get gameSize => boundarySize;
+
+  Future<void> addCharacter(CharacterData character) async {
+    const double margin = 60.0;
+    final Vector2 safeArea = Vector2(
+      boundarySize.x - margin * 2,
+      boundarySize.y - margin * 2,
+    );
+
+    final LottiePlayer player = await LottiePlayer.create(character);
+    world.add(player);
+
+    player.position = Vector2(
+      margin + random.nextDouble() * safeArea.x,
+      margin + random.nextDouble() * safeArea.y,
+    );
+
+    await player.isReady.future;
+    player.startMoving();
+  }
+
+  void removeLastCharacter() {
+    final List<LottiePlayer> players = world.children.whereType<LottiePlayer>().toList();
+    if (players.isNotEmpty) {
+      world.remove(players.last);
+    }
+  }
+
+  void removeCharacterByName(String name) {
+    final List<LottiePlayer> players = world.children.whereType<LottiePlayer>().toList();
+    try {
+      final LottiePlayer playerToRemove = players.firstWhere(
+            (LottiePlayer player) => player.data.name == name,
+      );
+      world.remove(playerToRemove);
+    } catch (e) {
+      // 캐릭터를 찾지 못한 경우 아무 동작도 하지 않음
+      print('캐릭터를 찾을 수 없습니다: $name');
+    }
+  }
+
+  // 또는 인덱스로 삭제하는 메서드
+  void removeCharacterAt(int index) {
+    final List<LottiePlayer> players = world.children.whereType<LottiePlayer>().toList();
+    if (index >= 0 && index < players.length) {
+      world.remove(players[index]);
+    }
+  }
 }
