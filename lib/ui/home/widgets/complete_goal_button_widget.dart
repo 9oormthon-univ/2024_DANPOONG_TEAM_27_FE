@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
+import '../widget/mission_complete_dialog.dart';
 
 class CompleteGoalButtonWidget extends StatelessWidget {
   const CompleteGoalButtonWidget({
@@ -31,7 +32,15 @@ class CompleteGoalButtonWidget extends StatelessWidget {
                   vertical: 7,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => MissionCompleteDialog(
+                    missionTitle: '지극히 평범하게 살기',
+                    onComplete: () {},
+                  ),
+                );
+              },
               child: Text(
                 '목표 달성',
                 style: LuckitTypos.suitSB16.copyWith(color: LuckitColors.main),
