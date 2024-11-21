@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../routes/routes.dart';
@@ -247,6 +248,7 @@ class _HomeViewState extends ConsumerState<HomeView>
                 ),
               ],
             ),
+            TextButton(onPressed: () => context.go(Routes.farm.path), child: Text('농장')),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),

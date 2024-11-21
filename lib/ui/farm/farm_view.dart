@@ -15,6 +15,7 @@ import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../game/character_data.dart';
 import '../game/walking_game.dart';
 import 'farm_character_provider.dart';
+import 'widget/goal_glass.dart';
 
 class FarmView extends ConsumerStatefulWidget {
   const FarmView({super.key});
@@ -93,13 +94,24 @@ class _FarmViewState extends ConsumerState<FarmView>
           GameWidget(game: game!),
           Positioned(
             top: 54,
-            left: 0,
-            right: 0,
-            child: Text(
-              'LUCKIT',
-              style: LuckitTypos.tenadaEB20
-                  .copyWith(color: LuckitColors.background),
-              textAlign: TextAlign.center,
+            left: 25,
+            right: 25,
+            child: Column(
+              children: [
+                Text(
+                  'LUCKIT',
+                  style: LuckitTypos.tenadaEB20
+                      .copyWith(color: LuckitColors.background),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Visibility(
+                  visible: !_clockSelected,
+                  child: GoalGlass(),
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -153,23 +165,23 @@ class _FarmViewState extends ConsumerState<FarmView>
               ),
             ),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            top: isLandscape ? 0 : MediaQuery.of(context).size.height * 0.15,
-            bottom: isLandscape ? 0 : null,
-            child: TimerBuilder.periodic(
-              const Duration(seconds: 1),
-              builder: (BuildContext context) => Center(
-                child: Text(
-                  DateFormat('HH:mm').format(DateTime.now()),
-                  style: LuckitTypos.tenadaEB20
-                      .copyWith(color: LuckitColors.background, fontSize: 100),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   left: 0,
+          //   right: 0,
+          //   top: isLandscape ? 0 : MediaQuery.of(context).size.height * 0.15,
+          //   bottom: isLandscape ? 0 : null,
+          //   child: TimerBuilder.periodic(
+          //     const Duration(seconds: 1),
+          //     builder: (BuildContext context) => Center(
+          //       child: Text(
+          //         DateFormat('HH:mm').format(DateTime.now()),
+          //         style: LuckitTypos.tenadaEB20
+          //             .copyWith(color: LuckitColors.background, fontSize: 100),
+          //         textAlign: TextAlign.center,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
