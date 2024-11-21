@@ -23,6 +23,7 @@ class ProfileGoalArchivingWidget extends StatelessWidget {
         decoration: profileBoxDecoration,
         padding: const EdgeInsets.symmetric(horizontal: 16.0)
             .copyWith(top: 12.0, bottom: 12.0),
+        margin: const EdgeInsets.only(bottom: 8.0),
         child: Column(
           children: <Widget>[
             Row(
@@ -39,6 +40,7 @@ class ProfileGoalArchivingWidget extends StatelessWidget {
                 Material(
                   color: LuckitColors.transparent,
                   child: InkWell(
+                    borderRadius: BorderRadius.circular(100),
                     onTap: onTap,
                     child: SvgPicture.asset(opened
                         ? Assets.roundedArrowUp
@@ -51,16 +53,20 @@ class ProfileGoalArchivingWidget extends StatelessWidget {
             if (opened)
               SizedBox(
                 height: 132.0,
-                child: GridView.builder(
-                  padding: EdgeInsets.zero,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 16.0,
-                    crossAxisSpacing: 12.0,
-                    mainAxisExtent: 32.0,
+                child: AbsorbPointer(
+                  child: GridView.builder(
+                    padding: EdgeInsets.zero,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 16.0,
+                      crossAxisSpacing: 12.0,
+                      mainAxisExtent: 32.0,
+                    ),
+                    itemCount: 12,
+                    itemBuilder: (BuildContext context, int index) =>
+                        data[index],
                   ),
-                  itemCount: 12,
-                  itemBuilder: (BuildContext context, int index) => data[index],
                 ),
               )
           ],

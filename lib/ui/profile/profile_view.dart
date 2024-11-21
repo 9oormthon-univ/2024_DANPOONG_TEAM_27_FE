@@ -36,16 +36,18 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         body: Padding(
           padding:
               const EdgeInsets.symmetric(horizontal: 24.0).copyWith(top: 52.0),
-          child: Column(
-            children: <Widget>[
-              const ProfileInfoWidget(),
-              const ProfileGraphWidget(),
-              const ProfileDescriptionTextWidget(),
-              ProfileGoalArchivingWidget(
-                opened: state.opened,
-                onTap: viewModel.toggleGoalArchiving,
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                const ProfileInfoWidget(),
+                const ProfileGraphWidget(),
+                const ProfileDescriptionTextWidget(),
+                ProfileGoalArchivingWidget(
+                  opened: state.opened,
+                  onTap: viewModel.toggleGoalArchiving,
+                ),
+              ],
+            ),
           ),
         ),
       );

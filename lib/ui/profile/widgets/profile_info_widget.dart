@@ -33,6 +33,7 @@ class ProfileInfoWidget extends StatelessWidget {
       Material(
         color: LuckitColors.transparent,
         child: InkWell(
+          borderRadius: BorderRadius.circular(100),
           onTap: () {},
           child: SvgPicture.asset(
             Assets.edit,
