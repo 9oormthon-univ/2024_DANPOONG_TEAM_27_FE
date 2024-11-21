@@ -81,10 +81,12 @@ class TutorialFourthPage extends StatelessWidget {
         children: <Widget>[
           const Spacer(),
           if (game != null)
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 375 * 300,
-              width: double.infinity,
-              child: GameWidget<HorizontalWalkingGame>(game: game!),
+            ClipRRect(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.width / 375 * 300,
+                width: double.infinity,
+                child: GameWidget<HorizontalWalkingGame>(game: game!),
+              ),
             )
           else Image.asset(Assets.gameBackgroundAsset),
           const Spacer(),
