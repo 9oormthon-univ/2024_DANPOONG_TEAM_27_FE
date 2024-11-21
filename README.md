@@ -1,3 +1,3 @@
-# booklog
+# luckit
 
 A new Flutter project.
