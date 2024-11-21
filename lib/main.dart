@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 import 'routes/app_router.dart';
 import 'theme/luckit_colors.dart';
 
 void main() async{
   await dotenv.load(fileName: ".env");
+  print(dotenv.env['KAKAO_NATIVE_APP_KEY']);
+  KakaoSdk.init(
+        nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY'],
+        javaScriptAppKey: 'af5390099be77a85b173cc5f29e0f617',
+        
+    );
   runApp(const ProviderScope(child: MainApp()));
 }
 
