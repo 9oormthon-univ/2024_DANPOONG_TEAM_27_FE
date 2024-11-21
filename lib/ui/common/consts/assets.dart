@@ -42,11 +42,15 @@ class Assets {
   static const String puzzle = 'assets/icons/puzzle.svg';
   static const String sleep = 'assets/icons/sleep.svg';
   static const String sort = 'assets/icons/sort.svg';
-  static const String verticalDots = 'assets/icons/verticlaDots.svg';
+  static const String verticalDots = 'assets/icons/vertical_dots.svg';
   static const String cloud1 = 'assets/icons/cloud_1.svg';
   static const String cloud2 = 'assets/icons/cloud_2.svg';
   static const String cloud3 = 'assets/icons/cloud_3.svg';
   static const String cloud4 = 'assets/icons/cloud_4.svg';
+  static const String animalColored = 'assets/icons/animal_colored.svg';
+  static const String animalFilled = 'assets/icons/animal_filled.svg';
+  static const String clockColored = 'assets/icons/clock_colored.svg';
+  static const String clockFilled = 'assets/icons/clock_filled.svg';
 
   //프레임
   static const String chickenFrame = 'assets/frame/chicken_frame.svg';

@@ -11,6 +11,7 @@ import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
+import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../game/character_data.dart';
 import '../game/walking_game.dart';
 import 'farm_character_provider.dart';
@@ -25,6 +26,8 @@ class FarmView extends ConsumerStatefulWidget {
 class _FarmViewState extends ConsumerState<FarmView>
     with WidgetsBindingObserver {
   WalkingGame? game;
+  bool _animalSelected = false;
+  bool _clockSelected = false;
 
   @override
   void initState() {
@@ -100,33 +103,51 @@ class _FarmViewState extends ConsumerState<FarmView>
           Positioned(
             left: 0,
             right: 0,
-            bottom: 20,
-            child: Center(
-              child: GestureDetector(
-                onTap: () => context.go(Routes.home.path),
-                child: Container(
-                  padding: const EdgeInsets.only(
-                      top: 4, bottom: 2, left: 20, right: 20),
-                  decoration: BoxDecoration(
-                    color: LuckitColors.background,
-                    borderRadius: BorderRadius.circular(30),
+            bottom: 27,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 55),
+              padding: const EdgeInsets.symmetric(horizontal: 48),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(100),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      SvgPicture.asset(
-                        Assets.homeMainFilled,
-                      ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      Text(
-                        '홈',
-                        style: LuckitTypos.suitR12
-                            .copyWith(color: LuckitColors.main),
-                      ),
-                    ],
+                ],
+              ),
+              child: Row(
+                children: <Widget>[
+                  BottomNavigationBarItemWidget(
+                    label: '동물',
+                    selectedAsset: Assets.animalColored,
+                    unselectedAsset: Assets.animalFilled,
+                    isSelected: _animalSelected,
+                    onTap: () {
+                      // context.goNamed(Routes.fortune.name);
+                    },
                   ),
-                ),
+                  BottomNavigationBarItemWidget(
+                    label: '홈',
+                    selectedAsset: Assets.homeColored,
+                    unselectedAsset: Assets.homeOutlined,
+                    isSelected: true,
+                    onTap: () {
+                      context.goNamed(Routes.home.name);
+                    },
+                  ),
+                  BottomNavigationBarItemWidget(
+                    label: '시계',
+                    selectedAsset: Assets.clockColored,
+                    unselectedAsset: Assets.clockFilled,
+                    isSelected: _clockSelected,
+                    onTap: () {
+                      // context.goNamed(Routes.profile.name);
+                    },
+                  ),
+                ],
               ),
             ),
           ),
