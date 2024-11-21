@@ -60,6 +60,8 @@ class _TutorialViewState extends ConsumerState<TutorialView>
 
   @override
   Widget build(BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+
     final TutorialState state = ref.watch(tutorialViewModelProvider);
     final TutorialViewModel viewModel =
         ref.read(tutorialViewModelProvider.notifier);
@@ -90,12 +92,14 @@ class _TutorialViewState extends ConsumerState<TutorialView>
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 50.0),
+        padding: EdgeInsets.only(
+          top: height < 650 ? 40 : 50.0,
+        ),
         child: Center(
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 560,
+                height: height * 0.7,
                 child: PageView.builder(
                     controller: _controller,
                     onPageChanged: (int index) =>
@@ -125,6 +129,7 @@ class _TutorialViewState extends ConsumerState<TutorialView>
                 onPressed: () => context.goNamed('/home'),
                 activated: state.activated,
                 label: '시작하기',
+                height: height < 650 ? 52 : 64,
               ),
             ],
           ),
