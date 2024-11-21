@@ -18,9 +18,7 @@ class UserRepository extends Repository {
 
   final UserRemoteDataSource _userRemoteDataSource;
 
-  Future<RepositoryResult<BirthInfoEntity>> getUserBirthInfo({
-    required String title,
-  }) async {
+  Future<RepositoryResult<BirthInfoEntity>> getUserBirthInfo() async {
     try {
       return SuccessRepositoryResult<BirthInfoEntity>(
         data: await _userRemoteDataSource.getUserBirthInfo(),
@@ -45,9 +43,7 @@ class UserRepository extends Repository {
     }
   }
 
-  Future<RepositoryResult<LoginInfoEntity>> getUserLoginInfo({
-    required String title,
-  }) async {
+  Future<RepositoryResult<LoginInfoEntity>> getUserLoginInfo() async {
     try {
       return SuccessRepositoryResult<LoginInfoEntity>(
         data: await _userRemoteDataSource.getUserLoginInfo(),
