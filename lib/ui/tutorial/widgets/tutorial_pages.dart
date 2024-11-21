@@ -56,12 +56,12 @@ class TutorialThirdPage extends StatelessWidget {
   Widget build(BuildContext context) => const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Expanded(child: SizedBox()),
+          Spacer(),
           KingAnimation(
             appearAnimation: Assets.kingMouseAppear,
             stopAnimation: Assets.kingMouseStop,
           ),
-          Expanded(child: SizedBox()),
+          Spacer(),
           TutorialText('목표를 달성하면\n히든 동물을 제공해드려요.'),
         ],
       );
@@ -79,7 +79,7 @@ class TutorialFourthPage extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const Expanded(child: SizedBox()),
+          const Spacer(),
           if (game != null)
             SizedBox(
               height: MediaQuery.of(context).size.width / 375 * 300,
@@ -87,7 +87,7 @@ class TutorialFourthPage extends StatelessWidget {
               child: GameWidget<HorizontalWalkingGame>(game: game!),
             )
           else Image.asset(Assets.gameBackgroundAsset),
-          const Expanded(child: SizedBox()),
+          const Spacer(),
           const TutorialText('이제, 당신만의 목표로\n미션을 시작해보세요!'),
         ],
       );
