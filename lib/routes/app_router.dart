@@ -7,6 +7,7 @@ import '../ui/farm/farm_view.dart';
 import '../ui/fortune/fortune_view.dart';
 import '../ui/goal_complete/goal_complete_view.dart';
 import '../ui/home/home_view.dart';
+import '../ui/login/login_view.dart';
 import '../ui/onboarding/views/onboarding_birth_view.dart';
 import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
@@ -39,7 +40,7 @@ class AppRouter {
       _appRouterInterceptor.redirect(context, state);
 
   late final GoRouter _router = GoRouter(
-    initialLocation: Routes.home.name,
+    initialLocation: Routes.login.name,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
@@ -50,6 +51,14 @@ class AppRouter {
     ),
     redirect: _redirect,
     routes: <RouteBase>[
+      GoRoute(
+        name: Routes.login.name,
+        path: Routes.login.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: LoginView(),
+        ),
+      ),
       GoRoute(
         name: Routes.fortune.name,
         path: Routes.fortune.path,

@@ -45,3 +45,13 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+# Android Key
+/android/key.properties
+
+# Android Keystore
+/android/app/key.jks
+
+# Environment Variables
+.env
+
