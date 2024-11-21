@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
-import '../../common/widgets/custom_text_field.dart';
 import '../onboarding_state.dart';
 import '../onboarding_view_model.dart';
 import '../widgets/error_text_widget.dart';
@@ -13,7 +12,6 @@ import '../widgets/onboarding_date_input_field_widget.dart';
 import '../widgets/onboarding_layout.dart';
 import '../widgets/onboarding_top_widget.dart';
 import '../widgets/suggested_duration_widget.dart';
-import 'onboarding_birth_view.dart';
 import 'onboarding_goal_view.dart';
 
 class OnboardingDurationView extends ConsumerWidget {

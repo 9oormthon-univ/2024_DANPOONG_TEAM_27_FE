@@ -73,20 +73,22 @@ class _KingAnimationState extends State<KingAnimation>
                         onLoaded: (LottieComposition composition) {
                           _stopController
                             ..duration = composition.duration
-                            ..forward();
+                            ..repeat();
                         },
                         errorBuilder: (BuildContext context, Object error,
                             StackTrace? stackTrace) {
                           debugPrint('Lottie 에러: $error');
                           return const SizedBox.shrink(); // 또는 다른 대체 위젯
                         },
+                        repeat: true,
                       )
                     : Lottie.asset(
                         widget.appearAnimation,
                         controller: _appearController,
                         onLoaded: (LottieComposition composition) {
-                          _appearController..duration = composition.duration
-                          ..forward();
+                          _appearController
+                            ..duration = composition.duration
+                            ..forward();
                         },
                         errorBuilder: (BuildContext context, Object error,
                             StackTrace? stackTrace) {
