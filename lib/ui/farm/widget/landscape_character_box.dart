@@ -22,18 +22,21 @@ class LandscapeCharacterBox extends StatelessWidget {
     child: Stack(
       children: <Widget>[
         Positioned(
-          top: 10,
+          top: 0,
+          left: 0,
+          right: 0,
           child: Text(
             number,
             style: LuckitTypos.suitSB20.copyWith(
               color: LuckitColors.gray80,
               height: 1.6,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
         Positioned(
           right: 0.0,
-          bottom: 1,
+          bottom: 0.0,
           child: SvgPicture.asset(frame),
         ),
       ],

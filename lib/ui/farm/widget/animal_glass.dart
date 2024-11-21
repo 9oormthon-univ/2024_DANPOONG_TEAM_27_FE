@@ -59,7 +59,7 @@ class AnimalGlass extends StatelessWidget {
             width: 24,
           ),
           ...List.generate(
-            data.length,
+            data_landscape.length,
             (int index) => Row(
               children: <Widget>[
                 Container(
@@ -68,7 +68,7 @@ class AnimalGlass extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8)),
                   width: 32,
                   height: 64,
-                  child: data[index],
+                  child: data_landscape[index],
                 ),
                 const SizedBox(
                   width: 8,

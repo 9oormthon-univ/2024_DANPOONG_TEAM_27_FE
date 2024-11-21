@@ -18,16 +18,16 @@ final List<CharacterBoxWidget> data = <CharacterBoxWidget>[
 ];
 
 final List<LandscapeCharacterBox> data_landscape = <LandscapeCharacterBox>[
-   const LandscapeCharacterBox(number: '12', frame: Assets.transparentMouseFrame),
-   const LandscapeCharacterBox(number: '9', frame: Assets.transparentCowFrame),
-   const LandscapeCharacterBox(number: '5', frame: Assets.transparentTigerFrame),
-   const LandscapeCharacterBox(number: '6', frame: Assets.transparentRabbitFrame),
-   const LandscapeCharacterBox(number: '9', frame: Assets.transparentDragonFrame),
-   const LandscapeCharacterBox(number: '4', frame: Assets.transparentSnakeFrame),
-   const LandscapeCharacterBox(number: '5', frame: Assets.transparentHorseFrame),
-   const LandscapeCharacterBox(number: '3', frame: Assets.transparentSheepFrame),
-   const LandscapeCharacterBox(number: '4', frame: Assets.transparentMonkeyFrame),
-   const LandscapeCharacterBox(number: '7', frame: Assets.transparentChickenFrame),
-   const LandscapeCharacterBox(number: '8', frame: Assets.transparentDogFrame),
-   const LandscapeCharacterBox(number: '2', frame: Assets.transparentPigFrame),
+   const LandscapeCharacterBox(number: '12', frame: Assets.landscapeMouseFrame),
+   const LandscapeCharacterBox(number: '9', frame: Assets.landscapeCowFrame),
+   const LandscapeCharacterBox(number: '5', frame: Assets.landscapeTigerFrame),
+   const LandscapeCharacterBox(number: '6', frame: Assets.landscapeRabbitFrame),
+   const LandscapeCharacterBox(number: '9', frame: Assets.landscapeDragonFrame),
+   const LandscapeCharacterBox(number: '4', frame: Assets.landscapeSnakeFrame),
+   const LandscapeCharacterBox(number: '5', frame: Assets.landscapeHorseFrame),
+   const LandscapeCharacterBox(number: '3', frame: Assets.landscapeSheepFrame),
+   const LandscapeCharacterBox(number: '4', frame: Assets.landscapeMonkeyFrame),
+   const LandscapeCharacterBox(number: '7', frame: Assets.landscapeChickenFrame),
+   const LandscapeCharacterBox(number: '8', frame: Assets.landscapeDogFrame),
+   const LandscapeCharacterBox(number: '2', frame: Assets.landscapePigFrame),
 ];

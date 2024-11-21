@@ -79,6 +79,18 @@ class Assets {
   static const String transparentSheepFrame = 'assets/frame/transparent_sheep_frame.svg';
   static const String transparentSnakeFrame = 'assets/frame/transparent_snake_frame.svg';
   static const String transparentTigerFrame = 'assets/frame/transparent_tiger_frame.svg';
+  static const String landscapeChickenFrame = 'assets/frame/landscape_chicken_frame.svg';
+  static const String landscapeCowFrame = 'assets/frame/landscape_cow_frame.svg';
+  static const String landscapeDogFrame = 'assets/frame/landscape_dog_frame.svg';
+  static const String landscapeDragonFrame = 'assets/frame/landscape_dragon_frame.svg';
+  static const String landscapeHorseFrame = 'assets/frame/landscape_horse_frame.svg';
+  static const String landscapeMonkeyFrame = 'assets/frame/landscape_monkey_frame.svg';
+  static const String landscapeMouseFrame = 'assets/frame/landscape_mouse_frame.svg';
+  static const String landscapePigFrame = 'assets/frame/landscape_pig_frame.svg';
+  static const String landscapeRabbitFrame = 'assets/frame/landscape_rabbit_frame.svg';
+  static const String landscapeSheepFrame = 'assets/frame/landscape_sheep_frame.svg';
+  static const String landscapeSnakeFrame = 'assets/frame/landscape_snake_frame.svg';
+  static const String landscapeTigerFrame = 'assets/frame/landscape_tiger_frame.svg';
 
   //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
