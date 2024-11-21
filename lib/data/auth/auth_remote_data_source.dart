@@ -14,26 +14,13 @@ final Provider<AuthRemoteDataSource> authRemoteDataSourceProvider =
 );
 
 @RestApi()
+// ignore: one_member_abstracts
 abstract class AuthRemoteDataSource {
   factory AuthRemoteDataSource(Dio dio) = _AuthRemoteDataSource;
 
-  @FormUrlEncoded()
-  @POST('/auth/signin')
-  Future<AuthTokenEntity> signIn({
-    @Field() required String id,
-    @Field() required String password,
-  });
-
-  @FormUrlEncoded()
-  @POST('/auth/signun')
-  Future<AuthTokenEntity> signUp({
-    @Field() required String id,
-    @Field() required String name,
-    @Field() required String password,
-  });
-
-  @GET('/duplication')
-  Future<void> checkDuplicatedId({
-    @Query('id') required String id,
+  /// 카카오 회원가입/로그인 콜백
+  @GET('/callback')
+  Future<AuthTokenEntity> kakaoCallback({
+    @Query('code') required String code,
   });
 }
