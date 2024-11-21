@@ -120,4 +120,9 @@ class Assets {
 
   static const String kingMouseAppear =
       'assets/animation/appear/king_mouse_appear.json';
+
+  // 튜토리얼
+  static const String tutorialFrame = 'assets/images/tutorial_frame.png';
+  static const String tutorialFirstImage = 'assets/images/tutorial_first_image.png';
+  static const String tutorialSecondImage = 'assets/images/tutorial_second_image.png';
 }
