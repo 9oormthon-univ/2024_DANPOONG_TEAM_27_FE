@@ -13,7 +13,7 @@ class MissionManageBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showEditMissionBottomSheet() {
+    void showEditMissionBottomSheet() {
       showModalBottomSheet<String>(
         context: context,
         isScrollControlled: true,
@@ -66,7 +66,7 @@ class MissionManageBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           InkWell(
-            onTap: _showEditMissionBottomSheet,
+            onTap: showEditMissionBottomSheet,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: Row(

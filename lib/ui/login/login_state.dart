@@ -8,8 +8,8 @@ class LoginState extends Equatable {
 
   const LoginState({
     required this.loadingStatus,
-    this.error,
     required this.isAuthenticated,
+    this.error,
   });
 
   const LoginState.init()

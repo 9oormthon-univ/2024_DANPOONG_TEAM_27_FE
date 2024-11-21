@@ -7,8 +7,7 @@ import 'routes/app_router.dart';
 import 'theme/luckit_colors.dart';
 
 void main() async{
-  await dotenv.load(fileName: ".env");
-  print(dotenv.env['KAKAO_NATIVE_APP_KEY']);
+  await dotenv.load(fileName: '.env');
   KakaoSdk.init(
         nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY'],
         javaScriptAppKey: 'af5390099be77a85b173cc5f29e0f617',
