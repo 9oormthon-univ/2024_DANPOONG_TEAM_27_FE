@@ -25,7 +25,7 @@ class StartView extends ConsumerWidget {
               padding: const EdgeInsets.only(left: 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   Text(
                     '작은 성취로\n꾸준히 성장해보세요',
                     style: LuckitTypos.suitEB32.copyWith(
@@ -44,13 +44,15 @@ class StartView extends ConsumerWidget {
             //SizedBox(height: 120),
             SizedBox(
               height: 200,
-              child: FutureBuilder(
+              child: FutureBuilder<HorizontalWalkingGame>(
                 future: initializeGame(context, ref),
-                builder: (context, snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<HorizontalWalkingGame> snapshot) {
                   if (!snapshot.hasData) {
                     return const SizedBox.shrink();
                   }
-                  return GameWidget(game: snapshot.data!);
+                  return GameWidget<HorizontalWalkingGame>(
+                      game: snapshot.data!);
                 },
               ),
             ),
