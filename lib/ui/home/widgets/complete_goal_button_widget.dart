@@ -9,21 +9,35 @@ class CompleteGoalButtonWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 6,
-        ),
-        margin: const EdgeInsets.only(
-          right: 24,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: LuckitColors.white,
-        ),
-        child: Text(
-          '목표 달성',
-          style: LuckitTypos.suitSB12.copyWith(color: LuckitColors.main),
-        ),
+  Widget build(BuildContext context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            '목표 기간에 도달했어요!',
+            style: LuckitTypos.suitSB12.copyWith(color: LuckitColors.white),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                backgroundColor: LuckitColors.white,
+                foregroundColor: LuckitColors.main,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 7,
+                ),
+              ),
+              onPressed: () {},
+              child: Text(
+                '목표 달성',
+                style: LuckitTypos.suitSB16.copyWith(color: LuckitColors.main),
+              ),
+            ),
+          ),
+        ],
       );
 }
