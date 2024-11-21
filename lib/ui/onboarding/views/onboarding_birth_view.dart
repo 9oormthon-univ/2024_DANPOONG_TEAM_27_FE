@@ -27,7 +27,7 @@ class OnboardingBirthView extends ConsumerWidget {
 
     return Scaffold(
       appBar: OnboardingAppBar(onPressed: () => context.goNamed('/home')),
-      backgroundColor: LuckitColors.white,
+      backgroundColor: LuckitColors.background,
       body: Column(
         children: <Widget>[
           Expanded(
@@ -38,7 +38,6 @@ class OnboardingBirthView extends ConsumerWidget {
                     title: '정보를 입력해주세요',
                     text: '입력 정보를 기반으로\n운세와 맞춤 목표를 추천드릴게요!',
                     boldText: '',
-                    showShadow: false,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
