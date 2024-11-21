@@ -26,30 +26,31 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
   @override
   Widget build(BuildContext context) {
     final ProfileState state = ref.watch(profileViewModelProvider);
-    final ProfileViewModel viewModel = ref.read(profileViewModelProvider.notifier);
+    final ProfileViewModel viewModel =
+        ref.read(profileViewModelProvider.notifier);
 
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBarWidget(
-          currentRouteName: Routes.profile.name,
-        ),
-        backgroundColor: LuckitColors.background,
-        body: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 24.0).copyWith(top: 52.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                const ProfileInfoWidget(),
-                const ProfileGraphWidget(),
-                const ProfileDescriptionTextWidget(),
-                ProfileGoalArchivingWidget(
-                  opened: state.opened,
-                  onTap: viewModel.toggleGoalArchiving,
-                ),
-              ],
-            ),
+      bottomNavigationBar: BottomNavigationBarWidget(
+        currentRouteName: Routes.profile.name,
+      ),
+      backgroundColor: LuckitColors.background,
+      body: Padding(
+        padding:
+            const EdgeInsets.symmetric(horizontal: 24.0).copyWith(top: 52.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              const ProfileInfoWidget(),
+              const ProfileGraphWidget(),
+              const ProfileDescriptionTextWidget(),
+              ProfileGoalArchivingWidget(
+                opened: state.opened,
+                onTap: viewModel.toggleGoalArchiving,
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
