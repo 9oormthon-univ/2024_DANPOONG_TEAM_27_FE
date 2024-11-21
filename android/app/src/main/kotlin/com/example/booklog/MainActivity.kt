@@ -1,4 +1,4 @@
-package com.example.booklog
+package com.example.luckit
 
 import io.flutter.embedding.android.FlutterActivity
 
