@@ -215,11 +215,14 @@ class _FarmViewState extends ConsumerState<FarmView>
           Positioned(
             left: 0,
             top: 0,
-            bottom: 0,
+            bottom:isLandscape ? null : 0,
+            right: isLandscape ? 0 : null,
             child: AnimatedSlide(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
-              offset: Offset(_animalSelected ? 0.0 : -1.0, 0.0),
+              offset: isLandscape 
+                ? Offset(0.0, _animalSelected ? 0.0 : -1.0)
+                : Offset(_animalSelected ? 0.0 : -1.0, 0.0),
               child: AnimalGlass(),
             ),
           ),
