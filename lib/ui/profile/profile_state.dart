@@ -11,6 +11,7 @@ class ProfileState extends Equatable {
   final LoadingStatus loadingProfile;
   final bool isProfileButtonsOpen;
   final int currentGraphIndex;
+  final bool isAm;
 
   // user info
   final String name;
@@ -27,6 +28,7 @@ class ProfileState extends Equatable {
   final List<List<FlSpot>> spotsList;
 
   const ProfileState({
+    required this.isAm,
     required this.currentGraphIndex,
     required this.loadingGraph,
     required this.opened,
@@ -46,6 +48,7 @@ class ProfileState extends Equatable {
 
   ProfileState.init()
       : loadingGraph = LoadingStatus.none,
+        isAm = true,
         currentGraphIndex = 0,
         opened = false,
         loadingProfile = LoadingStatus.none,
@@ -62,6 +65,7 @@ class ProfileState extends Equatable {
         spotsList = <List<FlSpot>>[];
 
   ProfileState copyWith({
+    bool? isAm,
     LoadingStatus? loadingGraph,
     int? currentGraphIndex,
     bool? opened,
@@ -79,6 +83,7 @@ class ProfileState extends Equatable {
     List<List<FlSpot>>? spotsList,
   }) =>
       ProfileState(
+        isAm: isAm ?? this.isAm,
         loadingGraph: loadingGraph ?? this.loadingGraph,
         currentGraphIndex: currentGraphIndex ?? this.currentGraphIndex,
         opened: opened ?? this.opened,
@@ -98,6 +103,7 @@ class ProfileState extends Equatable {
 
   @override
   List<Object> get props => <Object>[
+        isAm,
         loadingGraph,
         currentGraphIndex,
         opened,

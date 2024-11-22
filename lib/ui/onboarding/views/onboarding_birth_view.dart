@@ -7,9 +7,9 @@ import '../../../theme/luckit_typos.dart';
 import '../../common/widgets/rounded_text_button_widget.dart';
 import '../onboarding_state.dart';
 import '../onboarding_view_model.dart';
-import '../widgets/birth_time_input_container_widget.dart';
+import '../widgets/am_pm_select_widget.dart';
+import '../widgets/birth_input_widget.dart';
 import '../widgets/check_icon_widget.dart';
-import '../widgets/error_text_widget.dart';
 import '../widgets/onboarding_app_bar.dart';
 import '../widgets/onboarding_bottom_button.dart';
 import '../widgets/onboarding_date_input_row_widget.dart';
@@ -88,91 +88,29 @@ class OnboardingBirthView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        const SizedBox(width: 24.0),
-                        Expanded(
-                          child: RoundedTextButtonWidget(
-                            isSelected: state.dayPeriod == DayPeriod.am,
-                            label: 'AM',
-                            onPressed: () => viewModel.onPressedDayPeriod(
-                              dayPeriod: DayPeriod.am,
-                            ),
-                            isActivated: !state.dontKnow,
-                          ),
-                        ),
-                        const SizedBox(width: 8.0),
-                        Expanded(
-                          child: RoundedTextButtonWidget(
-                            isSelected: state.dayPeriod == DayPeriod.pm,
-                            label: 'PM',
-                            onPressed: () => viewModel.onPressedDayPeriod(
-                              dayPeriod: DayPeriod.pm,
-                            ),
-                            isActivated: !state.dontKnow,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        const SizedBox(width: 12),
-                        CheckIconWidget(
-                          isChecked: state.dontKnow,
-                          onPressed: viewModel.onPressedDontKnow,
-                          size: 16.0,
-                        ),
-                        Text(
-                          '태어난 시간을 알지 못합니다',
-                          style: LuckitTypos.suitR10.copyWith(
-                            color: LuckitColors.gray80,
-                            height: 0.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                child: AmPmSelectWidget(
+                  isAm: state.dayPeriod == DayPeriod.am,
+                  isPm: state.dayPeriod == DayPeriod.pm,
+                  onPressedAm: () => viewModel.onPressedDayPeriod(
+                    dayPeriod: DayPeriod.am,
+                  ),
+                  onPressedPm: () => viewModel.onPressedDayPeriod(
+                    dayPeriod: DayPeriod.pm,
+                  ),
+                  unknown: state.dontKnow,
+                  onPressedUnknown: () => viewModel.onPressedDontKnow(),
                 ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(right: 24.0),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.center,
-                        height: 40.0,
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        decoration: BoxDecoration(
-                          color: LuckitColors.white,
-                          borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: state.dontKnow
-                                ? LuckitColors.gray10
-                                : LuckitColors.gray20,
-                          ),
-                        ),
-                        child: BirthTimeInputContainerWidget(
-                          enabled: !state.dontKnow,
-                          onChangedHour: (String value) =>
-                              viewModel.onChangedBirthHour(value: value),
-                          onChangedMinute: (String value) =>
-                              viewModel.onChangedBirthMinute(value: value),
-                        ),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ErrorTextWidget(
-                          errorTexts: <String?, TextAlign>{
-                            viewModel.birthHourErrorText: TextAlign.start,
-                            viewModel.birthMinuteErrorText: TextAlign.end,
-                          },
-                        ),
-                      ),
-                    ],
+                  child: BirthInputWidget(
+                    enabled: !state.dontKnow,
+                    onChangedHour: (String value) =>
+                        viewModel.onChangedBirthHour(value: value),
+                    onChangedMinute: (String value) =>
+                        viewModel.onChangedBirthMinute(value: value),
                   ),
                 ),
               ),

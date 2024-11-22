@@ -42,7 +42,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed(Routes.tutorial.name),
+        onPressed: () => context.goNamed(Routes.birth.name),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentRouteName: Routes.profile.name,
@@ -137,7 +137,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                               iconPath: Assets.edit,
                               color: LuckitColors.gray80,
                               label: '정보수정',
-                              onTap: () {},
+                              onTap: () => context.goNamed(Routes.edit.name),
                             ),
                             const SizedBox(height: 16.0),
                             ProfileButtonWidget(
