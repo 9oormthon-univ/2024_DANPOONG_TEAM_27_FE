@@ -1,10 +1,11 @@
 import 'package:dotted_line/dotted_line.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
+import '../data/graph_data.dart';
 import '../decoration/profile_box_decoration.dart';
+import 'line_chart_widget.dart';
 
 class ProfileGraphWidget extends StatelessWidget {
   const ProfileGraphWidget({super.key});
@@ -88,79 +89,6 @@ class ProfileGraphWidget extends StatelessWidget {
                     ),
                 ],
               ),
-            ),
-          ],
-        ),
-      );
-}
-
-final List<FlSpot> spots = <FlSpot>[
-  const FlSpot(1, 5),
-  const FlSpot(5, 9),
-  const FlSpot(10, 7),
-  const FlSpot(15, 15),
-  const FlSpot(20, 18),
-  const FlSpot(25, 10),
-  const FlSpot(30, 22),
-];
-
-class LineChartWidget extends StatelessWidget {
-  final List<FlSpot> spots;
-
-  const LineChartWidget({required this.spots, super.key});
-
-  @override
-  Widget build(BuildContext context) => LineChart(
-        LineChartData(
-          lineTouchData: LineTouchData(
-            getTouchedSpotIndicator:
-                (LineChartBarData barData, List<int> spotIndexes) => spotIndexes
-                    .map(
-                      (int index) => const TouchedSpotIndicatorData(
-                        FlLine(
-                          color: LuckitColors.main,
-                          strokeWidth: 1,
-                        ),
-                        FlDotData(),
-                      ),
-                    )
-                    .toList(),
-            touchTooltipData: LineTouchTooltipData(
-              getTooltipColor: (LineBarSpot touchedSpot) => LuckitColors.white,
-              tooltipBorder: const BorderSide(color: LuckitColors.gray10),
-              tooltipPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-            ),
-          ),
-          gridData: const FlGridData(show: false),
-          titlesData: const FlTitlesData(show: false),
-          borderData: FlBorderData(show: false),
-          minX: 1,
-          maxX: 31,
-          backgroundColor: LuckitColors.transparent,
-          minY: 0,
-          lineBarsData: <LineChartBarData>[
-            LineChartBarData(
-              spots: spots,
-              dotData: FlDotData(
-                getDotPainter: (
-                  FlSpot spot,
-                  double percent,
-                  LineChartBarData barData,
-                  int index,
-                ) =>
-                    FlDotCirclePainter(
-                  strokeColor: LuckitColors.main,
-                  radius: 4,
-                  color: LuckitColors.white,
-                  strokeWidth: 0.86,
-                ),
-              ),
-              belowBarData: BarAreaData(
-                show: true,
-                color: LuckitColors.main.withOpacity(0.2),
-              ),
-              color: LuckitColors.main,
-              barWidth: 0.86,
             ),
           ],
         ),
