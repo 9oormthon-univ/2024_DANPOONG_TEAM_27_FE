@@ -34,6 +34,7 @@ class Assets {
   static const String homeFilled = 'assets/icons/home_filled.svg';
   static const String homeMainFilled = 'assets/icons/home_main_filled.svg';
   static const String note = 'assets/icons/note.svg';
+  static const String pawColored = 'assets/icons/paw_colored.svg';
   static const String pigFilled = 'assets/icons/pig_filled.svg';
   static const String pigOutlined = 'assets/icons/pig_outlined.svg';
   static const String profileColored = 'assets/icons/profile_colored.svg';
@@ -48,6 +49,10 @@ class Assets {
   static const String cloud2 = 'assets/icons/cloud_2.svg';
   static const String cloud3 = 'assets/icons/cloud_3.svg';
   static const String cloud4 = 'assets/icons/cloud_4.svg';
+  static const String animalColored = 'assets/icons/animal_colored.svg';
+  static const String animalFilled = 'assets/icons/animal_filled.svg';
+  static const String clockColored = 'assets/icons/clock_colored.svg';
+  static const String clockFilled = 'assets/icons/clock_filled.svg';
   static const String roundedArrowUp = 'assets/icons/rounded_arrow_up.svg';
   static const String roundedArrowDown = 'assets/icons/rounded_arrow_down.svg';
   static const String tutorialCloud1 = 'assets/icons/tutorial_cloud_1.svg';
@@ -68,30 +73,30 @@ class Assets {
   static const String sheepFrame = 'assets/frame/sheep_frame.svg';
   static const String snakeFrame = 'assets/frame/snake_frame.svg';
   static const String tigerFrame = 'assets/frame/tiger_frame.svg';
-  static const String transparentChickenFrame =
-      'assets/frame/transparent_chicken_frame.svg';
-  static const String transparentCowFrame =
-      'assets/frame/transparent_cow_frame.svg';
-  static const String transparentDogFrame =
-      'assets/frame/transparent_dog_frame.svg';
-  static const String transparentDragonFrame =
-      'assets/frame/transparent_dragon_frame.svg';
-  static const String transparentHorseFrame =
-      'assets/frame/transparent_horse_frame.svg';
-  static const String transparentMonkeyFrame =
-      'assets/frame/transparent_monkey_frame.svg';
-  static const String transparentMouseFrame =
-      'assets/frame/transparent_mouse_frame.svg';
-  static const String transparentPigFrame =
-      'assets/frame/transparent_pig_frame.svg';
-  static const String transparentRabbitFrame =
-      'assets/frame/transparent_rabbit_frame.svg';
-  static const String transparentSheepFrame =
-      'assets/frame/transparent_sheep_frame.svg';
-  static const String transparentSnakeFrame =
-      'assets/frame/transparent_snake_frame.svg';
-  static const String transparentTigerFrame =
-      'assets/frame/transparent_tiger_frame.svg';
+  static const String transparentChickenFrame = 'assets/frame/transparent_chicken_frame.svg';
+  static const String transparentCowFrame = 'assets/frame/transparent_cow_frame.svg';
+  static const String transparentDogFrame = 'assets/frame/transparent_dog_frame.svg';
+  static const String transparentDragonFrame = 'assets/frame/transparent_dragon_frame.svg';
+  static const String transparentHorseFrame = 'assets/frame/transparent_horse_frame.svg';
+  static const String transparentMonkeyFrame = 'assets/frame/transparent_monkey_frame.svg';
+  static const String transparentMouseFrame = 'assets/frame/transparent_mouse_frame.svg';
+  static const String transparentPigFrame = 'assets/frame/transparent_pig_frame.svg';
+  static const String transparentRabbitFrame = 'assets/frame/transparent_rabbit_frame.svg';
+  static const String transparentSheepFrame = 'assets/frame/transparent_sheep_frame.svg';
+  static const String transparentSnakeFrame = 'assets/frame/transparent_snake_frame.svg';
+  static const String transparentTigerFrame = 'assets/frame/transparent_tiger_frame.svg';
+  static const String landscapeChickenFrame = 'assets/frame/landscape_chicken_frame.svg';
+  static const String landscapeCowFrame = 'assets/frame/landscape_cow_frame.svg';
+  static const String landscapeDogFrame = 'assets/frame/landscape_dog_frame.svg';
+  static const String landscapeDragonFrame = 'assets/frame/landscape_dragon_frame.svg';
+  static const String landscapeHorseFrame = 'assets/frame/landscape_horse_frame.svg';
+  static const String landscapeMonkeyFrame = 'assets/frame/landscape_monkey_frame.svg';
+  static const String landscapeMouseFrame = 'assets/frame/landscape_mouse_frame.svg';
+  static const String landscapePigFrame = 'assets/frame/landscape_pig_frame.svg';
+  static const String landscapeRabbitFrame = 'assets/frame/landscape_rabbit_frame.svg';
+  static const String landscapeSheepFrame = 'assets/frame/landscape_sheep_frame.svg';
+  static const String landscapeSnakeFrame = 'assets/frame/landscape_snake_frame.svg';
+  static const String landscapeTigerFrame = 'assets/frame/landscape_tiger_frame.svg';
 
   //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
@@ -99,7 +104,6 @@ class Assets {
   static const String loginLogo = 'assets/images/login_logo.svg';
 
   static const String gameBackgroundAsset = 'assets/images/game_background.png';
-
   //게임 배경
   static const String gameBackground = 'game_background.png';
   static const String farmBackground = 'farm_background.png';
@@ -108,6 +112,9 @@ class Assets {
   static const String whiteBackground = 'white_background.png';
   static const String gameBackgroundWithoutCloud =
       'game_background_without_cloud.png';
+
+  //빈공간 이미지
+  static const String emptyDragon = 'assets/images/empty_dragon.png';
 
   //애니메이션
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';

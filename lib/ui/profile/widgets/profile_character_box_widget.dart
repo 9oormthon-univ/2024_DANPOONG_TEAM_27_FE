@@ -18,7 +18,7 @@ class CharacterBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) => DecoratedBox(
     decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        border: Border.all(color: LuckitColors.gray10)),
+        border: Border.all(color: LuckitColors.gray10,)),
     child: Stack(
       children: <Widget>[
         Positioned(

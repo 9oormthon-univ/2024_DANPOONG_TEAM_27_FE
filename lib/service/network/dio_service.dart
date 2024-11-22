@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -30,7 +31,7 @@ final Provider<Dio> dioServiceProvider = Provider<Dio>(
 );
 
 class DioClient {
-  static const String baseUrl = 'http://58.238.255.245:8080/api/v1/';
+  static String baseUrl = dotenv.env['API_URL']!;
 
   factory DioClient() => DioClient._();
   DioClient._();

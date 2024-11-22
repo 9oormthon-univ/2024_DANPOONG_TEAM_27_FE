@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/widgets/bottom_button_widget.dart';
@@ -51,64 +52,64 @@ class _AddMissionBottomSheetState extends State<AddMissionBottomSheet> {
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  widget.title,
-                  style: LuckitTypos.suitSB16.copyWith(
-                    color: LuckitColors.black,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    widget.title,
+                    style: LuckitTypos.suitSB16.copyWith(
+                      color: LuckitColors.black,
+                    ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.close),
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  widget.subtitle,
-                  style: LuckitTypos.suitR14.copyWith(
-                    color: LuckitColors.black,
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.close),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
                   ),
-                ),
-                const SizedBox(height: 12),
-                MissionTextField(
-                  onChanged: _handleTextChange,
-                  fieldWidth: MediaQuery.of(context).size.width - 40,
-                  controller: _controller,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          BottomButtonWidget(
-            onPressed: () {
-              Navigator.pop(context, _missionText);
-            },
-            label: widget.buttonLabel,
-            activated: _missionText.isNotEmpty,
-          ),
-        ],
-      ),
-    );
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget.subtitle,
+                    style: LuckitTypos.suitR14.copyWith(
+                      color: LuckitColors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  MissionTextField(
+                    onChanged: _handleTextChange,
+                    fieldWidth: MediaQuery.of(context).size.width - 40,
+                    controller: _controller,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            BottomButtonWidget(
+              onPressed: () {
+                context.pop(_missionText);
+              },
+              label: widget.buttonLabel,
+              activated: _missionText.isNotEmpty,
+            ),
+          ],
+        ),
+      );
 }

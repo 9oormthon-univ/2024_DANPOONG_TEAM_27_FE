@@ -13,11 +13,11 @@ class WalkingGame extends FlameGame {
   final String gameBackground;
   late SpriteComponent background;
 
-  WalkingGame({
-    required this.boundarySize,
-    required this.characterTypes,
-    required this.gameBackground,
-  }) : super(world: World());
+  WalkingGame(
+      {required this.boundarySize,
+      required this.characterTypes,
+      required this.gameBackground})
+      : super(world: World());
 
   @override
   Future<void> onLoad() async {
@@ -55,71 +55,36 @@ class WalkingGame extends FlameGame {
     }
   }
 
+  Vector2 get gameSize => camera.viewport.size;
+
   Future<void> updateBackground(
       String newGameBackground, bool isLandscape) async {
     final Sprite newSprite = await Sprite.load(newGameBackground);
     background.sprite = newSprite;
 
-    // Swap width and height for landscape mode
-    if (isLandscape) {
-      camera.viewport.size = Vector2(boundarySize.y, boundarySize.x);
-      background.size = Vector2(boundarySize.y, boundarySize.x);
-    } else {
-      camera.viewport.size = boundarySize;
-      background.size = boundarySize;
-    }
+    // 뷰포트와 배경 크기 업데이트
+    final Vector2 newSize = isLandscape 
+        ? Vector2(boundarySize.y, boundarySize.x)
+        : boundarySize;
+    
+    camera.viewport.size = newSize;
+    background.size = newSize;
     camera.viewport.position = Vector2.zero();
-  }
 
-  Vector2 get gameSize => boundarySize;
-
-  Future<void> addCharacter(CharacterData character) async {
-    const double margin = 60.0;
-    final Vector2 safeArea = Vector2(
-      boundarySize.x - margin * 2,
-      boundarySize.y - margin * 2,
-    );
-
-    final LottiePlayer player = await LottiePlayer.create(character);
-    world.add(player);
-
-    player.position = Vector2(
-      margin + random.nextDouble() * safeArea.x,
-      margin + random.nextDouble() * safeArea.y,
-    );
-
-    await player.isReady.future;
-    player.startMoving();
-  }
-
-  void removeLastCharacter() {
-    final List<LottiePlayer> players =
-        world.children.whereType<LottiePlayer>().toList();
-    if (players.isNotEmpty) {
-      world.remove(players.last);
-    }
-  }
-
-  void removeCharacterByName(String name) {
-    final List<LottiePlayer> players =
-        world.children.whereType<LottiePlayer>().toList();
-    try {
-      final LottiePlayer playerToRemove = players.firstWhere(
-        (LottiePlayer player) => player.data.name == name,
-      );
-      world.remove(playerToRemove);
-    } catch (e) {
-      // 캐릭터를 찾지 못한 경우 아무 동작도 하지 않음
-      print('캐릭터를 찾을 수 없습니다: $name');
-    }
-  }
-
-  // 또는 인덱스로 삭제하는 메서드
-  void removeCharacterAt(int index) {
-    final List<LottiePlayer> players =
-        world.children.whereType<LottiePlayer>().toList();
-    if (index >= 0 && index < players.length) {
-      world.remove(players[index]);
+    // 모든 캐릭터의 위치를 새로운 경계 내로 조정
+    for (final Component child in world.children) {
+      if (child is LottiePlayer) {
+        child.position
+          ..x = child.position.x.clamp(
+            child.size.x,
+            newSize.x - child.size.x,
+          )
+          ..y = child.position.y.clamp(
+            child.size.y,
+            newSize.y - child.size.y,
+          );
+        child.setNewTargetPosition(); // 새로운 목표 위치 설정
+      }
     }
   }
 }
