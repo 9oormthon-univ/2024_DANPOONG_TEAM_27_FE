@@ -29,7 +29,9 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(profileViewModelProvider.notifier).getProfile();
+      ref.read(profileViewModelProvider.notifier)
+        ..getProfile()
+        ..getSpotList();
     });
   }
 
@@ -69,7 +71,10 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: Column(
                     children: <Widget>[
-                      const ProfileGraphWidget(),
+                      if (state.loadingGraph == LoadingStatus.success)
+                        const ProfileGraphWidget()
+                      else
+                        const SizedBox(height: 326),
                       const ProfileDescriptionTextWidget(),
                       ProfileGoalArchivingWidget(
                         opened: state.opened,
@@ -86,7 +91,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
               right: 20,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
+                children: <Widget>[
                   Material(
                     color: LuckitColors.transparent,
                     child: InkWell(
@@ -122,7 +127,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                               ),
                             ]),
                         child: Column(
-                          children: [
+                          children: <Widget>[
                             ProfileButtonWidget(
                               iconPath: Assets.edit,
                               color: LuckitColors.gray80,

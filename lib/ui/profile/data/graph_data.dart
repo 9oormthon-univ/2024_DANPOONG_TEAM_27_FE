@@ -15,6 +15,6 @@ final List<FlSpot> spots = <FlSpot>[
 ];
 
 final List<List<FlSpot>> graphData = <List<FlSpot>>[
-  makeSpots(<double>[5, 9, 7, 15, 15, 18, 10, 22]),
+  makeSpots(<double>[5, 9, 7, 15, 15, 18, 22]),
   makeSpots(<double>[2, 5, 1, 20, 21, 2, 10]),
 ];

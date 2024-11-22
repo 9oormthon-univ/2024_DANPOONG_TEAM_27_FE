@@ -1,18 +1,19 @@
 import 'package:dio/dio.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/loading_status.dart';
 import '../../domain/user/use_case/get_birth_info_use_case.dart';
 import '../../domain/user/use_case/get_login_info_use_case.dart';
+import 'data/graph_data.dart';
 import 'profile_state.dart';
 
 final AutoDisposeStateNotifierProvider<ProfileViewModel, ProfileState>
-profileViewModelProvider = StateNotifierProvider.autoDispose(
-      (AutoDisposeRef<ProfileState> ref) =>
-      ProfileViewModel(
-        getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
-        getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
-      ),
+    profileViewModelProvider = StateNotifierProvider.autoDispose(
+  (AutoDisposeRef<ProfileState> ref) => ProfileViewModel(
+    getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
+    getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
+  ),
 );
 
 class ProfileViewModel extends StateNotifier<ProfileState> {
@@ -22,10 +23,9 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
   ProfileViewModel({
     required GetBirthInfoUseCase getBirthInfoUseCase,
     required GetLoginInfoUseCase getLoginInfoUseCase,
-  })
-      : _getBirthInfoUseCase = getBirthInfoUseCase,
+  })  : _getBirthInfoUseCase = getBirthInfoUseCase,
         _getLoginInfoUseCase = getLoginInfoUseCase,
-        super(const ProfileState.init());
+        super(ProfileState.init());
 
   void toggleGoalArchiving() {
     state = state.copyWith(opened: !state.opened);
@@ -53,5 +53,30 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
 
   void toggleProfileButtons({required bool isCurrentOpen}) {
     state = state.copyWith(isProfileButtonsOpen: !isCurrentOpen);
+  }
+
+  void getSpotList() {
+    state = state.copyWith(loadingGraph: LoadingStatus.loading);
+    try {
+      final List<List<FlSpot>> spotsList = graphData;
+      state = state.copyWith(
+        loadingGraph: LoadingStatus.success,
+        spotsList: spotsList,
+      );
+    } on DioException {
+      state = state.copyWith(loadingGraph: LoadingStatus.error);
+    }
+  }
+
+  void onTapLeftArrow() {
+    if (state.currentGraphIndex > 0) {
+      state = state.copyWith(currentGraphIndex: state.currentGraphIndex - 1);
+    }
+  }
+
+  void onTapRightArrow() {
+    if (state.currentGraphIndex < state.spotsList.length - 1) {
+      state = state.copyWith(currentGraphIndex: state.currentGraphIndex + 1);
+    }
   }
 }
