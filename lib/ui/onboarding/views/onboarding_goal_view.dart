@@ -75,12 +75,22 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
                       text: '아직 고민 중이시라면, 이런 목표에 도전해보세요!',
                       topPadding: 44.0,
                     ),
-                    ...state.suggestions
-                        .asMap()
-                        .entries
-                        .map((MapEntry<int, SuggestionGoalModel> entry) {
-                      final int index = entry.key;
-                      final SuggestionGoalModel model = entry.value;
+                    // ...state.suggestions
+                    //     .asMap()
+                    //     .entries
+                    //     .map((MapEntry<int, SuggestionGoalModel> entry) {
+                    //   final int index = entry.key;
+                    //   final SuggestionGoalModel model = entry.value;
+                    //   return GoalSuggestionWidget(
+                    //     index: index,
+                    //     model: model,
+                    //     onPressedCheck: () =>
+                    //         viewModel.onTapSuggestion(index: index),
+                    //   );
+                    // }),
+                    ...List.generate(state.suggestions.length, (index) {
+                      final SuggestionGoalModel model =
+                          state.suggestions[index];
                       return GoalSuggestionWidget(
                         index: index,
                         model: model,

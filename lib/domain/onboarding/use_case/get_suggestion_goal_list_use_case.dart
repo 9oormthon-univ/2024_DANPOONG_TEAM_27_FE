@@ -28,10 +28,9 @@ class GetSuggestionGoalListUseCase {
     return switch (repositoryResult) {
       SuccessRepositoryResult<List<SuggestionGoalEntity>>() =>
         SuccessUseCaseResult<List<SuggestionGoalModel>>(
-          data: repositoryResult.data
-              .map((SuggestionGoalEntity e) =>
-                  SuggestionGoalModel.fromEntity(entity: e))
-              .toList(),
+          data: List.generate(repositoryResult.data.length, (index) {
+            return SuggestionGoalModel.fromEntity(entity: repositoryResult.data[index]);
+          }),
         ),
       FailureRepositoryResult<List<SuggestionGoalEntity>>() =>
         FailureUseCaseResult<List<SuggestionGoalModel>>(
