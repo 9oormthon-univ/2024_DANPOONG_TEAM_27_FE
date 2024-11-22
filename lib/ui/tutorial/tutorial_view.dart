@@ -25,6 +25,9 @@ class TutorialView extends ConsumerStatefulWidget {
 class _TutorialViewState extends ConsumerState<TutorialView>
     with WidgetsBindingObserver {
   late PageController _controller;
+  late double gameHeight;
+  late List<CloudConfig> clouds;
+
   HorizontalWalkingGame? game;
 
   @override
@@ -38,7 +41,7 @@ class _TutorialViewState extends ConsumerState<TutorialView>
   void initializeGame() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final Size screenSize = MediaQuery.of(context).size;
-      final double gameHeight = screenSize.width / 375 * 300;
+      gameHeight = screenSize.width / 375 * 300;
 
       final List<CharacterData> characters =
           ref.read(missionCharactersProvider);
@@ -46,7 +49,7 @@ class _TutorialViewState extends ConsumerState<TutorialView>
       game = HorizontalWalkingGame(
         boundarySize: Vector2(screenSize.width, gameHeight),
         characterTypes: characters,
-        gameBackground: Assets.gameBackground,
+        gameBackground: Assets.gameBackgroundWithoutCloud,
       );
       setState(() {});
     });
@@ -143,7 +146,5 @@ final List<StatelessWidget> pages = <StatelessWidget>[
   const TutorialFirstPage(),
   const TutorialSecondPage(),
   const TutorialThirdPage(),
-  const TutorialFourthPage(
-    game: null,
-  ),
+  const TutorialFourthPage(game: null),
 ];
