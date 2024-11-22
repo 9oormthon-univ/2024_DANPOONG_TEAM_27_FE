@@ -8,10 +8,12 @@ import '../../common/consts/assets.dart';
 class AnimatedCard extends StatelessWidget {
   final String title;
   final String comment;
+  final String iconPath;
 
   const AnimatedCard({
     required this.title,
     required this.comment,
+    required this.iconPath,
     super.key,
   });
 
@@ -42,7 +44,7 @@ class AnimatedCard extends StatelessWidget {
             Row(
               children: <Widget>[
                 SvgPicture.asset(
-                  Assets.pigOutlined,
+                  iconPath,
                   colorFilter: const ColorFilter.mode(
                     LuckitColors.main,
                     BlendMode.srcIn,

@@ -97,7 +97,6 @@ class MissionManageBottomSheet extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.pop(context);
               showModalBottomSheet<void>(
                 context: context,
                 isScrollControlled: true,

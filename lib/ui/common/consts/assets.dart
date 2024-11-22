@@ -34,6 +34,7 @@ class Assets {
   static const String homeFilled = 'assets/icons/home_filled.svg';
   static const String homeMainFilled = 'assets/icons/home_main_filled.svg';
   static const String note = 'assets/icons/note.svg';
+  static const String pawColored = 'assets/icons/paw_colored.svg';
   static const String pigFilled = 'assets/icons/pig_filled.svg';
   static const String pigOutlined = 'assets/icons/pig_outlined.svg';
   static const String profileColored = 'assets/icons/profile_colored.svg';
@@ -88,6 +89,9 @@ class Assets {
   static const String farmBackground = 'farm_background.png';
   static const String farmBackgroundLandscape = 'farm_background_landscape.png';
   static const String kingBackground = 'assets/images/king_background.png';
+
+  //빈공간 이미지
+  static const String emptyDragon = 'assets/images/empty_dragon.png';
 
   //애니메이션
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';
