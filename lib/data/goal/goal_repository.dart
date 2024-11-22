@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/common/repository/repository.dart';
 import '../../core/common/repository/repository_result.dart';
+import 'entity/complete_goal_entity.dart';
 import 'entity/goal_entity.dart';
 import 'goal_remote_data_source.dart';
 import 'request_body/create_goal_request_body.dart';
@@ -103,6 +104,30 @@ class GoalRepository extends Repository {
             messages: <String>['Unauthorized access'],
           ),
         _ => FailureRepositoryResult<List<GoalEntity>>(
+            error: e,
+            messages: <String>['정의되지 않은 오류'],
+          ),
+      };
+    }
+  }
+
+  Future<RepositoryResult<List<CompleteGoalEntity>>> getCompleteGoals() async {
+    try {
+      return SuccessRepositoryResult<List<CompleteGoalEntity>>(
+        data: await _goalRemoteDataSource.getCompleteGoals(),
+      );
+    } on DioException catch (e) {
+      final int? statusCode = e.response?.statusCode;
+      return switch (statusCode) {
+        400 => FailureRepositoryResult<List<CompleteGoalEntity>>(
+            error: e,
+            messages: <String>['Bad Request'],
+          ),
+        401 => FailureRepositoryResult<List<CompleteGoalEntity>>(
+            error: e,
+            messages: <String>['Unauthorized access'],
+          ),
+        _ => FailureRepositoryResult<List<CompleteGoalEntity>>(
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),

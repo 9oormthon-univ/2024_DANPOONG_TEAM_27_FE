@@ -3,14 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../service/network/dio_service.dart';
+import 'entity/complete_goal_entity.dart';
 import 'entity/goal_entity.dart';
 import 'request_body/create_goal_request_body.dart';
 
 part 'generated/goal_remote_data_source.g.dart';
 
 final Provider<GoalRemoteDataSource> goalRemoteDataSourceProvider =
-    Provider<GoalRemoteDataSource>(
-  (ProviderRef<GoalRemoteDataSource> ref) =>
+Provider<GoalRemoteDataSource>(
+      (ProviderRef<GoalRemoteDataSource> ref) =>
       GoalRemoteDataSource(ref.read(dioServiceProvider)),
 );
 
@@ -30,4 +31,7 @@ abstract class GoalRemoteDataSource {
   Future<void> toggleGoalComplete({
     @Path('goal_id') required int goalId,
   });
+
+  @GET('/goal/mypage')
+  Future<List<CompleteGoalEntity>> getCompleteGoals();
 }

@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/loading_status.dart';
+import '../../domain/goal/use_case/get_complete_goal_list_use_case.dart';
 import '../../domain/user/use_case/get_birth_info_use_case.dart';
 import '../../domain/user/use_case/get_login_info_use_case.dart';
 import 'data/graph_data.dart';
@@ -13,18 +14,22 @@ final AutoDisposeStateNotifierProvider<ProfileViewModel, ProfileState>
   (AutoDisposeRef<ProfileState> ref) => ProfileViewModel(
     getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
     getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
+    getCompleteGoalListUseCase: ref.read(getCompleteGoalListUseCaseProvider),
   ),
 );
 
 class ProfileViewModel extends StateNotifier<ProfileState> {
   final GetBirthInfoUseCase _getBirthInfoUseCase;
   final GetLoginInfoUseCase _getLoginInfoUseCase;
+  final GetCompleteGoalListUseCase _getCompleteGoalListUseCase;
 
   ProfileViewModel({
     required GetBirthInfoUseCase getBirthInfoUseCase,
     required GetLoginInfoUseCase getLoginInfoUseCase,
+    required GetCompleteGoalListUseCase getCompleteGoalListUseCase,
   })  : _getBirthInfoUseCase = getBirthInfoUseCase,
         _getLoginInfoUseCase = getLoginInfoUseCase,
+        _getCompleteGoalListUseCase = getCompleteGoalListUseCase,
         super(ProfileState.init());
 
   void toggleGoalArchiving() {
@@ -49,6 +54,10 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     } on DioException {
       state = state.copyWith(loadingProfile: LoadingStatus.error);
     }
+  }
+
+  void getCompleteGoalList() {
+    // await _getCompleteGoalListUseCase();
   }
 
   void toggleProfileButtons({required bool isCurrentOpen}) {
