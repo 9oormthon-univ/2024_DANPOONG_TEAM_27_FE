@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../routes/routes.dart';
+import '../../service/app/app_service.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
@@ -89,7 +90,7 @@ class _HomeViewState extends ConsumerState<HomeView>
   Widget build(BuildContext context) {
     final HomeState state = ref.watch(homeViewModelProvider);
     final HomeViewModel viewModel = ref.read(homeViewModelProvider.notifier);
-
+    final AppService appService = ref.read(appServiceProvider.notifier);
     // 추천 미션 캐러셀 슬라이드 페이지 컨트롤러
     final PageController cardCarouselController =
         PageController(viewportFraction: 300 / 375);
@@ -146,7 +147,7 @@ class _HomeViewState extends ConsumerState<HomeView>
                 ),
                 const Positioned(
                   right: 24,
-                  bottom: 66,
+                  bottom: 77,
                   child: GoToFarmButtonWidget(),
                 ),
 
@@ -257,7 +258,10 @@ class _HomeViewState extends ConsumerState<HomeView>
                 ),
               ],
             ),
-            TextButton(onPressed: () => context.go(Routes.farm.path), child: Text('농장')),
+            TextButton(
+              onPressed: appService.signOut,
+              child: const Text('로그아웃'),
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),

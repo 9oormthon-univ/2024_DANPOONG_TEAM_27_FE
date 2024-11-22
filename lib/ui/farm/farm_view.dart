@@ -91,7 +91,7 @@ class _FarmViewState extends ConsumerState<FarmView>
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          GameWidget(game: game!),
+          GameWidget<WalkingGame>(game: game!),
           Positioned(
             top: !isLandscape ? 54 : 40,
             left: 0,
@@ -161,7 +161,7 @@ class _FarmViewState extends ConsumerState<FarmView>
                         },
                       ),
                       BottomNavigationBarItemWidget(
-                        label: '홈',
+                        label: '홈으로',
                         selectedAsset: Assets.homeColored,
                         unselectedAsset: Assets.homeOutlined,
                         isSelected: true,
@@ -214,14 +214,14 @@ class _FarmViewState extends ConsumerState<FarmView>
           Positioned(
             left: 0,
             top: 0,
-            bottom:isLandscape ? null : 0,
+            bottom: isLandscape ? null : 0,
             right: isLandscape ? 0 : null,
             child: AnimatedSlide(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
-              offset: isLandscape 
-                ? Offset(0.0, _animalSelected ? 0.0 : -1.0)
-                : Offset(_animalSelected ? 0.0 : -1.0, 0.0),
+              offset: isLandscape
+                  ? Offset(0.0, _animalSelected ? 0.0 : -1.0)
+                  : Offset(_animalSelected ? 0.0 : -1.0, 0.0),
               child: const AnimalGlass(),
             ),
           ),
