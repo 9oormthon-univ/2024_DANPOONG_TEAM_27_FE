@@ -26,7 +26,6 @@ class _TutorialViewState extends ConsumerState<TutorialView>
     with WidgetsBindingObserver {
   late PageController _controller;
   late double gameHeight;
-  late List<CloudConfig> clouds;
 
   HorizontalWalkingGame? game;
 
