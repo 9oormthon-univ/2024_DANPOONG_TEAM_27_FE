@@ -1,37 +1,37 @@
 import 'package:equatable/equatable.dart';
 import '../../../../core/loading_status.dart';
-
+import '../../../../domain/fortune/model/fortune_model.dart';
 class FortuneState extends Equatable {
   final LoadingStatus loadingStatus;
-  final String selectdTitle;
-  final int selectedTitleScore;
+  final String selectedTitle;
+  final FortuneModel? fortune;
 
   const FortuneState({
     required this.loadingStatus,
-    required this.selectdTitle,
-    required this.selectedTitleScore,
+    required this.selectedTitle,
+    required this.fortune,
   });
 
   const FortuneState.init()
       : loadingStatus = LoadingStatus.none,
-        selectdTitle = '총운',
-        selectedTitleScore = 0;
+        selectedTitle = '총운',
+        fortune = null;
 
   FortuneState copyWith({
     LoadingStatus? loadingStatus,
     String? selectdTitle,
-    int? selectedTitleScore,
+    FortuneModel? fortune,
   }) =>
       FortuneState(
         loadingStatus: loadingStatus ?? this.loadingStatus,
-        selectdTitle: selectdTitle ?? this.selectdTitle,
-        selectedTitleScore: selectedTitleScore ?? this.selectedTitleScore,
+        selectedTitle: selectdTitle ?? this.selectedTitle,
+        fortune: fortune ?? this.fortune,
       );
 
   @override
   List<Object> get props => <Object>[
         loadingStatus,
-        selectdTitle,
-        selectedTitleScore,
+        selectedTitle,
+        fortune!,
       ];
 }

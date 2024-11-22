@@ -5,7 +5,9 @@ import '../../../theme/luckit_typos.dart';
 import 'circular_graph_widget.dart';
 
 class TimeFortuneGraphListWidget extends StatelessWidget {
+  final Map<String, int> timeOfDayFortuneScores;
   const TimeFortuneGraphListWidget({
+    required this.timeOfDayFortuneScores,
     super.key,
   });
 
@@ -30,21 +32,21 @@ class TimeFortuneGraphListWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                const CircularGraphWidget(
-                  percentage: 67,
+                CircularGraphWidget(
+                  percentage: timeOfDayFortuneScores['Morning'] ?? 0,
                   gradiantStart: LuckitColors.gradient2Stop0,
                   gradiantEnd: LuckitColors.gradient2Stop100,
                   timeTitle: '오전',
                 ),
                 CircularGraphWidget(
-                  percentage: 90,
+                  percentage: timeOfDayFortuneScores['Afternoon'] ?? 0,
                   gradiantStart: LuckitColors.gradient1Stop42,
                   gradiantEnd: LuckitColors.gradient1Stop100.withOpacity(0.7),
                   stops: const <double>[0.42, 1],
                   timeTitle: '오후',
                 ),
-                const CircularGraphWidget(
-                  percentage: 84,
+                CircularGraphWidget(
+                  percentage: timeOfDayFortuneScores['Night'] ?? 0,
                   gradiantStart: LuckitColors.gradient3Stop0,
                   gradiantEnd: LuckitColors.gradient3Stop100,
                   timeTitle: '밤',

@@ -33,11 +33,10 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
 
     switch (result) {
       case SuccessUseCaseResult<List<SuggestionGoalModel>>():
-        state = state.copyWith(suggestions: result.data);
+        state = state.copyWith(suggestions: result.data, getSuggestionsLoading: LoadingStatus.success);
       case FailureUseCaseResult<List<SuggestionGoalModel>>():
         state = state.copyWith(getSuggestionsLoading: LoadingStatus.error);
     }
-    state = state.copyWith(getSuggestionsLoading: LoadingStatus.success);
   }
 
   void onTapSuggestion({

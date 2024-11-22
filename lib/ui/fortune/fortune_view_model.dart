@@ -29,10 +29,14 @@ class FortuneViewModel extends StateNotifier<FortuneState> {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final UseCaseResult<FortuneModel> result = await _getFortuneUseCase.call();
 
-    try{
-
-    } on Exception {
-      state = state.copyWith(loadingStatus: LoadingStatus.error);
+    switch (result) {
+      case SuccessUseCaseResult<FortuneModel>():
+        state = state.copyWith(
+          loadingStatus: LoadingStatus.success,
+          fortune: result.data,
+        );
+      case FailureUseCaseResult<FortuneModel>():
+        state = state.copyWith(loadingStatus: LoadingStatus.error);
     }
   }
 }
