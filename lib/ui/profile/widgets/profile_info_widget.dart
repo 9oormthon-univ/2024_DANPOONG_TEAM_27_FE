@@ -43,7 +43,7 @@ class ProfileInfoWidget extends StatelessWidget {
               RoundedGreyTextWidget(label: '$year.$month.$day'),
               const SizedBox(width: 8.0),
               if (!unknownTime)
-                RoundedGreyTextWidget(label: '$hour!:$minute! 생'),
+                RoundedGreyTextWidget(label: '$hour:$minute 생'),
               const SizedBox(width: 8.0),
               RoundedGreyTextWidget(label: gender),
             ],

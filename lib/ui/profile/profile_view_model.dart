@@ -33,6 +33,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
 
   void getProfile() {
     state = state.copyWith(loadingProfile: LoadingStatus.loading);
+
     try {
       // await _getBirthInfoUseCase();
       // await _getLoginInfoUseCase();
@@ -43,7 +44,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
         year: 2003.toString(),
         month: 3.toString(),
         day: 7.toString(),
-        unknownTime: true,
+        unknownTime: false,
       );
     } on DioException {
       state = state.copyWith(loadingProfile: LoadingStatus.error);

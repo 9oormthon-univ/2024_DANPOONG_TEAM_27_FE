@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/loading_status.dart';
 import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
@@ -23,7 +24,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(profileViewModelProvider.notifier).getProfile();
     });
   }
@@ -48,15 +49,18 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              ProfileInfoWidget(
-                day: state.day,
-                gender: state.gender,
-                month: state.month,
-                hour: state.hour,
-                minute: state.minute,
-                unknownTime: state.unknownTime,
-                year: state.year,
-              ),
+              if (state.loadingProfile == LoadingStatus.success)
+                ProfileInfoWidget(
+                  day: state.day,
+                  gender: state.gender,
+                  month: state.month,
+                  hour: state.hour,
+                  minute: state.minute,
+                  unknownTime: state.unknownTime,
+                  year: state.year,
+                )
+              else
+                const SizedBox(height: 36.0),
               const ProfileGraphWidget(),
               const ProfileDescriptionTextWidget(),
               ProfileGoalArchivingWidget(
