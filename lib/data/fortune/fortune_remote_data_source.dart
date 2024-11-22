@@ -17,7 +17,7 @@ final Provider<FortuneRemoteDataSource> fortuneRemoteDataSourceProvider =
 abstract class FortuneRemoteDataSource {
   factory FortuneRemoteDataSource(Dio dio) = _FortuneRemoteDataSource;
 
-  @GET('/fortune/daily')
+  @GET('/api/v1/fortune/daily')
   Future<FortuneEntity> getFortune();
   
 }
