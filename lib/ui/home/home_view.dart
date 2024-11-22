@@ -366,6 +366,7 @@ class _HomeViewState extends ConsumerState<HomeView>
                         title: '오늘의 기분 좋은 일 하나 적기',
                         comment: '금전운을 향상시킬 수 있어요',
                         iconPath: Assets.pigOutlined,
+                        imagePath: Assets.money,
                       ),
                     ),
                   ),

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/loading_status.dart';
 import '../../theme/luckit_colors.dart';
+import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
 import 'login_state.dart';
 import 'login_view_model.dart';
@@ -29,6 +30,7 @@ class LoginView extends ConsumerWidget {
         //   context.goNamed(Routes.onboarding.name);
         // } else {
         // 기존 사용자는 홈으로
+        context.goNamed(Routes.birth.name);
         // }
       }
     });
