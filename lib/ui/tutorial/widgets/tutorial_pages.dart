@@ -194,7 +194,7 @@ class _CloudsOverlayState extends State<CloudsOverlay>
       ),
       CloudConfig(
         asset: Assets.tutorialCloud4,
-        startX: 3600,
+        startX: 3000,
         y: widget.gameHeight * 0.8,
         speed: 0.9,
         size: widget.gameHeight * 0.18,
