@@ -4,12 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/loading_status.dart';
+import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
 import 'login_state.dart';
 import 'login_view_model.dart';
-import '../../routes/routes.dart';
 
 class LoginView extends ConsumerWidget {
   const LoginView({super.key});
@@ -30,7 +30,7 @@ class LoginView extends ConsumerWidget {
         //   context.goNamed(Routes.onboarding.name);
         // } else {
         // 기존 사용자는 홈으로
-        context.goNamed(Routes.birth.name);
+        // context.goNamed(Routes.birth.name);
         // }
       }
     });
@@ -48,7 +48,15 @@ class LoginView extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                SvgPicture.asset(Assets.loginLogo),
+                Text(
+                  'LUCKIT',
+                  style: LuckitTypos.tenadaEB20
+                      .copyWith(fontSize: 56, color: LuckitColors.main),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 168,
+                ),
                 const SizedBox(
                   height: 168,
                 ),
@@ -66,7 +74,9 @@ class LoginView extends ConsumerWidget {
             const ColoredBox(
               color: Colors.black38,
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: LuckitColors.main,
+                ),
               ),
             ),
         ],
