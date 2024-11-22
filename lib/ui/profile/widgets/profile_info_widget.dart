@@ -7,43 +7,61 @@ import '../../common/consts/assets.dart';
 import '../../common/widgets/rounded_grey_text_widget.dart';
 
 class ProfileInfoWidget extends StatelessWidget {
-  const ProfileInfoWidget({super.key});
+  final String year;
+  final String month;
+  final String day;
+  final String hour;
+  final String minute;
+  final bool unknownTime;
+  final String gender;
+
+  const ProfileInfoWidget({
+    required this.year,
+    required this.month,
+    required this.day,
+    required this.unknownTime,
+    required this.gender,
+    required this.hour,
+    required this.minute,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: <Widget>[
-      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(
-            '미르미',
-            style: LuckitTypos.suitR20.copyWith(
-              color: LuckitColors.main,
-              height: 0.0,
-            ),
+          Row(
+            children: <Widget>[
+              Text(
+                '미르미',
+                style: LuckitTypos.suitR20.copyWith(
+                  color: LuckitColors.main,
+                  height: 0.0,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              RoundedGreyTextWidget(label: '$year.$month.$day'),
+              const SizedBox(width: 8.0),
+              if (!unknownTime)
+                RoundedGreyTextWidget(label: '$hour!:$minute! 생'),
+              const SizedBox(width: 8.0),
+              RoundedGreyTextWidget(label: gender),
+            ],
           ),
-          const SizedBox(width: 16.0),
-          const RoundedGreyTextWidget(label: '2000.04.19'),
-          const SizedBox(width: 8.0),
-          const RoundedGreyTextWidget(label: '07:23 생'),
-          const SizedBox(width: 8.0),
-          const RoundedGreyTextWidget(label: '여성'),
+          Material(
+            color: LuckitColors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(100),
+              onTap: () {},
+              child: SvgPicture.asset(
+                Assets.edit,
+                colorFilter: const ColorFilter.mode(
+                  LuckitColors.gray60,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+          )
         ],
-      ),
-      Material(
-        color: LuckitColors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(100),
-          onTap: () {},
-          child: SvgPicture.asset(
-            Assets.edit,
-            colorFilter: const ColorFilter.mode(
-              LuckitColors.gray60,
-              BlendMode.srcIn,
-            ),
-          ),
-        ),
-      )
-    ],
-  );
+      );
 }

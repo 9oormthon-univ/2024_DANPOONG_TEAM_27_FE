@@ -21,6 +21,14 @@ class ProfileView extends ConsumerStatefulWidget {
 
 class _ProfileViewState extends ConsumerState<ProfileView> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      ref.read(profileViewModelProvider.notifier).getProfile();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ProfileState state = ref.watch(profileViewModelProvider);
     final ProfileViewModel viewModel =
@@ -40,7 +48,15 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              const ProfileInfoWidget(),
+              ProfileInfoWidget(
+                day: state.day,
+                gender: state.gender,
+                month: state.month,
+                hour: state.hour,
+                minute: state.minute,
+                unknownTime: state.unknownTime,
+                year: state.year,
+              ),
               const ProfileGraphWidget(),
               const ProfileDescriptionTextWidget(),
               ProfileGoalArchivingWidget(
