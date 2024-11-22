@@ -27,9 +27,6 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         ref.read(profileViewModelProvider.notifier);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed('/tutorial'),
-      ),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentRouteName: Routes.profile.name,
       ),

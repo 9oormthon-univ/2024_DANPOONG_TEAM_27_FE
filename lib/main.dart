@@ -6,13 +6,11 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'routes/app_router.dart';
 import 'theme/luckit_colors.dart';
 
-void main() async{
-  await dotenv.load(fileName: '.env');
+void main() async {
+  await dotenv.load();
   KakaoSdk.init(
-        nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY'],
-        javaScriptAppKey: 'af5390099be77a85b173cc5f29e0f617',
-        
-    );
+    nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY'],
+  );
   runApp(const ProviderScope(child: MainApp()));
 }
 

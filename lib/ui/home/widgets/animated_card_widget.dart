@@ -9,11 +9,13 @@ class AnimatedCard extends StatelessWidget {
   final String title;
   final String comment;
   final String iconPath;
+  final String imagePath;
 
   const AnimatedCard({
     required this.title,
     required this.comment,
     required this.iconPath,
+    required this.imagePath,
     super.key,
   });
 
@@ -65,7 +67,8 @@ class AnimatedCard extends StatelessWidget {
                   Container(
                     width: 130,
                     height: 115,
-                    color: Colors.amber,
+                    // color: Colors.amber,
+                    child: Image.asset(imagePath),
                   ),
                   Container(
                     margin: const EdgeInsets.only(bottom: 21.33),

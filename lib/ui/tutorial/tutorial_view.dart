@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
 import '../common/consts/assets.dart';
 import '../onboarding/widgets/onboarding_bottom_button.dart';
@@ -42,9 +43,6 @@ class _TutorialViewState extends ConsumerState<TutorialView> {
         ref.read(tutorialViewModelProvider.notifier);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed('/start'),
-      ),
       backgroundColor: LuckitColors.background,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
@@ -55,7 +53,7 @@ class _TutorialViewState extends ConsumerState<TutorialView> {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () => context.goNamed('/home'),
+            onPressed: () => context.goNamed(Routes.home.name),
             icon: SvgPicture.asset(
               Assets.closeMD,
               colorFilter: const ColorFilter.mode(

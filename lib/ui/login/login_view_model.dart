@@ -1,10 +1,10 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import '../../core/common/use_case/use_case_result.dart';
 import '../../core/loading_status.dart';
 import '../../domain/auth/model/auth_token_model.dart';
 import '../../domain/auth/use_case/get_auth_use_case.dart';
+import '../../service/app/app_service.dart';
 import 'login_state.dart';
 
 final AutoDisposeStateNotifierProvider<LoginViewModel, LoginState>
@@ -12,21 +12,25 @@ final AutoDisposeStateNotifierProvider<LoginViewModel, LoginState>
   (AutoDisposeRef<LoginState> ref) => LoginViewModel(
     state: const LoginState.init(),
     getAuthUseCase: ref.read(getAuthUseCaseProvider),
+    appService: ref.read(appServiceProvider.notifier),
   ),
 );
 
 class LoginViewModel extends StateNotifier<LoginState> {
   final GetAuthUseCase _getAuthUseCase;
+  final AppService _appService;
 
   LoginViewModel({
     required LoginState state,
     required GetAuthUseCase getAuthUseCase,
+    required AppService appService,
   })  : _getAuthUseCase = getAuthUseCase,
+        _appService = appService,
         super(state);
 
   Future<void> signInWithKakao() async {
     try {
-      state = state.copyWith(loadingStatus: LoadingStatus.loading);
+      state = state.copyWith(kakaoOauthLoadingStatus: LoadingStatus.loading);
 
       String? authCode;
 
@@ -37,12 +41,10 @@ class LoginViewModel extends StateNotifier<LoginState> {
             // 카카오톡으로 로그인
             authCode = await AuthCodeClient.instance
                 .authorizeWithTalk(redirectUri: KakaoSdk.redirectUri);
-          } catch (error) {
-            print('카카오톡 로그인 실패: $error');
+          } on Exception {
             // 카카오톡 로그인 실패 시 카카오계정으로 로그인 시도
             authCode = await AuthCodeClient.instance
                 .authorize(redirectUri: KakaoSdk.redirectUri);
-            print('카카오계정 로그인 인가코드: $authCode');
           }
         } else {
           // 카카오톡 미설치시 카카오계정으로 로그인
@@ -52,30 +54,44 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
         // 인가코드를 받았다면 서버에 전송
         final UseCaseResult<AuthTokenModel> result =
-            await _getAuthUseCase.call(code: authCode);
+            await _getAuthUseCase(code: authCode);
+
+        try {
+          switch (result) {
+            case SuccessUseCaseResult<AuthTokenModel>():
+              await _appService.signIn(authTokens: result.data);
+              state = state.copyWith(
+                  kakaoOauthLoadingStatus: LoadingStatus.success);
+            case FailureUseCaseResult<AuthTokenModel>():
+              state =
+                  state.copyWith(kakaoOauthLoadingStatus: LoadingStatus.error);
+          }
+        } on Exception {
+          state = state.copyWith(kakaoOauthLoadingStatus: LoadingStatus.error);
+        }
 
         switch (result) {
-          case SuccessUseCaseResult():
+          case SuccessUseCaseResult<AuthTokenModel>():
+            await _appService.signIn(authTokens: result.data);
             state = state.copyWith(
-              loadingStatus: LoadingStatus.success,
+              kakaoOauthLoadingStatus: LoadingStatus.success,
               isAuthenticated: true,
             );
-          case FailureUseCaseResult():
+          case FailureUseCaseResult<AuthTokenModel>():
             state = state.copyWith(
-              loadingStatus: LoadingStatus.error,
+              kakaoOauthLoadingStatus: LoadingStatus.error,
               error: result.message ?? '로그인에 실패했습니다.',
             );
         }
-      } catch (error) {
-        print('카카오 로그인 실패: $error');
+      } on Exception {
         state = state.copyWith(
-          loadingStatus: LoadingStatus.error,
+          kakaoOauthLoadingStatus: LoadingStatus.error,
           error: '카카오 로그인에 실패했습니다.',
         );
       }
-    } catch (e) {
+    } on Exception catch (e) {
       state = state.copyWith(
-        loadingStatus: LoadingStatus.error,
+        kakaoOauthLoadingStatus: LoadingStatus.error,
         error: e.toString(),
       );
     }

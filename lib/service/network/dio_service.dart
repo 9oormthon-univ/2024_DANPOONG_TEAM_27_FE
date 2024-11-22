@@ -4,6 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import 'auth_interceptor.dart';
+
 // import 'auth_interceptor.dart';
 
 final Provider<Dio> dioServiceProvider = Provider<Dio>(
@@ -19,13 +21,13 @@ final Provider<Dio> dioServiceProvider = Provider<Dio>(
             responseHeader: true,
           ),
           // 토큰 확인 인터셉터
-          // ref.watch(authInterceptorProvider),
+          ref.watch(authInterceptorProvider),
         ]);
     }
     // 배포 환경
     return DioClient.dio
       ..interceptors.addAll(<Interceptor>[
-        // ref.watch(authInterceptorProvider),
+        ref.watch(authInterceptorProvider),
       ]);
   },
 );
