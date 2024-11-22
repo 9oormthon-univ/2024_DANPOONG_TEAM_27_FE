@@ -21,7 +21,7 @@ class OnboardingRepository extends Repository {
       getSuggestionGoals() async {
     try {
       return SuccessRepositoryResult<List<SuggestionGoalEntity>>(
-        data: await _onboardingRemoteDataSource.getTodoList(),
+        data: await _onboardingRemoteDataSource.getSuggestionGoalList(),
       );
     } on DioException catch (e) {
       final int? statusCode = e.response?.statusCode;

@@ -18,5 +18,5 @@ abstract class OnboardingRemoteDataSource {
   factory OnboardingRemoteDataSource(Dio dio) = _OnboardingRemoteDataSource;
 
   @GET('/fortune')
-  Future<List<SuggestionGoalEntity>> getTodoList();
+  Future<List<SuggestionGoalEntity>> getSuggestionGoalList();
 }
