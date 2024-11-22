@@ -15,6 +15,7 @@ dependencies:
   flame_lottie: ^0.4.2+1
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.2.1
   flutter_riverpod: ^2.5.1
   flutter_secure_storage: ^9.2.2
   flutter_svg: ^2.0.10+1
@@ -50,6 +51,7 @@ flutter:
     - assets/animation/stop/
     - assets/animation/appear/
     - assets/frame/
+    - .env
 
   fonts:
     - family: SUIT
