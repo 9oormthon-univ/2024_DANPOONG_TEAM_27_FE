@@ -60,6 +60,13 @@ class Assets {
   static const String tutorialCloud3 = 'assets/icons/tutorial_cloud_3.svg';
   static const String tutorialCloud4 = 'assets/icons/tutorial_cloud_4.svg';
 
+  static const String allLuck = 'assets/images/all_luck.png';
+  static const String health = 'assets/images/health.png';
+  static const String love = 'assets/images/love.png';
+  static const String money = 'assets/images/money.png';
+  static const String study = 'assets/images/study.png';
+  static const String workPlace = 'assets/images/work_place.png';
+
   //프레임
   static const String chickenFrame = 'assets/frame/chicken_frame.svg';
   static const String cowFrame = 'assets/frame/cow_frame.svg';
@@ -101,7 +108,6 @@ class Assets {
   //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
   static const String loginBackground = 'assets/images/login_background.png';
-  static const String loginLogo = 'assets/images/login_logo.svg';
 
   static const String gameBackgroundAsset = 'assets/images/game_background.png';
   //게임 배경
