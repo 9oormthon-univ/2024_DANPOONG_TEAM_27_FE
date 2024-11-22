@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
@@ -58,7 +59,7 @@ class StartView extends ConsumerWidget {
             ),
             const Expanded(child: SizedBox()),
             OnboardingBottomButton(
-              onPressed: () => context.goNamed('/onboarding/birth'),
+              onPressed: () => context.goNamed(Routes.birth.name),
               activated: true,
               label: '정보 입력하러 가기',
             ),

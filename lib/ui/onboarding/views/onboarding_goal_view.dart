@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../routes/routes.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/widgets/new_custom_text_field.dart';
@@ -95,7 +96,7 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: OnboardingBottomButton(
-              onPressed: () => context.pushNamed('/onboarding/duration'),
+              onPressed: () => context.pushNamed(Routes.duration.name),
               activated: viewModel.activateNextButtonInGoal,
               label: '목표 입력 완료',
             ),

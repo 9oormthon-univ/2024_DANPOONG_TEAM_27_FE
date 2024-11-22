@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../routes/routes.dart';
 import '../../../theme/luckit_colors.dart';
 import '../onboarding_state.dart';
 import '../onboarding_view_model.dart';
@@ -90,7 +91,7 @@ class OnboardingDurationView extends ConsumerWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: OnboardingBottomButton(
-              onPressed: () => context.goNamed('/home'),
+              onPressed: () => context.pushNamed(Routes.tutorial.name),
               activated: viewModel.activateNextButtonInDuration,
               label: '기간 설정 완료',
             ),
