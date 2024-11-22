@@ -79,9 +79,9 @@ class ProfileGraphWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  for (int i = 0; i <= 6; i ++)
+                  for (int i = 0; i <= 6; i++)
                     Text(
-                      i==0 ? '1' : (i * 5).toString(),
+                      i == 0 ? '1' : (i * 5).toString(),
                       style: LuckitTypos.suitR12.copyWith(
                         color: LuckitColors.main,
                       ),
@@ -112,6 +112,25 @@ class LineChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => LineChart(
         LineChartData(
+          lineTouchData: LineTouchData(
+            getTouchedSpotIndicator:
+                (LineChartBarData barData, List<int> spotIndexes) => spotIndexes
+                    .map(
+                      (int index) => const TouchedSpotIndicatorData(
+                        FlLine(
+                          color: LuckitColors.main,
+                          strokeWidth: 1,
+                        ),
+                        FlDotData(),
+                      ),
+                    )
+                    .toList(),
+            touchTooltipData: LineTouchTooltipData(
+              getTooltipColor: (LineBarSpot touchedSpot) => LuckitColors.white,
+              tooltipBorder: const BorderSide(color: LuckitColors.gray10),
+              tooltipPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+            ),
+          ),
           gridData: const FlGridData(show: false),
           titlesData: const FlTitlesData(show: false),
           borderData: FlBorderData(show: false),
