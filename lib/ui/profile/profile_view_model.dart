@@ -44,10 +44,14 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
         year: 2003.toString(),
         month: 3.toString(),
         day: 7.toString(),
-        unknownTime: false,
+        unknownTime: true,
       );
     } on DioException {
       state = state.copyWith(loadingProfile: LoadingStatus.error);
     }
+  }
+
+  void toggleProfileButtons({required bool isCurrentOpen}) {
+    state = state.copyWith(isProfileButtonsOpen: !isCurrentOpen);
   }
 }

@@ -28,40 +28,21 @@ class ProfileInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Text(
-                '미르미',
-                style: LuckitTypos.suitR20.copyWith(
-                  color: LuckitColors.main,
-                  height: 0.0,
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              RoundedGreyTextWidget(label: '$year.$month.$day'),
-              const SizedBox(width: 8.0),
-              if (!unknownTime)
-                RoundedGreyTextWidget(label: '$hour:$minute 생'),
-              const SizedBox(width: 8.0),
-              RoundedGreyTextWidget(label: gender),
-            ],
-          ),
-          Material(
-            color: LuckitColors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(100),
-              onTap: () {},
-              child: SvgPicture.asset(
-                Assets.edit,
-                colorFilter: const ColorFilter.mode(
-                  LuckitColors.gray60,
-                  BlendMode.srcIn,
-                ),
-              ),
+          const SizedBox(width: 24.0),
+          Text(
+            '미르미',
+            style: LuckitTypos.suitR20.copyWith(
+              color: LuckitColors.main,
+              height: 0.0,
             ),
-          )
+          ),
+          const SizedBox(width: 16.0),
+          RoundedGreyTextWidget(label: '$year.$month.$day'),
+          const SizedBox(width: 8.0),
+          if (!unknownTime) RoundedGreyTextWidget(label: '$hour:$minute 생'),
+          const SizedBox(width: 8.0),
+          RoundedGreyTextWidget(label: gender),
         ],
       );
 }

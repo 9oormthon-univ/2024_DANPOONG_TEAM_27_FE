@@ -1,8 +1,10 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
+import '../../common/consts/assets.dart';
 import '../data/graph_data.dart';
 import '../decoration/profile_box_decoration.dart';
 import 'line_chart_widget.dart';
@@ -27,11 +29,23 @@ class ProfileGraphWidget extends StatelessWidget {
                     style: LuckitTypos.suitSB16
                         .copyWith(color: LuckitColors.gray80),
                   ),
-                  Text(
-                    '2024.11.01 ~ 2024.11.30',
-                    textAlign: TextAlign.right,
-                    style: LuckitTypos.suitR12
-                        .copyWith(color: LuckitColors.gray60),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        '2024년 11월',
+                        textAlign: TextAlign.right,
+                        style: LuckitTypos.suitR12
+                            .copyWith(color: LuckitColors.gray60),
+                      ),
+                      CustomIconButton(
+                        iconPath: Assets.arrowLeft,
+                        onTap: () {},
+                      ),
+                      CustomIconButton(
+                        iconPath: Assets.arrowRight,
+                        onTap: () {},
+                      )
+                    ],
                   )
                 ],
               ),
@@ -102,6 +116,35 @@ class ProfileGraphWidget extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      );
+}
+
+class CustomIconButton extends StatelessWidget {
+  final String iconPath;
+  final VoidCallback onTap;
+
+  const CustomIconButton(
+      {required this.iconPath, required this.onTap, super.key});
+
+  @override
+  Widget build(BuildContext context) => Material(
+        color: LuckitColors.transparent,
+        child: InkWell(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(100),
+          ),
+          onTap: onTap,
+          child: SvgPicture.asset(
+            // TODO(dodo): rounded right/left arrow
+            iconPath,
+            height: 24.0,
+            width: 24.0,
+            colorFilter: const ColorFilter.mode(
+              LuckitColors.gray80,
+              BlendMode.srcIn,
+            ),
+          ),
         ),
       );
 }

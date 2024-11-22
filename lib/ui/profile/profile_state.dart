@@ -5,8 +5,9 @@ import '../../core/loading_status.dart';
 class ProfileState extends Equatable {
   final bool opened;
 
-  // loading
+  // status
   final LoadingStatus loadingProfile;
+  final bool isProfileButtonsOpen;
 
   // user info
   final String name;
@@ -22,6 +23,7 @@ class ProfileState extends Equatable {
   const ProfileState({
     required this.opened,
     required this.loadingProfile,
+    required this.isProfileButtonsOpen,
     required this.name,
     required this.gender,
     required this.solarOrLunar,
@@ -36,6 +38,7 @@ class ProfileState extends Equatable {
   const ProfileState.init()
       : opened = false,
         loadingProfile = LoadingStatus.none,
+        isProfileButtonsOpen = false,
         name = '',
         gender = '',
         solarOrLunar = '',
@@ -49,6 +52,7 @@ class ProfileState extends Equatable {
   ProfileState copyWith({
     bool? opened,
     LoadingStatus? loadingProfile,
+    bool? isProfileButtonsOpen,
     String? name,
     String? gender,
     String? solarOrLunar,
@@ -62,6 +66,7 @@ class ProfileState extends Equatable {
       ProfileState(
         opened: opened ?? this.opened,
         loadingProfile: loadingProfile ?? this.loadingProfile,
+        isProfileButtonsOpen: isProfileButtonsOpen ?? this.isProfileButtonsOpen,
         name: name ?? this.name,
         gender: gender ?? this.gender,
         solarOrLunar: solarOrLunar ?? this.solarOrLunar,
@@ -77,6 +82,7 @@ class ProfileState extends Equatable {
   List<Object> get props => <Object>[
         opened,
         loadingProfile,
+        isProfileButtonsOpen,
         name,
         gender,
         solarOrLunar,

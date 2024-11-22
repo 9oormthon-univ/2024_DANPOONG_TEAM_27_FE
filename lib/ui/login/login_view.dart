@@ -33,6 +33,7 @@ class LoginView extends ConsumerWidget {
     });
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: ()=>context.goNamed(Routes.home.name)),
       backgroundColor: LuckitColors.background,
       body: Stack(
         children: <Widget>[
