@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../routes/routes.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/widgets/rounded_text_button_widget.dart';
@@ -26,7 +27,7 @@ class OnboardingBirthView extends ConsumerWidget {
     final OnboardingState state = ref.watch(onboardingViewModelProvider);
 
     return Scaffold(
-      appBar: OnboardingAppBar(onPressed: () => context.goNamed('/home')),
+      appBar: const OnboardingAppBar(),
       backgroundColor: LuckitColors.background,
       body: Column(
         children: <Widget>[
@@ -60,7 +61,7 @@ class OnboardingBirthView extends ConsumerWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: OnboardingBottomButton(
-              onPressed: () => context.pushNamed('/onboarding/goal'),
+              onPressed: () => context.pushNamed(Routes.goal.name),
               activated: viewModel.activateNextButtonInBirth,
               label: '입력 완료',
             ),

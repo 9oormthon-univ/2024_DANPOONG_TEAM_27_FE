@@ -16,30 +16,32 @@ class LandscapeCharacterBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
-    decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        border: Border.all(color: LuckitColors.gray10,)),
-    child: Stack(
-      children: <Widget>[
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Text(
-            number,
-            style: LuckitTypos.suitSB20.copyWith(
-              color: LuckitColors.gray80,
-              height: 1.6,
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            border: Border.all(
+              color: LuckitColors.gray10,
+            )),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Text(
+                number,
+                style: LuckitTypos.suitSB20.copyWith(
+                  color: LuckitColors.gray80,
+                  height: 1.6,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-            textAlign: TextAlign.center,
-          ),
+            Positioned(
+              right: 0.0,
+              bottom: 0.0,
+              child: SvgPicture.asset(frame),
+            ),
+          ],
         ),
-        Positioned(
-          right: 0.0,
-          bottom: 0.0,
-          child: SvgPicture.asset(frame),
-        ),
-      ],
-    ),
-  );
+      );
 }
