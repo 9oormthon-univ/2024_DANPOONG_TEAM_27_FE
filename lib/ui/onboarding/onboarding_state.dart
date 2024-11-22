@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/loading_status.dart';
-
+import '../../domain/onboarding/model/suggestion_goal_model.dart';
 class OnboardingState extends Equatable {
   // goal
   final LoadingStatus getUserNameLoading;
@@ -16,7 +16,7 @@ class OnboardingState extends Equatable {
 
   // text field enable, goal 결정, 선택된 목표 인덱스 저장
   final int selectedSuggestion;
-  final List<GoalSuggestionModel> suggestions;
+  final List<SuggestionGoalModel> suggestions;
 
   // duration
   final String startYear;
@@ -72,7 +72,7 @@ class OnboardingState extends Equatable {
         userName: '',
         goalInputFieldText: '',
         goalInputFieldErrorMsg: '',
-        suggestions: <GoalSuggestionModel>[],
+        suggestions: <SuggestionGoalModel>[],
         suggestedDuration: '',
         selectedSuggestion: -1,
         goal: '',
@@ -102,7 +102,7 @@ class OnboardingState extends Equatable {
     String? goalInputFieldErrorMsg,
     int? selectedSuggestion,
     String? suggestedDuration,
-    List<GoalSuggestionModel>? suggestions,
+    List<SuggestionGoalModel>? suggestions,
     String? goal,
     String? startYear,
     String? startMonth,
@@ -164,15 +164,7 @@ class OnboardingState extends Equatable {
       ];
 }
 
-class GoalSuggestionModel {
-  final String suggestedGoal;
-  final String suggestedDuration;
 
-  const GoalSuggestionModel({
-    required this.suggestedGoal,
-    required this.suggestedDuration,
-  });
-}
 
 enum Gender { man, woman }
 
