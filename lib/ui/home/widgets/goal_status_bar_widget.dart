@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/src/services/text_formatter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -39,7 +40,7 @@ class GoalStatusBarWidget extends ConsumerWidget {
           ),
           height: state.isGoalEditing ? 128 : 65,
           child: state.isGoalEditing
-              ? const IsGoalEditing()
+              ? IsGoalEditing()
               : const DefaultGoalStatusBar(),
         ),
       ),
@@ -48,9 +49,39 @@ class GoalStatusBarWidget extends ConsumerWidget {
 }
 
 class IsGoalEditing extends ConsumerWidget {
-  const IsGoalEditing({
+  IsGoalEditing({
     super.key,
   });
+
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
+
+  void _formatDate({
+    required String input,
+    required TextEditingController controller,
+  }) {
+    // 숫자만 남기기
+    final String cleanedInput = input.replaceAll(RegExp('[^0-9]'), '');
+    String formatted = cleanedInput;
+
+    // 입력 길이에 따라 포맷 추가
+    if (cleanedInput.length >= 6) {
+      formatted =
+          '''${cleanedInput.substring(0, 4)}.${cleanedInput.substring(4, 6)}''';
+    } else if (cleanedInput.length >= 5) {
+      formatted =
+          '''${cleanedInput.substring(0, 4)}.${cleanedInput.substring(4, cleanedInput.length)}''';
+    }
+    if (cleanedInput.length >= 7) {
+      formatted += '.${cleanedInput.substring(6, cleanedInput.length)}';
+    }
+
+    controller.value = TextEditingValue(
+      text: formatted,
+      selection:
+          TextSelection.collapsed(offset: formatted.length), // 커서를 맨 뒤로 이동
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,6 +93,7 @@ class IsGoalEditing extends ConsumerWidget {
         horizontal: 9,
         vertical: 6,
       ),
+      counterText: '',
       filled: true,
       fillColor: LuckitColors.main.withOpacity(0.2),
       border: OutlineInputBorder(
@@ -143,6 +175,18 @@ class IsGoalEditing extends ConsumerWidget {
                       style: LuckitTypos.suitR10
                           .copyWith(color: LuckitColors.white),
                       decoration: dateInputDecoration,
+                      controller: _startDateController,
+                      onChanged: (String input) {
+                        _formatDate(
+                          input: input,
+                          controller: _startDateController,
+                        );
+                      },
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      maxLength: 8,
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                   Padding(
@@ -163,7 +207,19 @@ class IsGoalEditing extends ConsumerWidget {
                       cursorColor: LuckitColors.transparent,
                       style: LuckitTypos.suitR10
                           .copyWith(color: LuckitColors.white),
+                      controller: _endDateController,
+                      onChanged: (String input) {
+                        _formatDate(
+                          input: input,
+                          controller: _endDateController,
+                        );
+                      },
+                      maxLength: 8,
                       decoration: dateInputDecoration,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                 ],
