@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
-import '../../theme/luckit_typos.dart';
-import '../common/consts/assets.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
-import '../common/widgets/rounded_grey_text_widget.dart';
 import 'profile_state.dart';
 import 'profile_view_model.dart';
 import 'widgets/profile_description_text_widget.dart';
@@ -30,6 +27,9 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         ref.read(profileViewModelProvider.notifier);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.goNamed('/tutorial'),
+      ),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentRouteName: Routes.profile.name,
       ),

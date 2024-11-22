@@ -12,6 +12,8 @@ import '../ui/onboarding/views/onboarding_birth_view.dart';
 import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
 import '../ui/profile/profile_view.dart';
+import '../ui/tutorial/start_view.dart';
+import '../ui/tutorial/tutorial_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
 import 'routes.dart';
@@ -96,7 +98,7 @@ class AppRouter {
         name: Routes.duration.name,
         path: Routes.duration.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
-        const NoTransitionPage<dynamic>(
+            const NoTransitionPage<dynamic>(
           child: OnboardingDurationView(),
         ),
       ),
@@ -104,7 +106,7 @@ class AppRouter {
         name: Routes.birth.name,
         path: Routes.birth.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
-        const NoTransitionPage<dynamic>(
+            const NoTransitionPage<dynamic>(
           child: OnboardingBirthView(),
         ),
       ),
@@ -112,7 +114,7 @@ class AppRouter {
         name: Routes.farm.name,
         path: Routes.farm.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
-        const NoTransitionPage<dynamic>(
+            const NoTransitionPage<dynamic>(
           child: FarmView(),
         ),
       ),
@@ -120,8 +122,24 @@ class AppRouter {
         name: Routes.goalComplete.name,
         path: Routes.goalComplete.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
-        const NoTransitionPage<dynamic>(
+            const NoTransitionPage<dynamic>(
           child: GoalCompleteView(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.tutorial.name,
+        path: Routes.tutorial.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: TutorialView(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.start.name,
+        path: Routes.start.path,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: StartView(),
         ),
       ),
 

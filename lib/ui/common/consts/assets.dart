@@ -55,6 +55,10 @@ class Assets {
   static const String clockFilled = 'assets/icons/clock_filled.svg';
   static const String roundedArrowUp = 'assets/icons/rounded_arrow_up.svg';
   static const String roundedArrowDown = 'assets/icons/rounded_arrow_down.svg';
+  static const String tutorialCloud1 = 'assets/icons/tutorial_cloud_1.svg';
+  static const String tutorialCloud2 = 'assets/icons/tutorial_cloud_2.svg';
+  static const String tutorialCloud3 = 'assets/icons/tutorial_cloud_3.svg';
+  static const String tutorialCloud4 = 'assets/icons/tutorial_cloud_4.svg';
 
   //프레임
   static const String chickenFrame = 'assets/frame/chicken_frame.svg';
@@ -105,6 +109,9 @@ class Assets {
   static const String farmBackground = 'farm_background.png';
   static const String farmBackgroundLandscape = 'farm_background_landscape.png';
   static const String kingBackground = 'assets/images/king_background.png';
+  static const String whiteBackground = 'white_background.png';
+  static const String gameBackgroundWithoutCloud =
+      'game_background_without_cloud.png';
 
   //빈공간 이미지
   static const String emptyDragon = 'assets/images/empty_dragon.png';
@@ -140,4 +147,10 @@ class Assets {
 
   static const String kingMouseAppear =
       'assets/animation/appear/king_mouse_appear.json';
+
+  // 튜토리얼
+  static const String tutorialFirstImage =
+      'assets/images/tutorial_first_image.png';
+  static const String tutorialSecondImage =
+      'assets/images/tutorial_second_image.png';
 }
