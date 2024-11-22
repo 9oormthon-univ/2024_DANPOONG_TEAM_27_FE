@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../domain/onboarding/model/suggestion_goal_model.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../onboarding_state.dart';
@@ -10,7 +11,7 @@ import 'suggested_duration_widget.dart';
 
 class GoalSuggestionWidget extends ConsumerWidget {
   final int index;
-  final GoalSuggestionModel model;
+  final SuggestionGoalModel model;
   final VoidCallback onPressedCheck;
 
   const GoalSuggestionWidget({
@@ -50,7 +51,7 @@ class GoalSuggestionWidget extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                model.suggestedGoal,
+                model.goals,
                 style: LuckitTypos.suitSB16.copyWith(
                   color: state.goal.isEmpty || state.selectedSuggestion > -1
                       ? LuckitColors.main
@@ -60,7 +61,7 @@ class GoalSuggestionWidget extends ConsumerWidget {
               const SizedBox(height: 8.0),
               SuggestedDurationWidget(
                 isChecked: isChecked,
-                duration: model.suggestedDuration,
+                duration: model.period,
               ),
             ],
           ),
