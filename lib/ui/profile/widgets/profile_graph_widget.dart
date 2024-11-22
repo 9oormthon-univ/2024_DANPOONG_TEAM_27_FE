@@ -18,11 +18,22 @@ class ProfileGraphWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 16.0, top: 12.0),
-              child: Text(
-                '목표 달성 그래프',
-                style:
-                    LuckitTypos.suitSB16.copyWith(color: LuckitColors.gray80),
+              padding: const EdgeInsets.only(left: 16.0, top: 12.0, right: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    '목표 달성 그래프',
+                    style: LuckitTypos.suitSB16
+                        .copyWith(color: LuckitColors.gray80),
+                  ),
+                  Text(
+                    '2024.11.01 ~ 2024.11.30',
+                    textAlign: TextAlign.right,
+                    style: LuckitTypos.suitR12
+                        .copyWith(color: LuckitColors.gray60),
+                  )
+                ],
               ),
             ),
             Padding(
