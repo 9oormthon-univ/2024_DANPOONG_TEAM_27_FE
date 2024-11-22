@@ -9,7 +9,6 @@ import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
-import 'decoration/profile_box_decoration.dart';
 import 'profile_state.dart';
 import 'profile_view_model.dart';
 import 'widgets/profile_description_text_widget.dart';
@@ -71,10 +70,16 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: Column(
                     children: <Widget>[
-                      if (state.loadingGraph == LoadingStatus.success)
-                        const ProfileGraphWidget()
-                      else
-                        const SizedBox(height: 326),
+                      SizedBox(
+                        height: 260,
+                        child: (state.loadingGraph == LoadingStatus.success)
+                            ? const ProfileGraphWidget()
+                            : const Center(
+                                child: CircularProgressIndicator(
+                                  color: LuckitColors.main,
+                                ),
+                              ),
+                      ),
                       const ProfileDescriptionTextWidget(),
                       ProfileGoalArchivingWidget(
                         opened: state.opened,
