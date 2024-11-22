@@ -117,7 +117,7 @@ class Assets {
   static const String kingBackground = 'assets/images/king_background.png';
   static const String whiteBackground = 'white_background.png';
   static const String gameBackgroundWithoutCloud =
-      'game_background_without_cloud.png';
+      'assets/images/game_background_without_cloud.png';
 
   //빈공간 이미지
   static const String emptyDragon = 'assets/images/empty_dragon.png';

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+
+import '../../../domain/onboarding/model/suggestion_goal_model.dart';
+
 import '../../../routes/routes.dart';
+
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/widgets/new_custom_text_field.dart';
@@ -75,12 +79,22 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> {
                       text: '아직 고민 중이시라면, 이런 목표에 도전해보세요!',
                       topPadding: 44.0,
                     ),
-                    ...state.suggestions
-                        .asMap()
-                        .entries
-                        .map((MapEntry<int, GoalSuggestionModel> entry) {
-                      final int index = entry.key;
-                      final GoalSuggestionModel model = entry.value;
+                    // ...state.suggestions
+                    //     .asMap()
+                    //     .entries
+                    //     .map((MapEntry<int, SuggestionGoalModel> entry) {
+                    //   final int index = entry.key;
+                    //   final SuggestionGoalModel model = entry.value;
+                    //   return GoalSuggestionWidget(
+                    //     index: index,
+                    //     model: model,
+                    //     onPressedCheck: () =>
+                    //         viewModel.onTapSuggestion(index: index),
+                    //   );
+                    // }),
+                    ...List.generate(state.suggestions.length, (index) {
+                      final SuggestionGoalModel model =
+                          state.suggestions[index];
                       return GoalSuggestionWidget(
                         index: index,
                         model: model,
