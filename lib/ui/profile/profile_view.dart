@@ -131,11 +131,11 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                             ),
                             const SizedBox(height: 16.0),
                             ProfileButtonWidget(
-                              // TODO(dodo): 로그아웃 아이콘
-                              iconPath: Assets.edit,
+                              iconPath: Assets.logout,
                               color: LuckitColors.error,
                               label: '로그아웃',
                               onTap: () {},
+                              width: 9.0,
                             ),
                           ],
                         ),
@@ -157,12 +157,14 @@ class ProfileButtonWidget extends StatelessWidget {
   final Color color;
   final String label;
   final VoidCallback onTap;
+  final double? width;
 
   const ProfileButtonWidget({
     required this.iconPath,
     required this.color,
     required this.label,
     required this.onTap,
+    this.width,
     super.key,
   });
 
@@ -183,7 +185,7 @@ class ProfileButtonWidget extends StatelessWidget {
                 width: 16.0,
                 height: 16.0,
               ),
-              const SizedBox(width: 8.0),
+              SizedBox(width: width ?? 8.0),
               Text(
                 label,
                 style: LuckitTypos.suitR10.copyWith(

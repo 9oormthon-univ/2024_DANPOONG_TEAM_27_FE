@@ -34,15 +34,20 @@ class ProfileGraphWidget extends StatelessWidget {
                       Text(
                         '2024년 11월',
                         textAlign: TextAlign.right,
-                        style: LuckitTypos.suitR12
-                            .copyWith(color: LuckitColors.gray60),
+                        style: LuckitTypos.suitR12.copyWith(
+                          color: LuckitColors.gray60,
+                          height: 0.0,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: CustomIconButton(
+                          iconPath: Assets.roundedArrowLeft,
+                          onTap: () {},
+                        ),
                       ),
                       CustomIconButton(
-                        iconPath: Assets.arrowLeft,
-                        onTap: () {},
-                      ),
-                      CustomIconButton(
-                        iconPath: Assets.arrowRight,
+                        iconPath: Assets.roundedArrowRight,
                         onTap: () {},
                       )
                     ],
@@ -136,7 +141,6 @@ class CustomIconButton extends StatelessWidget {
           ),
           onTap: onTap,
           child: SvgPicture.asset(
-            // TODO(dodo): rounded right/left arrow
             iconPath,
             height: 24.0,
             width: 24.0,
