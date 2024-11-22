@@ -50,6 +50,10 @@ class Assets {
   static const String cloud4 = 'assets/icons/cloud_4.svg';
   static const String roundedArrowUp = 'assets/icons/rounded_arrow_up.svg';
   static const String roundedArrowDown = 'assets/icons/rounded_arrow_down.svg';
+  static const String tutorialCloud1 = 'assets/icons/tutorial_cloud_1.svg';
+  static const String tutorialCloud2 = 'assets/icons/tutorial_cloud_2.svg';
+  static const String tutorialCloud3 = 'assets/icons/tutorial_cloud_3.svg';
+  static const String tutorialCloud4 = 'assets/icons/tutorial_cloud_4.svg';
 
   //프레임
   static const String chickenFrame = 'assets/frame/chicken_frame.svg';
@@ -64,18 +68,30 @@ class Assets {
   static const String sheepFrame = 'assets/frame/sheep_frame.svg';
   static const String snakeFrame = 'assets/frame/snake_frame.svg';
   static const String tigerFrame = 'assets/frame/tiger_frame.svg';
-  static const String transparentChickenFrame = 'assets/frame/transparent_chicken_frame.svg';
-  static const String transparentCowFrame = 'assets/frame/transparent_cow_frame.svg';
-  static const String transparentDogFrame = 'assets/frame/transparent_dog_frame.svg';
-  static const String transparentDragonFrame = 'assets/frame/transparent_dragon_frame.svg';
-  static const String transparentHorseFrame = 'assets/frame/transparent_horse_frame.svg';
-  static const String transparentMonkeyFrame = 'assets/frame/transparent_monkey_frame.svg';
-  static const String transparentMouseFrame = 'assets/frame/transparent_mouse_frame.svg';
-  static const String transparentPigFrame = 'assets/frame/transparent_pig_frame.svg';
-  static const String transparentRabbitFrame = 'assets/frame/transparent_rabbit_frame.svg';
-  static const String transparentSheepFrame = 'assets/frame/transparent_sheep_frame.svg';
-  static const String transparentSnakeFrame = 'assets/frame/transparent_snake_frame.svg';
-  static const String transparentTigerFrame = 'assets/frame/transparent_tiger_frame.svg';
+  static const String transparentChickenFrame =
+      'assets/frame/transparent_chicken_frame.svg';
+  static const String transparentCowFrame =
+      'assets/frame/transparent_cow_frame.svg';
+  static const String transparentDogFrame =
+      'assets/frame/transparent_dog_frame.svg';
+  static const String transparentDragonFrame =
+      'assets/frame/transparent_dragon_frame.svg';
+  static const String transparentHorseFrame =
+      'assets/frame/transparent_horse_frame.svg';
+  static const String transparentMonkeyFrame =
+      'assets/frame/transparent_monkey_frame.svg';
+  static const String transparentMouseFrame =
+      'assets/frame/transparent_mouse_frame.svg';
+  static const String transparentPigFrame =
+      'assets/frame/transparent_pig_frame.svg';
+  static const String transparentRabbitFrame =
+      'assets/frame/transparent_rabbit_frame.svg';
+  static const String transparentSheepFrame =
+      'assets/frame/transparent_sheep_frame.svg';
+  static const String transparentSnakeFrame =
+      'assets/frame/transparent_snake_frame.svg';
+  static const String transparentTigerFrame =
+      'assets/frame/transparent_tiger_frame.svg';
 
   //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';
@@ -83,12 +99,15 @@ class Assets {
   static const String loginLogo = 'assets/images/login_logo.svg';
 
   static const String gameBackgroundAsset = 'assets/images/game_background.png';
+
   //게임 배경
   static const String gameBackground = 'game_background.png';
   static const String farmBackground = 'farm_background.png';
   static const String farmBackgroundLandscape = 'farm_background_landscape.png';
   static const String kingBackground = 'assets/images/king_background.png';
   static const String whiteBackground = 'white_background.png';
+  static const String gameBackgroundWithoutCloud =
+      'game_background_without_cloud.png';
 
   //애니메이션
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';
@@ -123,6 +142,8 @@ class Assets {
       'assets/animation/appear/king_mouse_appear.json';
 
   // 튜토리얼
-  static const String tutorialFirstImage = 'assets/images/tutorial_first_image.png';
-  static const String tutorialSecondImage = 'assets/images/tutorial_second_image.png';
+  static const String tutorialFirstImage =
+      'assets/images/tutorial_first_image.png';
+  static const String tutorialSecondImage =
+      'assets/images/tutorial_second_image.png';
 }
