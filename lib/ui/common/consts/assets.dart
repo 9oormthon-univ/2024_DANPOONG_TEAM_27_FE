@@ -49,6 +49,10 @@ class Assets {
   static const String cloud2 = 'assets/icons/cloud_2.svg';
   static const String cloud3 = 'assets/icons/cloud_3.svg';
   static const String cloud4 = 'assets/icons/cloud_4.svg';
+  static const String animalColored = 'assets/icons/animal_colored.svg';
+  static const String animalFilled = 'assets/icons/animal_filled.svg';
+  static const String clockColored = 'assets/icons/clock_colored.svg';
+  static const String clockFilled = 'assets/icons/clock_filled.svg';
   static const String roundedArrowUp = 'assets/icons/rounded_arrow_up.svg';
   static const String roundedArrowDown = 'assets/icons/rounded_arrow_down.svg';
 
@@ -77,6 +81,18 @@ class Assets {
   static const String transparentSheepFrame = 'assets/frame/transparent_sheep_frame.svg';
   static const String transparentSnakeFrame = 'assets/frame/transparent_snake_frame.svg';
   static const String transparentTigerFrame = 'assets/frame/transparent_tiger_frame.svg';
+  static const String landscapeChickenFrame = 'assets/frame/landscape_chicken_frame.svg';
+  static const String landscapeCowFrame = 'assets/frame/landscape_cow_frame.svg';
+  static const String landscapeDogFrame = 'assets/frame/landscape_dog_frame.svg';
+  static const String landscapeDragonFrame = 'assets/frame/landscape_dragon_frame.svg';
+  static const String landscapeHorseFrame = 'assets/frame/landscape_horse_frame.svg';
+  static const String landscapeMonkeyFrame = 'assets/frame/landscape_monkey_frame.svg';
+  static const String landscapeMouseFrame = 'assets/frame/landscape_mouse_frame.svg';
+  static const String landscapePigFrame = 'assets/frame/landscape_pig_frame.svg';
+  static const String landscapeRabbitFrame = 'assets/frame/landscape_rabbit_frame.svg';
+  static const String landscapeSheepFrame = 'assets/frame/landscape_sheep_frame.svg';
+  static const String landscapeSnakeFrame = 'assets/frame/landscape_snake_frame.svg';
+  static const String landscapeTigerFrame = 'assets/frame/landscape_tiger_frame.svg';
 
   //로고
   static const String kakaoLogin = 'assets/images/kakao_login_large_wide.png';

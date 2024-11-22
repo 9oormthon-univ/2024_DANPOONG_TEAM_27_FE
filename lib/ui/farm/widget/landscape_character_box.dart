@@ -4,11 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 
-class CharacterBoxWidget extends StatelessWidget {
+class LandscapeCharacterBox extends StatelessWidget {
   final String number;
   final String frame;
 
-  const CharacterBoxWidget({
+  const LandscapeCharacterBox({
     required this.number,
     required this.frame,
     super.key,
@@ -22,13 +22,16 @@ class CharacterBoxWidget extends StatelessWidget {
     child: Stack(
       children: <Widget>[
         Positioned(
-          left: 10,
+          top: 0,
+          left: 0,
+          right: 0,
           child: Text(
             number,
             style: LuckitTypos.suitSB20.copyWith(
               color: LuckitColors.gray80,
               height: 1.6,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
         Positioned(
