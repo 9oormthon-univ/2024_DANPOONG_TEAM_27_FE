@@ -11,6 +11,7 @@ import '../ui/login/login_view.dart';
 import '../ui/onboarding/views/onboarding_birth_view.dart';
 import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
+import '../ui/profile/profile_edit_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/tutorial/start_view.dart';
 import '../ui/tutorial/tutorial_view.dart';
@@ -140,6 +141,14 @@ class AppRouter {
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: ProfileView(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.edit.path,
+        name: Routes.edit.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: ProfileEditView(),
         ),
       ),
 

@@ -96,15 +96,14 @@ class UserRepository extends Repository {
     }
   }
 
-  Future<RepositoryResult<String>> registerBirthInfo({
+  Future<RepositoryResult<void>> registerBirthInfo({
     required RegisterBirthInfoRequestBody body,
   }) async {
     try {
-      return SuccessRepositoryResult<String>(
-        data: await _userRemoteDataSource.registerUserBirthInfo(
-          body: body,
-        ),
+      await _userRemoteDataSource.registerUserBirthInfo(
+        body: body,
       );
+      return const SuccessRepositoryResult<void>(data: null);
     } on DioException catch (e) {
       final int? statusCode = e.response?.statusCode;
 

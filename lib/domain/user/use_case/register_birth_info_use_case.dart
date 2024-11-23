@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/common/repository/repository_result.dart';
@@ -21,7 +22,7 @@ class RegisterBirthInfoUseCase {
     required UserRepository userRepository,
   }) : _userRepository = userRepository;
 
-  Future<UseCaseResult<String>> call({
+  Future<UseCaseResult<void>> call({
     required GenderType gender,
     required BirthType solarOrLunar,
     required String year,
@@ -32,25 +33,33 @@ class RegisterBirthInfoUseCase {
     required bool isAm,
     required bool unknownTime,
   }) async {
-    final int requestHour = isAm ? int.parse(hour) : int.parse(hour) + 12;
-    final RepositoryResult<String> repositoryResult =
+    final int requestHour = unknownTime
+        ? 0
+        : isAm
+            ? int.parse(hour)
+            : int.parse(hour) + 12;
+    final int requestMinute = unknownTime ? 0 : int.parse(minute);
+    final String requestGender = gender == GenderType.male ? 'male' : 'female';
+    final String requestSolarOrLunar =
+        solarOrLunar == BirthType.solar ? 'solar' : 'lunar';
+    final RepositoryResult<void> repositoryResult =
         await _userRepository.registerBirthInfo(
       body: RegisterBirthInfoRequestBody(
-        gender: gender.toString(),
-        solarOrLunar: solarOrLunar.toString(),
+        gender: requestGender,
+        solarOrLunar: requestSolarOrLunar,
         year: int.parse(year),
         month: int.parse(month),
         day: int.parse(day),
         hour: requestHour,
-        minute: int.parse(minute),
+        minute: requestMinute,
         unknownTime: unknownTime,
       ),
     );
 
     return switch (repositoryResult) {
-      SuccessRepositoryResult<String>() =>
-        SuccessUseCaseResult<String>(data: repositoryResult.data),
-      FailureRepositoryResult<String>() => FailureUseCaseResult<String>(
+      SuccessRepositoryResult<void>() =>
+        SuccessUseCaseResult<void>(data: null),
+      FailureRepositoryResult<void>() => FailureUseCaseResult<void>(
           message: repositoryResult.messages?[0],
         )
     };

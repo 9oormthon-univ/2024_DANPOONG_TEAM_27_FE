@@ -23,6 +23,5 @@ class RegisterBirthInfoRequestBody {
   final int minute;
   final bool unknownTime;
 
-  factory RegisterBirthInfoRequestBody.fromJson(Map<String, dynamic> json) =>
-      _$RegisterBirthInfoRequestBodyFromJson(json);
+  Map<String, dynamic> toJson() => _$RegisterBirthInfoRequestBodyToJson(this);
 }

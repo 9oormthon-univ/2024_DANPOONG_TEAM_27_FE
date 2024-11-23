@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
 import '../common/widgets/rounded_text_button_widget.dart';
+import '../onboarding/onboarding_state.dart';
 import '../onboarding/widgets/am_pm_select_widget.dart';
 import '../onboarding/widgets/birth_input_widget.dart';
 import '../onboarding/widgets/onboarding_bottom_button.dart';
@@ -82,7 +83,7 @@ class _ProfileEditViewState extends ConsumerState<ProfileEditView> {
                           children: <Widget>[
                             Expanded(
                               child: RoundedTextButtonWidget(
-                                isSelected: state.gender == '남성',
+                                isSelected: state.gender == GenderType.male,
                                 label: '남성',
                                 onPressed: () =>
                                     viewModel.onTapGenderButton(label: '남성'),
@@ -91,7 +92,7 @@ class _ProfileEditViewState extends ConsumerState<ProfileEditView> {
                             const SizedBox(width: 8.0),
                             Expanded(
                               child: RoundedTextButtonWidget(
-                                isSelected: state.gender == '여성',
+                                isSelected: state.gender == GenderType.female,
                                 label: '여성',
                                 onPressed: () =>
                                     viewModel.onTapGenderButton(label: '여성'),
@@ -109,7 +110,8 @@ class _ProfileEditViewState extends ConsumerState<ProfileEditView> {
                               children: <Widget>[
                                 Expanded(
                                   child: RoundedTextButtonWidget(
-                                    isSelected: state.solarOrLunar == '양력',
+                                    isSelected:
+                                        state.solarOrLunar == BirthType.solar,
                                     label: '양력',
                                     onPressed: () => viewModel
                                         .onTapSolarOrLunarButton(label: '양력'),
@@ -118,7 +120,8 @@ class _ProfileEditViewState extends ConsumerState<ProfileEditView> {
                                 const SizedBox(width: 8.0),
                                 Expanded(
                                   child: RoundedTextButtonWidget(
-                                    isSelected: state.solarOrLunar == '음력',
+                                    isSelected:
+                                        state.solarOrLunar == BirthType.lunar,
                                     label: '음력',
                                     onPressed: () => viewModel
                                         .onTapSolarOrLunarButton(label: '음력'),
@@ -160,9 +163,8 @@ class _ProfileEditViewState extends ConsumerState<ProfileEditView> {
                                 onPressedPm: () =>
                                     viewModel.toggleAm(current: state.isAm),
                                 unknown: state.unknownTime,
-                                onPressedUnknown: () =>
-                                    viewModel.toggleUnknown(
-                                        currentUnknown: state.unknownTime),
+                                onPressedUnknown: () => viewModel.toggleUnknown(
+                                    currentUnknown: state.unknownTime),
                               ),
                             ),
                             const SizedBox(width: 8.0),

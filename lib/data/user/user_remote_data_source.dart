@@ -26,7 +26,7 @@ abstract class UserRemoteDataSource {
   Future<LoginInfoEntity> getUserLoginInfo();
 
   @POST('/user/fortune')
-  Future<String> registerUserBirthInfo({
+  Future<void> registerUserBirthInfo({
     @Body() required RegisterBirthInfoRequestBody body,
   });
 }

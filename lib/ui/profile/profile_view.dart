@@ -137,8 +137,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                               iconPath: Assets.edit,
                               color: LuckitColors.gray80,
                               label: '정보수정',
-                              onTap: () {},
-                              //onTap: () => context.goNamed(Routes.edit.name),
+                              onTap: () => context.goNamed(Routes.edit.name),
                             ),
                             const SizedBox(height: 16.0),
                             ProfileButtonWidget(
