@@ -31,6 +31,11 @@ class Routes {
     path: '/profile',
   );
 
+  static const RouteInfo edit = RouteInfo(
+    name: '/edit',
+    path: '/edit',
+  );
+
   // 온보딩 시작
   static const RouteInfo start = RouteInfo(
     name: '/home/onboarding',

@@ -16,6 +16,7 @@ RegisterBirthInfoRequestBody _$RegisterBirthInfoRequestBodyFromJson(
       day: (json['day'] as num).toInt(),
       hour: (json['hour'] as num).toInt(),
       minute: (json['minute'] as num).toInt(),
+      unknownTime: json['unknownTime'] as bool,
     );
 
 Map<String, dynamic> _$RegisterBirthInfoRequestBodyToJson(
@@ -28,4 +29,5 @@ Map<String, dynamic> _$RegisterBirthInfoRequestBodyToJson(
       'day': instance.day,
       'hour': instance.hour,
       'minute': instance.minute,
+      'unknownTime': instance.unknownTime,
     };

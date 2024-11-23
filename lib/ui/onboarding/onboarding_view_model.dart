@@ -6,6 +6,7 @@ import '../../core/loading_status.dart';
 import '../../domain/onboarding/model/suggestion_goal_model.dart';
 import '../../domain/onboarding/use_case/get_suggestion_goal_list_use_case.dart';
 import 'onboarding_state.dart';
+import 'utils/validation.dart';
 
 final AutoDisposeStateNotifierProvider<OnboardingViewModel, OnboardingState>
     onboardingViewModelProvider =
@@ -101,7 +102,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
   }
 
   // -----birth-----
-  void onPressedGender({required Gender gender}) {
+  void onPressedGender({required GenderType gender}) {
     state = state.copyWith(gender: gender);
   }
 

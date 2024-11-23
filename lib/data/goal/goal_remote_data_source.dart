@@ -4,6 +4,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../core/common/data/list_entity_form.dart';
 import '../../service/network/dio_service.dart';
+import 'entity/complete_goal_entity.dart';
 import 'entity/goal_entity.dart';
 import 'entity/goal_summary_entity.dart';
 import 'request_body/create_goal_request_body.dart';
