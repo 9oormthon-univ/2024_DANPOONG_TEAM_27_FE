@@ -18,11 +18,17 @@ class GoalEntity {
   final int goalId;
   final String name;
   final bool isCompleted;
+  @JsonKey(name: 'start_date_year')
   final int startDateYear;
+  @JsonKey(name: 'start_date_month')
   final int startDateMonth;
+  @JsonKey(name: 'start_date_day')
   final int startDateDay;
+  @JsonKey(name: 'end_date_year')
   final int endDateYear;
+  @JsonKey(name: 'end_date_month')
   final int endDateMonth;
+  @JsonKey(name: 'end_date_day')
   final int endDateDay;
 
   factory GoalEntity.fromJson(Map<String, dynamic> json) =>

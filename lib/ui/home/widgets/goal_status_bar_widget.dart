@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/loading_status.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/consts/assets.dart';
@@ -37,7 +38,7 @@ class GoalStatusBarWidget extends ConsumerWidget {
             borderRadius: BorderRadius.circular(16),
             color: LuckitColors.white.withOpacity(0.1),
           ),
-          height: state.isGoalEditing ? 128 : 65,
+          height: state.isGoalEditing ? 128 : 82,
           child: state.isGoalEditing
               ? const IsGoalEditing()
               : const DefaultGoalStatusBar(),
@@ -47,14 +48,44 @@ class GoalStatusBarWidget extends ConsumerWidget {
   }
 }
 
-class IsGoalEditing extends ConsumerWidget {
+class IsGoalEditing extends ConsumerStatefulWidget {
   const IsGoalEditing({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<IsGoalEditing> createState() => _IsGoalEditingState();
+}
+
+class _IsGoalEditingState extends ConsumerState<IsGoalEditing> {
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
+  final TextEditingController _goalController = TextEditingController();
+
+  @override
+  void initState() {
+    final HomeState state = ref.read(homeViewModelProvider);
+    _startDateController.text = state.editingStartDate;
+    _endDateController.text = state.editingEndDate;
+    _goalController.text = state.editingGoal;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final HomeState state = ref.read(homeViewModelProvider);
     final HomeViewModel viewModel = ref.read(homeViewModelProvider.notifier);
+
+    ref.listen(
+      homeViewModelProvider
+          .select((HomeState value) => value.editCurrentGoalLoadingstatus),
+      (LoadingStatus? prev, LoadingStatus cur) {
+        if (cur == LoadingStatus.success) {
+          viewModel.toggleGoalEdit(isCurrentEditing: true);
+        }
+      },
+    );
+
     final InputDecoration dateInputDecoration = InputDecoration(
       hintText: 'YYYY MM DD',
       hintStyle: LuckitTypos.suitR10.copyWith(color: LuckitColors.gray40),
@@ -136,6 +167,7 @@ class IsGoalEditing extends ConsumerWidget {
                     width: 82,
                     height: 28,
                     child: TextField(
+                      controller: _startDateController,
                       onTapOutside: (_) {
                         FocusScope.of(context).unfocus();
                       },
@@ -157,6 +189,7 @@ class IsGoalEditing extends ConsumerWidget {
                     width: 82,
                     height: 28,
                     child: TextField(
+                      controller: _endDateController,
                       onTapOutside: (_) {
                         FocusScope.of(context).unfocus();
                       },
@@ -189,7 +222,11 @@ class IsGoalEditing extends ConsumerWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    viewModel.toggleGoalEdit(isCurrentEditing: true);
+                    viewModel.editCurrentGoal(
+                      startDateString: _startDateController.text,
+                      endDateString: _endDateController.text,
+                      editingGoal: _goalController.text,
+                    );
                   },
                   child: SizedBox(
                     height: 28,
@@ -211,6 +248,7 @@ class IsGoalEditing extends ConsumerWidget {
           child: SizedBox(
             height: 40,
             child: TextField(
+              controller: _goalController,
               onTapOutside: (_) {
                 FocusScope.of(context).unfocus();
               },
@@ -241,11 +279,22 @@ class DefaultGoalStatusBar extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(
-              '2024.11.15 - 2024.12.15',
-              style: LuckitTypos.suitR12.copyWith(
-                color: LuckitColors.gray20,
-              ),
+            Row(
+              children: <Widget>[
+                Text(
+                  '수정님의 목표',
+                  style: LuckitTypos.suitSB16.copyWith(
+                    color: LuckitColors.white,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  '${state.formattedStartDate} - ${state.formattedEndDate}',
+                  style: LuckitTypos.suitR12.copyWith(
+                    color: LuckitColors.gray20,
+                  ),
+                ),
+              ],
             ),
             GestureDetector(
               onTap: () {
@@ -260,13 +309,13 @@ class DefaultGoalStatusBar extends ConsumerWidget {
             ),
           ],
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 11),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              '한 달 안에 긍정적인 사람 되어보기',
-              style: LuckitTypos.suitSB12.copyWith(
+              state.currentGoal.name,
+              style: LuckitTypos.suitSB16.copyWith(
                 color: LuckitColors.gray20,
               ),
             ),

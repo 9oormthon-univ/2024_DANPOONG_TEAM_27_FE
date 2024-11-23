@@ -8,6 +8,8 @@ import '../ui/fortune/fortune_view.dart';
 import '../ui/goal_complete/goal_complete_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/edit/views/editing_goal_view.dart';
+import '../ui/edit/views/editing_duration_view.dart';
 import '../ui/onboarding/views/onboarding_birth_view.dart';
 import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
@@ -83,6 +85,22 @@ class AppRouter {
                 child: HomeView(),
               ),
           routes: <RouteBase>[
+            GoRoute(
+              name: Routes.editDuration.name,
+              path: Routes.editDuration.path,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage<dynamic>(
+                child: EditDurationView(),
+              ),
+            ),
+            GoRoute(
+              name: Routes.editGoal.name,
+              path: Routes.editGoal.path,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage<dynamic>(
+                child: EditingGoalView(),
+              ),
+            ),
             GoRoute(
               path: Routes.start.path,
               name: Routes.start.name,

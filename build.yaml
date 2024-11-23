@@ -3,5 +3,6 @@ targets:
     builders:
       source_gen|combining_builder:
         options:
+          genericArgumentFactories: true
           build_extensions:
             "^lib/{{dir}}/{{file_name}}.dart": "lib/{{dir}}/generated/{{file_name}}.g.dart"

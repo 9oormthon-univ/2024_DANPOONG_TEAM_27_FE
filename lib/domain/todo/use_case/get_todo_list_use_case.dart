@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/common/data/list_entity_form.dart';
 import '../../../core/common/repository/repository_result.dart';
 import '../../../core/common/use_case/use_case_result.dart';
 import '../../../data/todo/entity/todo_entity.dart';
@@ -22,20 +23,27 @@ class GetTodoListUseCase {
   Future<UseCaseResult<List<TodoModel>>> call({
     required int goalId,
   }) async {
-    final RepositoryResult<List<TodoEntity>> repositoryResult =
+    final RepositoryResult<ListEntityForm<TodoEntity>> repositoryResult =
         await _todoRepository.getTodoList(goalId: goalId);
 
+    final DateTime today = DateTime.now();
+
     return switch (repositoryResult) {
-      SuccessRepositoryResult<List<TodoEntity>>() =>
+      SuccessRepositoryResult<ListEntityForm<TodoEntity>>() =>
         SuccessUseCaseResult<List<TodoModel>>(
-          data: List<TodoModel>.generate(
-            repositoryResult.data.length,
-            (int index) => TodoModel.fromEntity(
-              entity: repositoryResult.data[index],
-            ),
-          ),
+          data: repositoryResult.data.data
+              .where(
+                (TodoEntity entity) =>
+                    entity.year == today.year &&
+                    entity.month == today.month &&
+                    entity.day == today.day,
+              )
+              .map(
+                (TodoEntity e) => TodoModel.fromEntity(entity: e),
+              )
+              .toList(),
         ),
-      FailureRepositoryResult<List<TodoEntity>>() =>
+      FailureRepositoryResult<ListEntityForm<TodoEntity>>() =>
         FailureUseCaseResult<List<TodoModel>>(
           message: repositoryResult.messages?[0],
         )

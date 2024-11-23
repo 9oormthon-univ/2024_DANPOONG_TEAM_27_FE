@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/common/data/list_entity_form.dart';
 import '../../../core/common/repository/repository_result.dart';
 import '../../../core/common/use_case/use_case_result.dart';
 import '../../../data/goal/entity/goal_entity.dart';
@@ -19,23 +20,21 @@ class GetGoalListUseCase {
     required GoalRepository goalRepository,
   }) : _goalRepository = goalRepository;
 
-  Future<UseCaseResult<List<GoalModel>>> call({
-    required String title,
-  }) async {
-    final RepositoryResult<List<GoalEntity>> repositoryResult =
+  Future<UseCaseResult<List<GoalModel>>> call() async {
+    final RepositoryResult<ListEntityForm<GoalEntity>> repositoryResult =
         await _goalRepository.getGoalList();
 
     return switch (repositoryResult) {
-      SuccessRepositoryResult<List<GoalEntity>>() =>
+      SuccessRepositoryResult<ListEntityForm<GoalEntity>>() =>
         SuccessUseCaseResult<List<GoalModel>>(
           data: List<GoalModel>.generate(
-            repositoryResult.data.length,
+            repositoryResult.data.data.length,
             (int index) => GoalModel.fromEntity(
-              entity: repositoryResult.data[index],
+              entity: repositoryResult.data.data[index],
             ),
-          ),
+          ).reversed.toList(),
         ),
-      FailureRepositoryResult<List<GoalEntity>>() =>
+      FailureRepositoryResult<ListEntityForm<GoalEntity>>() =>
         FailureUseCaseResult<List<GoalModel>>(
           message: repositoryResult.messages?[0],
         )

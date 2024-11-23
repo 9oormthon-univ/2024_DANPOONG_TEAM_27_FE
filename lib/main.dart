@@ -35,7 +35,7 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   Widget build(BuildContext context) => MaterialApp.router(
         routerConfig: ref.watch(appRouterProvider).router,
-        title: 'boiler plate',
+        title: 'lukit',
         theme: ThemeData(
           fontFamily: 'SUIT',
           scaffoldBackgroundColor: LuckitColors.background,
