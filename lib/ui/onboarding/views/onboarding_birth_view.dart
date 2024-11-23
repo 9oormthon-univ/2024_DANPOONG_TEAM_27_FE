@@ -123,7 +123,7 @@ class OnboardingBirthView extends ConsumerWidget {
                         CheckIconWidget(
                           isChecked: state.dontKnow,
                           onPressed: viewModel.onPressedDontKnow,
-                          size: 16.0,
+                          size: 24.0,
                         ),
                         Text(
                           '태어난 시간을 알지 못합니다',
@@ -137,7 +137,7 @@ class OnboardingBirthView extends ConsumerWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 8.0),
+              const SizedBox(width: 6.0),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(right: 24.0),

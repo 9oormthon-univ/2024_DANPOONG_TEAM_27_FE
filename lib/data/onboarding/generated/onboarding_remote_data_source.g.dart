@@ -22,34 +22,35 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<SuggestionGoalEntity>> getSuggestionGoalList() async {
+  Future<ListEntityForm<SuggestionGoalEntity>> getSuggestionGoalList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<SuggestionGoalEntity>>(Options(
+    final _options =
+        _setStreamType<ListEntityForm<SuggestionGoalEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/api/v1/fortune/onboarding',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<SuggestionGoalEntity> _value;
+            .compose(
+              _dio.options,
+              '/fortune/onboarding',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ListEntityForm<SuggestionGoalEntity> _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) =>
-              SuggestionGoalEntity.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = ListEntityForm<SuggestionGoalEntity>.fromJson(
+        _result.data!,
+        (json) => SuggestionGoalEntity.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
