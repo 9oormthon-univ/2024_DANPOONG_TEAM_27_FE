@@ -14,6 +14,7 @@ import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../home/widget/mission_complete_dialog.dart';
+import '../onboarding/onboarding_state.dart';
 import 'profile_state.dart';
 import 'profile_view_model.dart';
 import 'widgets/profile_description_text_widget.dart';
@@ -68,14 +69,14 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                           const SizedBox(height: 50.0),
                           if (state.loadingProfile == LoadingStatus.success)
                             ProfileInfoWidget(
-                              name: infoState.userName,
-                              day: infoState.day,
-                              gender: infoState.gender,
-                              month: infoState.month,
-                              hour: infoState.hour,
-                              minute: infoState.minute,
-                              unknownTime: infoState.unknownTime,
-                              year: infoState.year,
+                              name: '마재훈',
+                              day: '2',
+                              gender: GenderType.male,
+                              month: '11',
+                              hour: '01',
+                              minute: '23',
+                              unknownTime: false,
+                              year: '2000',
                             )
                           else
                             const SizedBox(height: 36.0),

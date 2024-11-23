@@ -77,16 +77,16 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
       currentGraphIndex: 0,
       completeGoal: [
         CompleteGoalModel(goalId: 1,
-          name: 'name',
-          countSuccessTodo: 74,
+          name: '운동하기',
+          countSuccessTodo: 12,
           characterWidgetList: datadaa,
           opened: false,
-          startDay: 15,
-          startYear: 2024,
-          startMonth: 11,
+          startDay: 1,
+          startYear: 2023,
+          startMonth: 1,
           endYear: 2024,
           endMonth: 12,
-          endDay: 15,)
+          endDay: 31,)
       ],
     );
   }
@@ -165,10 +165,10 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
       // await _getLoginInfoUseCase();
       state = state.copyWith(
         loadingProfile: LoadingStatus.success,
-        name: '미르미',
-        gender: GenderType.female,
+        name: '마재훈',
+        gender: GenderType.male,
         solarOrLunar: BirthType.solar,
-        year: 2003.toString(),
+        year: 2000.toString(),
         month: 3.toString(),
         day: 7.toString(),
         isAm: true,
