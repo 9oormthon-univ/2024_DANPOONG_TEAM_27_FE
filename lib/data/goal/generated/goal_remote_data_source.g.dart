@@ -84,12 +84,13 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
   }
 
   @override
-  Future<void> toggleGoalComplete({required int goalId}) async {
+  Future<EntityForm<AchieveGoalEntity>> toggleGoalComplete(
+      {required int goalId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<void>(Options(
+    final _options = _setStreamType<EntityForm<AchieveGoalEntity>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -105,7 +106,18 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late EntityForm<AchieveGoalEntity> _value;
+    try {
+      _value = EntityForm<AchieveGoalEntity>.fromJson(
+        _result.data!,
+        (json) => AchieveGoalEntity.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override

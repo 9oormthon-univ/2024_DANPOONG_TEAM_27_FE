@@ -51,5 +51,8 @@ class GoalCompleteViewModel extends StateNotifier<GoalCompleteState> {
     );
   }
 
+
+
+
   int getDurationInDays() => state.endDate.difference(state.startDate).inDays;
 }

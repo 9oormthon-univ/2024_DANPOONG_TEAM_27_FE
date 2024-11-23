@@ -5,6 +5,7 @@ import 'package:retrofit/retrofit.dart';
 import '../../core/common/data/entity_form.dart';
 import '../../core/common/data/list_entity_form.dart';
 import '../../service/network/dio_service.dart';
+import 'entity/achieve_goal_entity.dart';
 import 'entity/goal_detail_entity.dart';
 import 'entity/goal_entity.dart';
 import 'entity/goal_summary_entity.dart';
@@ -31,7 +32,7 @@ abstract class GoalRemoteDataSource {
   });
 
   @POST('/goal/{goal_id}')
-  Future<void> toggleGoalComplete({
+  Future<EntityForm<AchieveGoalEntity>> toggleGoalComplete({
     @Path('goal_id') required int goalId,
   });
 

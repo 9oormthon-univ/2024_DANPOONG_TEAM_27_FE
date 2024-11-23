@@ -5,6 +5,7 @@ import '../../core/common/data/entity_form.dart';
 import '../../core/common/data/list_entity_form.dart';
 import '../../core/common/repository/repository.dart';
 import '../../core/common/repository/repository_result.dart';
+import 'entity/achieve_goal_entity.dart';
 import 'entity/goal_detail_entity.dart';
 import 'entity/goal_entity.dart';
 import 'entity/goal_summary_entity.dart';
@@ -85,28 +86,27 @@ class GoalRepository extends Repository {
     }
   }
 
-  Future<RepositoryResult<void>> toggleGoalComplete({
+  Future<RepositoryResult<EntityForm<AchieveGoalEntity>>> toggleGoalComplete({
     required int goalId,
   }) async {
     try {
-      await _goalRemoteDataSource.toggleGoalComplete(
-        goalId: goalId,
-      );
-      return const SuccessRepositoryResult<void>(
-        data: null,
+      return SuccessRepositoryResult<EntityForm<AchieveGoalEntity>>(
+        data: await _goalRemoteDataSource.toggleGoalComplete(
+          goalId: goalId,
+        ),
       );
     } on DioException catch (e) {
       final int? statusCode = e.response?.statusCode;
       return switch (statusCode) {
-        400 => FailureRepositoryResult<List<GoalEntity>>(
+        400 => FailureRepositoryResult<EntityForm<AchieveGoalEntity>>(
             error: e,
             messages: <String>['Bad Request'],
           ),
-        401 => FailureRepositoryResult<List<GoalEntity>>(
+        401 => FailureRepositoryResult<EntityForm<AchieveGoalEntity>>(
             error: e,
             messages: <String>['Unauthorized access'],
           ),
-        _ => FailureRepositoryResult<List<GoalEntity>>(
+        _ => FailureRepositoryResult<EntityForm<AchieveGoalEntity>>(
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),
