@@ -2,9 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../core/common/data/entity_form.dart';
 import '../../core/common/data/list_entity_form.dart';
 import '../../service/network/dio_service.dart';
-import 'entity/complete_goal_entity.dart';
+import 'entity/goal_detail_entity.dart';
 import 'entity/goal_entity.dart';
 import 'entity/goal_summary_entity.dart';
 import 'request_body/create_goal_request_body.dart';
@@ -43,7 +44,7 @@ abstract class GoalRemoteDataSource {
   Future<ListEntityForm<GoalSummaryEntity>> getGoalSummaryList();
 
   @GET('/goal/mypage/{goal_id}')
-  Future<ListEntityForm<int>> getGoalSummary({
+  Future<EntityForm<GoalDetailEntity>> getGoalSummary({
     @Path('goal_id') required int goalId,
   });
 }

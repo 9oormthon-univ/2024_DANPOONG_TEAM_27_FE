@@ -1,5 +1,4 @@
 import 'package:dotted_line/dotted_line.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,7 +41,7 @@ class ProfileGraphWidget extends ConsumerWidget {
                 Row(
                   children: <Widget>[
                     Text(
-                      '${state.currentYear}년 ${state.currentMonth}월',
+                      '${state.spotsList[state.currentGraphIndex].year}년 ${state.spotsList[state.currentGraphIndex].month}월',
                       textAlign: TextAlign.right,
                       style: LuckitTypos.suitR12.copyWith(
                         color: LuckitColors.gray60,
@@ -53,12 +52,14 @@ class ProfileGraphWidget extends ConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: CustomIconButton(
                         iconPath: Assets.roundedArrowLeft,
-                        onTap: viewModel.onTapLeftArrow,
+                        // onTap: viewModel.onTapLeftArrow,
+                        onTap: viewModel.onTapRightArrow,
                       ),
                     ),
                     CustomIconButton(
                       iconPath: Assets.roundedArrowRight,
-                      onTap: viewModel.onTapRightArrow,
+                      // onTap: viewModel.onTapRightArrow,
+                      onTap: viewModel.onTapLeftArrow,
                     )
                   ],
                 )

@@ -15,6 +15,7 @@ class ProfileInfoWidget extends StatelessWidget {
   final String minute;
   final bool unknownTime;
   final GenderType gender;
+  final String name;
 
   const ProfileInfoWidget({
     required this.year,
@@ -24,6 +25,7 @@ class ProfileInfoWidget extends StatelessWidget {
     required this.gender,
     required this.hour,
     required this.minute,
+    required this.name,
     super.key,
   });
 
@@ -32,7 +34,7 @@ class ProfileInfoWidget extends StatelessWidget {
         children: <Widget>[
           const SizedBox(width: 24.0),
           Text(
-            '미르미',
+            name,
             style: LuckitTypos.suitR20.copyWith(
               color: LuckitColors.main,
               height: 0.0,
