@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../onboarding_remote_data_source.dart';
+part of '../fortune_remote_data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of '../onboarding_remote_data_source.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
-  _OnboardingRemoteDataSource(
+class _FortuneRemoteDataSource implements FortuneRemoteDataSource {
+  _FortuneRemoteDataSource(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -22,34 +22,33 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ListEntityForm<SuggestionGoalEntity>> getSuggestionGoalList() async {
+  Future<EntityForm<FortuneEntity>> getFortune() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options =
-        _setStreamType<ListEntityForm<SuggestionGoalEntity>>(Options(
+    final _options = _setStreamType<EntityForm<FortuneEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/fortune/onboarding',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            )));
+        .compose(
+          _dio.options,
+          '/fortune/daily',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ListEntityForm<SuggestionGoalEntity> _value;
+    late EntityForm<FortuneEntity> _value;
     try {
-      _value = ListEntityForm<SuggestionGoalEntity>.fromJson(
+      _value = EntityForm<FortuneEntity>.fromJson(
         _result.data!,
-        (json) => SuggestionGoalEntity.fromJson(json as Map<String, dynamic>),
+        (json) => FortuneEntity.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

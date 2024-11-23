@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../core/common/data/list_entity_form.dart';
 import '../../service/network/dio_service.dart';
 import 'entity/suggestion_goal_entity.dart';
 
@@ -17,6 +18,7 @@ final Provider<OnboardingRemoteDataSource> onboardingRemoteDataSourceProvider =
 abstract class OnboardingRemoteDataSource {
   factory OnboardingRemoteDataSource(Dio dio) = _OnboardingRemoteDataSource;
 
-  @GET('/fortune')
-  Future<List<SuggestionGoalEntity>> getSuggestionGoalList();
+  @GET('/fortune/onboarding')
+  // Future<DefaultSuggestionGoalListEntity> getSuggestionGoalList();
+  Future<ListEntityForm<SuggestionGoalEntity>> getSuggestionGoalList();
 }

@@ -59,6 +59,7 @@ class Assets {
   static const String tutorialCloud2 = 'assets/icons/tutorial_cloud_2.svg';
   static const String tutorialCloud3 = 'assets/icons/tutorial_cloud_3.svg';
   static const String tutorialCloud4 = 'assets/icons/tutorial_cloud_4.svg';
+  static const String goalFilled = 'assets/icons/goal_filled.svg';
 
   static const String allLuck = 'assets/images/all_luck.png';
   static const String health = 'assets/images/health.png';

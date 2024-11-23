@@ -28,16 +28,15 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
 
   void getSuggestions() async {
     state = state.copyWith(getSuggestionsLoading: LoadingStatus.loading);
-    final UseCaseResult<List<SuggestionGoalModel>> result =
+    final UseCaseResult<List<GoalModel>> result =
         await _getSuggestionGoalListUseCase();
 
     switch (result) {
-      case SuccessUseCaseResult<List<SuggestionGoalModel>>():
-        state = state.copyWith(suggestions: result.data);
-      case FailureUseCaseResult<List<SuggestionGoalModel>>():
+      case SuccessUseCaseResult<List<GoalModel>>():
+        state = state.copyWith(suggestions: result.data, getSuggestionsLoading: LoadingStatus.success);
+      case FailureUseCaseResult<List<GoalModel>>():
         state = state.copyWith(getSuggestionsLoading: LoadingStatus.error);
     }
-    state = state.copyWith(getSuggestionsLoading: LoadingStatus.success);
   }
 
   void onTapSuggestion({
