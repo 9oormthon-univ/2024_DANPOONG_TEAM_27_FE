@@ -125,7 +125,7 @@ class _FarmViewState extends ConsumerState<FarmView>
                   curve: Curves.easeInOut,
                   opacity: _clockSelected ? 0.0 : 1.0,
                   child: GoalGlass(
-                    userName: '수정',
+                    userName: '이승훈',
                     startDate: DateTime(2024, 11, 15),
                     endDate: DateTime(2024, 12, 15),
                     goalTitle: '운동하기',
