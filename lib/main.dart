@@ -52,5 +52,6 @@ class _MainAppState extends ConsumerState<MainApp> {
           fontFamily: 'SUIT',
           scaffoldBackgroundColor: LuckitColors.background,
         ),
+    debugShowCheckedModeBanner: false,
       );
 }
