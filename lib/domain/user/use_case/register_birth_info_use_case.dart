@@ -58,7 +58,7 @@ class RegisterBirthInfoUseCase {
 
     return switch (repositoryResult) {
       SuccessRepositoryResult<void>() =>
-        SuccessUseCaseResult<void>(data: null),
+        const SuccessUseCaseResult<void>(data: null),
       FailureRepositoryResult<void>() => FailureUseCaseResult<void>(
           message: repositoryResult.messages?[0],
         )

@@ -24,35 +24,26 @@ class AmPmSelectWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              if (leftPadding) const SizedBox(width: 24.0),
-              Expanded(
-                child: RoundedTextButtonWidget(
-                  isSelected: isAm,
-                  label: 'AM',
-                  onPressed: onPressedAm,
-                  isActivated: !unknown,
-                ),
-              ),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: RoundedTextButtonWidget(
-                  isSelected: isPm,
-                  label: 'PM',
-                  onPressed: onPressedPm,
-                  isActivated: !unknown,
-                ),
-              ),
-            ],
-          ),
-          UnknownTimeWidget(
-            leftPadding: leftPadding,
-            isChecked: unknown,
-            onPressed: onPressedUnknown,
-          ),
-        ],
-      );
+  Widget build(BuildContext context) => Row(
+    children: <Widget>[
+      if (leftPadding) const SizedBox(width: 24.0),
+      Expanded(
+        child: RoundedTextButtonWidget(
+          isSelected: isAm,
+          label: 'AM',
+          onPressed: onPressedAm,
+          isActivated: !unknown,
+        ),
+      ),
+      const SizedBox(width: 8.0),
+      Expanded(
+        child: RoundedTextButtonWidget(
+          isSelected: isPm,
+          label: 'PM',
+          onPressed: onPressedPm,
+          isActivated: !unknown,
+        ),
+      ),
+    ],
+  );
 }

@@ -16,6 +16,7 @@ import '../widgets/onboarding_bottom_button.dart';
 import '../widgets/onboarding_date_input_row_widget.dart';
 import '../widgets/onboarding_description_text_widget.dart';
 import '../widgets/onboarding_top_widget.dart';
+import '../widgets/unknown_time_widget.dart';
 
 class OnboardingBirthView extends ConsumerWidget {
   const OnboardingBirthView({super.key});
@@ -29,41 +30,54 @@ class OnboardingBirthView extends ConsumerWidget {
     return Scaffold(
       appBar: const OnboardingAppBar(),
       backgroundColor: LuckitColors.background,
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  const OnboardingTopWidget(
-                    title: '정보를 입력해주세요',
-                    text: '입력 정보를 기반으로\n운세와 맞춤 목표를 추천드릴게요!',
-                    boldText: '',
+      body: Stack(
+        children: [
+          Column(
+            children: <Widget>[
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      const OnboardingTopWidget(
+                        title: '정보를 입력해주세요',
+                        text: '입력 정보를 기반으로\n운세와 맞춤 목표를 추천드릴게요!',
+                        boldText: '',
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: Column(
+                          children: <Widget>[
+                            _buildGender(state, viewModel),
+                            _buildBirthDate(state, viewModel),
+                          ],
+                        ),
+                      ),
+                      _buildBirthTime(state, viewModel),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Column(
-                      children: <Widget>[
-                        _buildGender(state, viewModel),
-                        _buildBirthDate(state, viewModel),
-                      ],
-                    ),
-                  ),
-                  _buildBirthTime(state, viewModel),
-                ],
+                ),
               ),
-            ),
+              AgreeRowWidget(
+                isChecked: state.agree,
+                onPressed: viewModel.onPressedAgree,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: OnboardingBottomButton(
+                  onPressed: () => context.pushNamed(Routes.goal.name),
+                  activated: viewModel.activateNextButtonInBirth,
+                  label: '입력 완료',
+                ),
+              ),
+            ],
           ),
-          AgreeRowWidget(
-            isChecked: state.agree,
-            onPressed: viewModel.onPressedAgree,
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: OnboardingBottomButton(
-              onPressed: () => context.pushNamed(Routes.goal.name),
-              activated: viewModel.activateNextButtonInBirth,
-              label: '입력 완료',
+          Positioned(
+            left: 0.0,
+            top: 560.0,
+            child: UnknownTimeWidget(
+              leftPadding: true,
+              isChecked: state.dontKnow,
+              onPressed: viewModel.onPressedDontKnow,
             ),
           ),
         ],
@@ -107,6 +121,8 @@ class OnboardingBirthView extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 24.0),
                   child: BirthInputWidget(
+                    hourErrMsg: viewModel.birthHourErrorText,
+                    minuteErrMsg: viewModel.birthMinuteErrorText,
                     enabled: !state.dontKnow,
                     onChangedHour: (String value) =>
                         viewModel.onChangedBirthHour(value: value),
@@ -240,8 +256,6 @@ class AgreeRowWidget extends StatelessWidget {
               ],
             ),
             Container(
-              //width: 44,
-              height: 20,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(4.0)),
@@ -253,8 +267,8 @@ class AgreeRowWidget extends StatelessWidget {
               ),
               child: Text(
                 '약관보기',
-                style: LuckitTypos.suitR10.copyWith(
-                  color: LuckitColors.gray80,
+                style: LuckitTypos.suitR14.copyWith(
+                  color: LuckitColors.gray60,
                   height: 0.0,
                 ),
               ),

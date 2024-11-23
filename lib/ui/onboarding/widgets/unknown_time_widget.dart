@@ -23,12 +23,12 @@ class UnknownTimeWidget extends StatelessWidget {
           CheckIconWidget(
             isChecked: isChecked,
             onPressed: onPressed,
-            size: 16.0,
+            size: 24.0,
           ),
           Text(
             '태어난 시간을 알지 못합니다',
-            style: LuckitTypos.suitR10.copyWith(
-              color: LuckitColors.gray80,
+            style: LuckitTypos.suitR14.copyWith(
+              color: LuckitColors.gray60,
               height: 0.0,
             ),
           ),
