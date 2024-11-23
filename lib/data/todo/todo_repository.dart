@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:luckit/data/todo/request_body/update_todo_request_body.dart';
 
 import '../../core/common/data/list_entity_form.dart';
 import '../../core/common/repository/repository.dart';
@@ -78,6 +79,40 @@ class TodoRepository extends Repository {
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),
+      };
+    }
+  }
+
+  Future<RepositoryResult<void>> updateTodo({
+    required int todoId,
+    required String name,
+  }) async {
+    try {
+      await _todoRemoteDataSource.updateTodo(
+        body: UpdateTodoRequestBody(
+          todoId: todoId,
+          name: name,
+        ),
+      );
+      return const SuccessRepositoryResult<void>(
+        data: null,
+      );
+    } on DioException catch (e) {
+      final int? statusCode = e.response?.statusCode;
+
+      return switch (statusCode) {
+        400 => FailureRepositoryResult<void>(
+          error: e,
+          messages: <String>['Bad Request'],
+        ),
+        401 => FailureRepositoryResult<void>(
+          error: e,
+          messages: <String>['Unauthorized access'],
+        ),
+        _ => FailureRepositoryResult<void>(
+          error: e,
+          messages: <String>['정의되지 않은 오류'],
+        ),
       };
     }
   }

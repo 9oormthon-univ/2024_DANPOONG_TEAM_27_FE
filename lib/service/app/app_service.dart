@@ -30,6 +30,9 @@ class AppService extends StateNotifier<AppState> {
     final String? refreshToken =
         await _storageService.getString(key: StorageKey.refreshToken);
 
+    print('access: ${accessToken}');
+    print('refresh: ${refreshToken}');
+
     if (accessToken != null && refreshToken != null) {
       state = state.copyWith(isSignedIn: true);
     }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:luckit/data/todo/request_body/update_todo_request_body.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../core/common/data/list_entity_form.dart';
@@ -37,6 +38,11 @@ abstract class TodoRemoteDataSource {
   @DELETE('/todo/{todo_id}')
   Future<void> deleteTodo({
     @Path('todo_id') required int todoId,
+  });
+
+  @POST('/todo/update')
+  Future<void> updateTodo({
+    @Body() required UpdateTodoRequestBody body,
   });
 
   @GET('/todo/graph')

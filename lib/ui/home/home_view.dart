@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../core/loading_status.dart';
@@ -11,6 +12,7 @@ import '../../service/app/app_service.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
+import '../common/consts/util.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
 import '../common/widgets/rounded_text_button_widget.dart';
 import '../edit/editing_state.dart';
@@ -128,7 +130,12 @@ class _HomeViewState extends ConsumerState<HomeView>
     // final double gameHeight = availableHeight * 0.3;
 
     if (game == null) {
-      return const Center(child: CircularProgressIndicator());
+      return Scaffold(
+        body: Transform.scale(
+          scale: 0.7,
+          child: Lottie.asset(Assets.loading),
+        ),
+      );
     }
 
     return Scaffold(
@@ -277,13 +284,10 @@ class _HomeViewState extends ConsumerState<HomeView>
               ],
             ),
             const SizedBox(height: 16),
+            if (state.currentGoal.endDate.isBefore(DateTime.now()))
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.0),
               child: MissionCompleteContainer(),
-            ),
-            TextButton(
-              onPressed: appService.signOut,
-              child: const Text('로그아웃'),
             ),
             const SizedBox(height: 16),
             Builder(
@@ -401,15 +405,24 @@ class _HomeViewState extends ConsumerState<HomeView>
                         width: screenSize.width,
                         height: 200,
                         child: PageView.builder(
-                          controller: cardCarouselController, // 카드 크기 조정
-                          itemCount: 3,
-                          itemBuilder: (BuildContext context, int index) =>
-                              const AnimatedCard(
-                            title: '오늘의 기분 좋은 일 하나 적기',
-                            comment: '금전운을 향상시킬 수 있어요',
-                            iconPath: Assets.pigOutlined,
-                            imagePath: Assets.money,
-                          ),
+                          controller: cardCarouselController,
+                          itemCount: state.currentTodoList
+                              .where((todo) => todo.isMadeByGpt)
+                              .length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final gptTodos = state.currentTodoList
+                                .where((todo) => todo.isMadeByGpt)
+                                .toList();
+                            final todo = gptTodos[index];
+                            return AnimatedCard(
+                              title: todo.name,
+                              comment: fortuneTypeToComment[todo.fortuneType] ??
+                                  '운을 향상시킬 수 있어요',
+                              iconPath: Assets.pigOutlined,
+                              imagePath: fortuneTypeToAsset[todo.fortuneType] ??
+                                  Assets.money,
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -462,7 +475,7 @@ class _HomeViewState extends ConsumerState<HomeView>
                                   ),
                                 ).then((String? missionText) {
                                   if (missionText != null) {
-                                    // 수정 로직
+                                    // 추가 로직
                                   }
                                 });
                               },
@@ -499,59 +512,68 @@ class _HomeViewState extends ConsumerState<HomeView>
                           padding: const EdgeInsets.only(top: 12),
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) => Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Material(
-                                  color: LuckitColors.transparent,
-                                  child: InkWell(
-                                    splashFactory: InkRipple.splashFactory,
-                                    onLongPress: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            const MissionManageBottomSheet(
-                                          title: '거울 볼 때마다 미소짓기',
-                                        ),
-                                      );
-                                    },
-                                    child: const Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              vertical: 11.5,
-                                            ),
-                                            child: Text('data'),
+                          itemBuilder: (BuildContext context, int index) {
+                            final todo = state.currentTodoList[index];
+                            if (todo.isMadeByGpt) {
+                              return const SizedBox.shrink();
+                            }
+                            return Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Material(
+                                    color: LuckitColors.transparent,
+                                    child: InkWell(
+                                      splashFactory: InkRipple.splashFactory,
+                                      onLongPress: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              MissionManageBottomSheet(
+                                            title: todo.name,
+                                            todoId: todo.todoId,
+                                            updateTodo: viewModel.updateTodo,
                                           ),
-                                        ),
-                                      ],
+                                        );
+                                      },
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 11.5,
+                                              ),
+                                              child: Text(todo.name),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                width: 20,
-                                height: 20,
-                                margin: const EdgeInsets.only(left: 16),
-                                decoration: BoxDecoration(
-                                  color: LuckitColors.gray20,
-                                  borderRadius: BorderRadius.circular(100),
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  margin: const EdgeInsets.only(left: 16),
+                                  decoration: BoxDecoration(
+                                    color: LuckitColors.gray20,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: SvgPicture.asset(
+                                    Assets.done,
+                                    colorFilter: const ColorFilter.mode(
+                                        LuckitColors.white, BlendMode.srcIn),
+                                  ),
                                 ),
-                                child: SvgPicture.asset(
-                                  Assets.done,
-                                  colorFilter: const ColorFilter.mode(
-                                      LuckitColors.white, BlendMode.srcIn),
-                                ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            );
+                          },
                           separatorBuilder: (BuildContext context, int index) =>
                               const Divider(
                             color: LuckitColors.gray20,
                             height: 1,
                           ),
-                          itemCount: 6,
+                          itemCount: state.currentTodoList.length,
                         ),
                       ),
                       const SizedBox(height: 140),

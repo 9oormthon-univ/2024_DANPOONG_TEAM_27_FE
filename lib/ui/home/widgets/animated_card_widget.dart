@@ -67,7 +67,6 @@ class AnimatedCard extends StatelessWidget {
                   Container(
                     width: 130,
                     height: 115,
-                    // color: Colors.amber,
                     child: Image.asset(imagePath),
                   ),
                   Container(

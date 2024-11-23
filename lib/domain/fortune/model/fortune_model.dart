@@ -17,6 +17,13 @@ class FortuneModel extends Equatable {
     required this.timeOfDayFortuneScores,
   });
 
+  FortuneModel.init()
+      : fortuneKeywords = <String>[],
+        shortFortune = '',
+        fullFortune = '',
+        categoryFortuneScores = <CategoryFortuneScores>[],
+        timeOfDayFortuneScores = <TimeOfDayFortuneScores>[];
+
   factory FortuneModel.fromEntity({
     required FortuneEntity entity,
   }) =>
@@ -24,51 +31,47 @@ class FortuneModel extends Equatable {
         fortuneKeywords: entity.fortuneKeywords,
         shortFortune: entity.shortFortune,
         fullFortune: entity.fullFortune,
-        categoryFortuneScores: <CategoryFortuneScores>[
+        categoryFortuneScores: [
           CategoryFortuneScores(
             category: 'all_luck',
             score: entity.overallFortuneScore,
           ),
-          ...entity.categoryFortuneScores.map(
-            (CategoryFortuneScoresEntity score) => CategoryFortuneScores(
-              category: score.category,
-              score: score.score,
-            ),
+          CategoryFortuneScores(
+            category: 'Money',
+            score: entity.categoryFortuneScores.money,
+          ),
+          CategoryFortuneScores(
+            category: 'Study',
+            score: entity.categoryFortuneScores.study,
+          ),
+          CategoryFortuneScores(
+            category: 'Health',
+            score: entity.categoryFortuneScores.health,
+          ),
+          CategoryFortuneScores(
+            category: 'Love',
+            score: entity.categoryFortuneScores.love,
+          ),
+          CategoryFortuneScores(
+            category: 'Work',
+            score: entity.categoryFortuneScores.work,
           ),
         ],
-        timeOfDayFortuneScores: <TimeOfDayFortuneScores>[
-          ...entity.timeOfDayFortuneScores.map(
-            (TimeOfDayFortuneScoresEntity score) => TimeOfDayFortuneScores(
-              time: score.time,
-              score: score.score,
-            ),
+        timeOfDayFortuneScores: [
+          TimeOfDayFortuneScores(
+            time: 'Morning',
+            score: entity.timeOfDayFortuneScores.morning,
+          ),
+          TimeOfDayFortuneScores(
+            time: 'Afternoon',
+            score: entity.timeOfDayFortuneScores.afternoon,
+          ),
+          TimeOfDayFortuneScores(
+            time: 'Night',
+            score: entity.timeOfDayFortuneScores.night,
           ),
         ],
       );
-
-  FortuneModel copyWith({
-    required List<String>? fortuneKeywords,
-    required String? shortFortune,
-    required String? fullFortune,
-    required List<CategoryFortuneScores>? categoryFortuneScores,
-    required List<TimeOfDayFortuneScores>? timeOfDayFortuneScores,
-  }) =>
-      FortuneModel(
-        fortuneKeywords: fortuneKeywords ?? this.fortuneKeywords,
-        shortFortune: shortFortune ?? this.shortFortune,
-        fullFortune: fullFortune ?? this.fullFortune,
-        categoryFortuneScores:
-            categoryFortuneScores ?? this.categoryFortuneScores,
-        timeOfDayFortuneScores:
-            timeOfDayFortuneScores ?? this.timeOfDayFortuneScores,
-      );
-
-  FortuneModel.init()
-      : fortuneKeywords = <String>[],
-        shortFortune = '',
-        fullFortune = '',
-        categoryFortuneScores = <CategoryFortuneScores>[],
-        timeOfDayFortuneScores = <TimeOfDayFortuneScores>[];
 
   @override
   List<Object?> get props => <Object?>[

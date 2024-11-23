@@ -18,10 +18,10 @@ class FortuneEntity {
   final String fullFortune;
 
   @JsonKey(name: 'categoryFortuneScores')
-  final List<CategoryFortuneScoresEntity> categoryFortuneScores;
+  final CategoryFortuneScoresEntity categoryFortuneScores;
 
   @JsonKey(name: 'timeOfDayFortuneScores')
-  final List<TimeOfDayFortuneScoresEntity> timeOfDayFortuneScores;
+  final TimeOfDayFortuneScoresEntity timeOfDayFortuneScores;
 
   final int overallFortuneScore;
 
@@ -32,12 +32,27 @@ class FortuneEntity {
 @JsonSerializable()
 class CategoryFortuneScoresEntity {
   const CategoryFortuneScoresEntity({
-    required this.category,
-    required this.score,
+    required this.money,
+    required this.study,
+    required this.health,
+    required this.love,
+    required this.work,
   });
 
-  final String category;
-  final int score;
+  @JsonKey(name: 'MONEY')
+  final int money;
+
+  @JsonKey(name: 'STUDY')
+  final int study;
+
+  @JsonKey(name: 'HEALTH')
+  final int health;
+
+  @JsonKey(name: 'LOVE')
+  final int love;
+
+  @JsonKey(name: 'WORK')
+  final int work;
 
   factory CategoryFortuneScoresEntity.fromJson(Map<String, dynamic> json) =>
       _$CategoryFortuneScoresEntityFromJson(json);
@@ -46,12 +61,19 @@ class CategoryFortuneScoresEntity {
 @JsonSerializable()
 class TimeOfDayFortuneScoresEntity {
   const TimeOfDayFortuneScoresEntity({
-    required this.time,
-    required this.score,
+    required this.morning,
+    required this.afternoon,
+    required this.night,
   });
 
-  final String time;
-  final int score;
+  @JsonKey(name: 'Morning')
+  final int morning;
+
+  @JsonKey(name: 'Afternoon')
+  final int afternoon;
+
+  @JsonKey(name: 'Night')
+  final int night;
 
   factory TimeOfDayFortuneScoresEntity.fromJson(Map<String, dynamic> json) =>
       _$TimeOfDayFortuneScoresEntityFromJson(json);

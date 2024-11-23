@@ -9,6 +9,7 @@ import '../../domain/goal/use_case/delete_goal_use_case.dart';
 import '../../domain/goal/use_case/get_goal_list_use_case.dart';
 import '../../domain/todo/model/todo_model.dart';
 import '../../domain/todo/use_case/get_todo_list_use_case.dart';
+import '../../domain/todo/use_case/update_todo_use_case.dart';
 import '../../domain/user/model/birth_info_model.dart';
 import '../../domain/user/model/login_info_model.dart';
 import '../../domain/user/use_case/get_birth_info_use_case.dart';
@@ -23,7 +24,8 @@ final AutoDisposeStateNotifierProvider<HomeViewModel, HomeState>
     getGoalListUseCase: ref.read(getGoalListUseCaseProvider),
     getTodoListUseCase: ref.read(getTodoListUseCaseProvider),
     createGoalUseCase: ref.read(createGoalUseCaseProvider),
-    deleteGaolUseCase: ref.read(deleteGoalUseCaseProvider),
+    deleteGoalUseCase: ref.read(deleteGoalUseCaseProvider),
+    updateTodoUseCase: ref.read(updateTodoUseCaseProvider),
     getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
     getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
     getFortuneUseCase: ref.read(getFortuneUseCaseProvider),
@@ -35,6 +37,7 @@ class HomeViewModel extends StateNotifier<HomeState> {
   final GetTodoListUseCase _getTodoListUseCase;
   final CreateGoalUseCase _createGoalUseCase;
   final DeleteGoalUseCase _deleteGoalUseCase;
+  final UpdateTodoUseCase _updateTodoUseCase;
   final GetBirthInfoUseCase _getBirthInfoUseCase;
   final GetLoginInfoUseCase _getLoginInfoUseCase;
   final GetFortuneUseCase _getFortuneUseCase;
@@ -44,14 +47,16 @@ class HomeViewModel extends StateNotifier<HomeState> {
     required GetGoalListUseCase getGoalListUseCase,
     required GetTodoListUseCase getTodoListUseCase,
     required CreateGoalUseCase createGoalUseCase,
-    required DeleteGoalUseCase deleteGaolUseCase,
+    required DeleteGoalUseCase deleteGoalUseCase,
+    required UpdateTodoUseCase updateTodoUseCase,
     required GetBirthInfoUseCase getBirthInfoUseCase,
     required GetLoginInfoUseCase getLoginInfoUseCase,
     required GetFortuneUseCase getFortuneUseCase,
   })  : _getGoalListUseCase = getGoalListUseCase,
         _getTodoListUseCase = getTodoListUseCase,
         _createGoalUseCase = createGoalUseCase,
-        _deleteGoalUseCase = deleteGaolUseCase,
+        _deleteGoalUseCase = deleteGoalUseCase,
+        _updateTodoUseCase = updateTodoUseCase,
         _getBirthInfoUseCase = getBirthInfoUseCase,
         _getLoginInfoUseCase = getLoginInfoUseCase,
         _getFortuneUseCase = getFortuneUseCase,
@@ -61,6 +66,29 @@ class HomeViewModel extends StateNotifier<HomeState> {
     getCurrentGoal().then((_) {
       getCurrentTodoList();
     });
+  }
+  Future<void> updateTodo(int todoId, String todo) async{
+    state = state.copyWith(updateTodoLoadingStatus: LoadingStatus.loading);
+    final UseCaseResult<void> result = await _updateTodoUseCase(
+      name: todo,
+      todoId: todoId
+    );
+    switch (result){
+      case SuccessUseCaseResult<void>():
+        state = state.copyWith(
+          currentTodoList: state.currentTodoList.map((todoModel) {
+            if (todoModel.todoId == todoId) {
+              return todoModel.copyWith(name: todo);
+            }
+            return todoModel;
+          }).toList(),
+          updateTodoLoadingStatus: LoadingStatus.success,
+        );
+      case FailureUseCaseResult<void>():
+        state = state.copyWith(
+          updateTodoLoadingStatus: LoadingStatus.error,
+        );
+    }
   }
 
   Future<void> getCurrentGoal() async {

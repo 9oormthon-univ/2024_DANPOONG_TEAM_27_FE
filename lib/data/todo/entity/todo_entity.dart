@@ -10,6 +10,10 @@ class TodoEntity {
     required this.month,
     required this.day,
     required this.isCompleted,
+    required this.isMadeByGpt,
+    required this.fortuneType,
+    required this.score,
+    required this.animal,
   });
 
   final int todoId;
@@ -18,6 +22,10 @@ class TodoEntity {
   final int month;
   final int day;
   final bool isCompleted;
+  final bool isMadeByGpt;
+  final String fortuneType;
+  final int score;
+  final int animal;
 
   factory TodoEntity.fromJson(Map<String, dynamic> json) =>
       _$TodoEntityFromJson(json);
