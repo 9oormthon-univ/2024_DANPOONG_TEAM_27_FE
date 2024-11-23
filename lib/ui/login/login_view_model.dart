@@ -59,7 +59,10 @@ class LoginViewModel extends StateNotifier<LoginState> {
         try {
           switch (result) {
             case SuccessUseCaseResult<AuthTokenModel>():
-              await _appService.signIn(authTokens: result.data);
+              await _appService.signIn(
+                authTokens: result.data,
+                isFirstLogin: result.data.isFirstLogin,
+              );
               state = state.copyWith(
                   kakaoOauthLoadingStatus: LoadingStatus.success);
             case FailureUseCaseResult<AuthTokenModel>():
@@ -72,7 +75,10 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
         switch (result) {
           case SuccessUseCaseResult<AuthTokenModel>():
-            await _appService.signIn(authTokens: result.data);
+            await _appService.signIn(
+              authTokens: result.data,
+              isFirstLogin: result.data.isFirstLogin,
+            );
             state = state.copyWith(
               kakaoOauthLoadingStatus: LoadingStatus.success,
               isAuthenticated: true,

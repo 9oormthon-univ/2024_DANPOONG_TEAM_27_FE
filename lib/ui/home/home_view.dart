@@ -278,14 +278,14 @@ class _HomeViewState extends ConsumerState<HomeView>
               ],
             ),
             const SizedBox(height: 16),
-            // const Padding(
-            //   padding: EdgeInsets.symmetric(horizontal: 24.0),
-            //   child: MissionCompleteContainer(),
-            // ),
-            // TextButton(
-            //   onPressed: appService.signOut,
-            //   child: const Text('로그아웃'),
-            // ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              child: MissionCompleteContainer(),
+            ),
+            TextButton(
+              onPressed: appService.signOut,
+              child: const Text('로그아웃'),
+            ),
             const SizedBox(height: 16),
             Builder(
               builder: (BuildContext context) {

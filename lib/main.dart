@@ -7,6 +7,7 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 import 'routes/app_router.dart';
 import 'service/app/app_service.dart';
+import 'service/my_info/my_info_service.dart';
 import 'theme/luckit_colors.dart';
 
 void main() async {
@@ -16,13 +17,12 @@ void main() async {
   );
   WidgetsFlutterBinding.ensureInitialized();
   // 앱 전체를 세로 모드로 고정
-  await SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(const ProviderScope(child: MainApp()));
-  });
-  // runApp(const ProviderScope(child: MainApp()));
+  ]);
+
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends ConsumerStatefulWidget {
@@ -37,6 +37,10 @@ class _MainAppState extends ConsumerState<MainApp> {
   void initState() {
     super.initState();
     ref.read(appServiceProvider.notifier).init().then((_) async {
+      if (ref.read(appServiceProvider).isSignedIn &&
+          !ref.read(appServiceProvider).isFirstLogin) {
+        await ref.read(myInfoServiceProvider.notifier).getUserInfo();
+      }
       FlutterNativeSplash.remove();
     });
   }

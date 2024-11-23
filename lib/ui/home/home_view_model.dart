@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/common/use_case/use_case_result.dart';
 import '../../core/loading_status.dart';
+import '../../domain/fortune/use_case/get_fortune_use_case.dart';
 import '../../domain/goal/model/goal_model.dart';
 import '../../domain/goal/use_case/create_goal_use_case.dart';
 import '../../domain/goal/use_case/delete_goal_use_case.dart';
@@ -9,6 +10,10 @@ import '../../domain/goal/use_case/get_goal_list_use_case.dart';
 import '../../domain/todo/model/todo_model.dart';
 import '../../domain/todo/use_case/get_todo_list_use_case.dart';
 import '../../domain/todo/use_case/update_todo_use_case.dart';
+import '../../domain/user/model/birth_info_model.dart';
+import '../../domain/user/model/login_info_model.dart';
+import '../../domain/user/use_case/get_birth_info_use_case.dart';
+import '../../domain/user/use_case/get_login_info_use_case.dart';
 import '../../utils/date_time_format_helper.dart';
 import 'home_state.dart';
 
@@ -21,6 +26,9 @@ final AutoDisposeStateNotifierProvider<HomeViewModel, HomeState>
     createGoalUseCase: ref.read(createGoalUseCaseProvider),
     deleteGoalUseCase: ref.read(deleteGoalUseCaseProvider),
     updateTodoUseCase: ref.read(updateTodoUseCaseProvider),
+    getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
+    getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
+    getFortuneUseCase: ref.read(getFortuneUseCaseProvider),
   ),
 );
 
@@ -30,6 +38,9 @@ class HomeViewModel extends StateNotifier<HomeState> {
   final CreateGoalUseCase _createGoalUseCase;
   final DeleteGoalUseCase _deleteGoalUseCase;
   final UpdateTodoUseCase _updateTodoUseCase;
+  final GetBirthInfoUseCase _getBirthInfoUseCase;
+  final GetLoginInfoUseCase _getLoginInfoUseCase;
+  final GetFortuneUseCase _getFortuneUseCase;
 
   HomeViewModel({
     required HomeState state,
@@ -38,11 +49,17 @@ class HomeViewModel extends StateNotifier<HomeState> {
     required CreateGoalUseCase createGoalUseCase,
     required DeleteGoalUseCase deleteGoalUseCase,
     required UpdateTodoUseCase updateTodoUseCase,
+    required GetBirthInfoUseCase getBirthInfoUseCase,
+    required GetLoginInfoUseCase getLoginInfoUseCase,
+    required GetFortuneUseCase getFortuneUseCase,
   })  : _getGoalListUseCase = getGoalListUseCase,
         _getTodoListUseCase = getTodoListUseCase,
         _createGoalUseCase = createGoalUseCase,
         _deleteGoalUseCase = deleteGoalUseCase,
         _updateTodoUseCase = updateTodoUseCase,
+        _getBirthInfoUseCase = getBirthInfoUseCase,
+        _getLoginInfoUseCase = getLoginInfoUseCase,
+        _getFortuneUseCase = getFortuneUseCase,
         super(state);
 
   void init() {
