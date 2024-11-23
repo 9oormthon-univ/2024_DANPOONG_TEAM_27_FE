@@ -1,15 +1,12 @@
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../routes/routes.dart';
 import '../../theme/luckit_colors.dart';
 import '../common/consts/assets.dart';
-import '../game/character_data.dart';
-import '../game/horizontal_walking_game.dart';
-import '../game/mission_character_provider.dart';
 import '../onboarding/widgets/onboarding_bottom_button.dart';
 import 'tutorial_state.dart';
 import 'tutorial_view_model.dart';
@@ -22,36 +19,13 @@ class TutorialView extends ConsumerStatefulWidget {
   ConsumerState<TutorialView> createState() => _TutorialViewState();
 }
 
-class _TutorialViewState extends ConsumerState<TutorialView>
-    with WidgetsBindingObserver {
+class _TutorialViewState extends ConsumerState<TutorialView> {
   late PageController _controller;
-  late double gameHeight;
-
-  HorizontalWalkingGame? game;
 
   @override
   void initState() {
     super.initState();
     _controller = PageController();
-    initializeGame();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  void initializeGame() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final Size screenSize = MediaQuery.of(context).size;
-      gameHeight = screenSize.width / 375 * 300;
-
-      final List<CharacterData> characters =
-          ref.read(missionCharactersProvider);
-
-      game = HorizontalWalkingGame(
-        boundarySize: Vector2(screenSize.width, gameHeight),
-        characterTypes: characters,
-        gameBackground: Assets.gameBackgroundWithoutCloud,
-      );
-      setState(() {});
-    });
   }
 
   @override
@@ -69,9 +43,6 @@ class _TutorialViewState extends ConsumerState<TutorialView>
         ref.read(tutorialViewModelProvider.notifier);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed('/start'),
-      ),
       backgroundColor: LuckitColors.background,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
@@ -82,7 +53,7 @@ class _TutorialViewState extends ConsumerState<TutorialView>
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () => context.goNamed('/home'),
+            onPressed: () => context.goNamed(Routes.home.name),
             icon: SvgPicture.asset(
               Assets.closeMD,
               colorFilter: const ColorFilter.mode(
@@ -107,12 +78,8 @@ class _TutorialViewState extends ConsumerState<TutorialView>
                     onPageChanged: (int index) =>
                         viewModel.activateButton(index: index),
                     itemCount: pages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (index == pages.length - 1) {
-                        return TutorialFourthPage(game: game);
-                      }
-                      return pages[index];
-                    }),
+                    itemBuilder: (BuildContext context, int index) =>
+                        pages[index]),
               ),
               SmoothPageIndicator(
                 controller: _controller,
@@ -145,5 +112,5 @@ final List<StatelessWidget> pages = <StatelessWidget>[
   const TutorialFirstPage(),
   const TutorialSecondPage(),
   const TutorialThirdPage(),
-  const TutorialFourthPage(game: null),
+  const TutorialFourthPage(),
 ];

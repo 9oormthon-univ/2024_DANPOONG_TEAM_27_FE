@@ -2,19 +2,15 @@ import 'route_info.dart';
 
 class Routes {
   // auth
-  // static const RouteInfo auth = RouteInfo(
-  //   name: '/auth',
-  //   path: '/auth',
-  // );
+  static const RouteInfo auth = RouteInfo(
+    name: '/auth',
+    path: '/auth',
+  );
 
-  // static const RouteInfo signIn = RouteInfo(
-  //   name: '/auth/sign-in',
-  //   path: 'sign-in',
-  // );
   // 로그인 페이지
   static const RouteInfo login = RouteInfo(
-    name: '/login',
-    path: '/login',
+    name: '/auth/login',
+    path: 'login',
   );
 
   // 홈(메인)페이지
@@ -35,25 +31,32 @@ class Routes {
     path: '/profile',
   );
 
-  static const RouteInfo edit = RouteInfo(
-    name: '/edit',
-    path: '/edit',
+  // 온보딩 시작
+  static const RouteInfo start = RouteInfo(
+    name: '/home/onboarding',
+    path: 'onboarding',
   );
 
   // 온보딩
   static const RouteInfo goal = RouteInfo(
-    name: '/onboarding/goal',
-    path: '/onboarding/goal',
+    name: '/home/onboarding/goal',
+    path: 'goal',
   );
 
   static const RouteInfo duration = RouteInfo(
-    name: '/onboarding/duration',
-    path: '/onboarding/duration',
+    name: '/home/onboarding/duration',
+    path: 'duration',
   );
 
   static const RouteInfo birth = RouteInfo(
-    name: '/onboarding/birth',
-    path: '/onboarding/birth',
+    name: '/home/onboarding/birth',
+    path: 'birth',
+  );
+
+  // 튜토리얼
+  static const RouteInfo tutorial = RouteInfo(
+    name: '/home/onboarding/tutorial',
+    path: 'tutorial',
   );
 
   // 농장
@@ -64,18 +67,7 @@ class Routes {
 
   // 목표 달성
   static const RouteInfo goalComplete = RouteInfo(
-    name: '/goal-complete',
-    path: '/goal-complete',
-  );
-
-  // 튜토리얼
-  static const RouteInfo tutorial = RouteInfo(
-    name: '/tutorial',
-    path: '/tutorial',
-  );
-
-  static const RouteInfo start = RouteInfo(
-    name: '/start',
-    path: '/start',
+    name: '/home/goal-complete',
+    path: 'goal-complete',
   );
 }

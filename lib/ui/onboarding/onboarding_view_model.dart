@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/common/use_case/use_case_result.dart';
 import '../../core/loading_status.dart';
+import '../../domain/onboarding/model/suggestion_goal_model.dart';
+import '../../domain/onboarding/use_case/get_suggestion_goal_list_use_case.dart';
 import 'onboarding_state.dart';
 import 'utils/validation.dart';
 
@@ -9,11 +12,14 @@ final AutoDisposeStateNotifierProvider<OnboardingViewModel, OnboardingState>
     onboardingViewModelProvider =
     StateNotifierProvider.autoDispose<OnboardingViewModel, OnboardingState>(
   (StateNotifierProviderRef<OnboardingViewModel, OnboardingState> ref) =>
-      OnboardingViewModel(),
+      OnboardingViewModel(ref.read(getSuggestionGoalListUseCaseProvider)),
 );
 
 class OnboardingViewModel extends StateNotifier<OnboardingState> {
-  OnboardingViewModel() : super(OnboardingState.init());
+  final GetSuggestionGoalListUseCase _getSuggestionGoalListUseCase;
+
+  OnboardingViewModel(this._getSuggestionGoalListUseCase)
+      : super(OnboardingState.init());
 
   void getUserName() {
     state = state.copyWith(getUserNameLoading: LoadingStatus.loading);
@@ -21,22 +27,17 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     state = state.copyWith(getUserNameLoading: LoadingStatus.success);
   }
 
-  void getSuggestions() {
+  void getSuggestions() async {
     state = state.copyWith(getSuggestionsLoading: LoadingStatus.loading);
-    state = state.copyWith(suggestions: <GoalSuggestionModel>[
-      const GoalSuggestionModel(
-        suggestedGoal: '긍정적인 사람 되어보기',
-        suggestedDuration: '30일',
-      ),
-      const GoalSuggestionModel(
-        suggestedGoal: '긍정적인 사람 되어보기',
-        suggestedDuration: '30일',
-      ),
-      const GoalSuggestionModel(
-        suggestedGoal: '긍정적인 사람 되어보기',
-        suggestedDuration: '20일',
-      ),
-    ]);
+    final UseCaseResult<List<SuggestionGoalModel>> result =
+        await _getSuggestionGoalListUseCase();
+
+    switch (result) {
+      case SuccessUseCaseResult<List<SuggestionGoalModel>>():
+        state = state.copyWith(suggestions: result.data);
+      case FailureUseCaseResult<List<SuggestionGoalModel>>():
+        state = state.copyWith(getSuggestionsLoading: LoadingStatus.error);
+    }
     state = state.copyWith(getSuggestionsLoading: LoadingStatus.success);
   }
 
@@ -57,8 +58,8 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     else {
       state = state.copyWith(
         selectedSuggestion: index,
-        goal: state.suggestions[index].suggestedGoal,
-        suggestedDuration: state.suggestions[index].suggestedDuration,
+        goal: state.suggestions[index].goals,
+        suggestedDuration: state.suggestions[index].period,
       );
       debugPrint('현재 목표: ${state.goal}');
     }
