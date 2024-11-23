@@ -37,10 +37,10 @@ class AppRouterInterceptor {
 
       // 현재 위치가 아직도 auth 관련 페이지에 있다면
       // 즉시 홈화면으로 리다이렉트 해줍니다.
-      // if (state.fullPath != null &&
-      //     state.fullPath!.startsWith(Routes.auth.name)) {
-      //   return Routes.home.name;
-      // }
+      if (state.fullPath != null &&
+          state.fullPath!.startsWith(Routes.auth.name)) {
+        return Routes.home.name;
+      }
     }
 
     return null;
