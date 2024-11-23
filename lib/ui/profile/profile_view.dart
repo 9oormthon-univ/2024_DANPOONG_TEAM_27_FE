@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import '../../core/loading_status.dart';
 import '../../routes/routes.dart';
 import '../../service/app/app_service.dart';
+import '../../service/my_info/my_info_service.dart';
+import '../../service/my_info/my_info_state.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
@@ -40,6 +42,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final MyInfoState infoState = ref.watch(myInfoServiceProvider);
     final ProfileState state = ref.watch(profileViewModelProvider);
     final ProfileViewModel viewModel =
         ref.read(profileViewModelProvider.notifier);
@@ -60,13 +63,14 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                     const SizedBox(height: 50.0),
                     if (state.loadingProfile == LoadingStatus.success)
                       ProfileInfoWidget(
-                        day: state.day,
-                        gender: state.gender,
-                        month: state.month,
-                        hour: state.hour,
-                        minute: state.minute,
-                        unknownTime: state.unknownTime,
-                        year: state.year,
+                        name: infoState.userName,
+                        day: infoState.day,
+                        gender: infoState.gender,
+                        month: infoState.month,
+                        hour: infoState.hour,
+                        minute: infoState.minute,
+                        unknownTime: infoState.unknownTime,
+                        year: infoState.year,
                       )
                     else
                       const SizedBox(height: 36.0),
