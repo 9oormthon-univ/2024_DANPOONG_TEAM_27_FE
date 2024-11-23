@@ -18,7 +18,7 @@ class EditingState extends Equatable {
 
   // text field enable, goal 결정, 선택된 목표 인덱스 저장
   final int selectedSuggestion;
-  final List<SuggestionGoalModel> suggestions;
+  final List<GoalModel> suggestions;
 
   // duration
   final String startYear;
@@ -76,7 +76,7 @@ class EditingState extends Equatable {
         userName: '',
         goalInputFieldText: '',
         goalInputFieldErrorMsg: '',
-        suggestions: <SuggestionGoalModel>[],
+        suggestions: <GoalModel>[],
         suggestedDuration: '',
         selectedSuggestion: -1,
         goal: '',
@@ -107,7 +107,7 @@ class EditingState extends Equatable {
     String? goalInputFieldErrorMsg,
     int? selectedSuggestion,
     String? suggestedDuration,
-    List<SuggestionGoalModel>? suggestions,
+    List<GoalModel>? suggestions,
     String? goal,
     String? startYear,
     String? startMonth,

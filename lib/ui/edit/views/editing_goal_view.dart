@@ -92,8 +92,7 @@ class _EditingGoalViewState extends ConsumerState<EditingGoalView> {
                     //   );
                     // }),
                     ...List.generate(state.suggestions.length, (int index) {
-                      final SuggestionGoalModel model =
-                          state.suggestions[index];
+                      final GoalModel model = state.suggestions[index];
                       return GoalSuggestionWidget(
                         index: index,
                         model: model,

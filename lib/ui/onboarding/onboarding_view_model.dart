@@ -26,14 +26,16 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     state = state.copyWith(getUserNameLoading: LoadingStatus.success);
   }
 
-  void getSuggestions() async {
+  Future<void> getSuggestions() async {
     state = state.copyWith(getSuggestionsLoading: LoadingStatus.loading);
     final UseCaseResult<List<GoalModel>> result =
         await _getSuggestionGoalListUseCase();
 
     switch (result) {
       case SuccessUseCaseResult<List<GoalModel>>():
-        state = state.copyWith(suggestions: result.data, getSuggestionsLoading: LoadingStatus.success);
+        state = state.copyWith(
+            suggestions: result.data,
+            getSuggestionsLoading: LoadingStatus.success);
       case FailureUseCaseResult<List<GoalModel>>():
         state = state.copyWith(getSuggestionsLoading: LoadingStatus.error);
     }
@@ -146,7 +148,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     }
     try {
       final int year = int.parse(value);
-      if (year != DateTime.now().year) {
+      if (year < DateTime.now().year) {
         return '연도를 정확히 입력해주세요';
       }
       return null;

@@ -38,13 +38,13 @@ class EditingViewModel extends StateNotifier<EditingState> {
 
   Future<void> getSuggestions() async {
     state = state.copyWith(getSuggestionsLoading: LoadingStatus.loading);
-    final UseCaseResult<List<SuggestionGoalModel>> result =
+    final UseCaseResult<List<GoalModel>> result =
         await _getSuggestionGoalListUseCase();
 
     switch (result) {
-      case SuccessUseCaseResult<List<SuggestionGoalModel>>():
+      case SuccessUseCaseResult<List<GoalModel>>():
         state = state.copyWith(suggestions: result.data);
-      case FailureUseCaseResult<List<SuggestionGoalModel>>():
+      case FailureUseCaseResult<List<GoalModel>>():
         state = state.copyWith(getSuggestionsLoading: LoadingStatus.error);
     }
     state = state.copyWith(getSuggestionsLoading: LoadingStatus.success);
