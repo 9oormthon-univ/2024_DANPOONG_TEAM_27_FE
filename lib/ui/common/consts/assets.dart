@@ -138,6 +138,7 @@ class Assets {
   static const String tigerStop = 'assets/animation/stop/tiger_stop.json';
   static const String kingMouseStop =
       'assets/animation/stop/king_mouse_stop.json';
+  static const String kingChickenStop = 'assets/animation/stop/king_chicken_stop.json';
 
   static const String chickenMove = 'assets/animation/move/chicken_move.json';
   static const String cowMove = 'assets/animation/move/cow_move.json';
@@ -151,9 +152,11 @@ class Assets {
   static const String sheepMove = 'assets/animation/move/sheep_move.json';
   static const String snakeMove = 'assets/animation/move/snake_move.json';
   static const String tigerMove = 'assets/animation/move/tiger_move.json';
+  static const String kingChickenMove = 'assets/animation/move/king_chicken_move.json';
 
   static const String kingMouseAppear =
       'assets/animation/appear/king_mouse_appear.json';
+  static const String kingChickenAppear = 'assets/animation/appear/king_chicken_appear.json';
 
   // 튜토리얼
   static const String tutorialFirstImage =
