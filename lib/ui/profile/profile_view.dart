@@ -50,115 +50,133 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         currentRouteName: Routes.profile.name,
       ),
       backgroundColor: LuckitColors.background,
-      body: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                const SizedBox(height: 50.0),
-                if (state.loadingProfile == LoadingStatus.success)
-                  ProfileInfoWidget(
-                    day: state.day,
-                    gender: state.gender,
-                    month: state.month,
-                    hour: state.hour,
-                    minute: state.minute,
-                    unknownTime: state.unknownTime,
-                    year: state.year,
-                  )
-                else
-                  const SizedBox(height: 36.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 260,
-                        child: (state.loadingGraph == LoadingStatus.success)
-                            ? const ProfileGraphWidget()
-                            : const Center(
-                                child: CircularProgressIndicator(
-                                  color: LuckitColors.main,
-                                ),
-                              ),
+      body: Stack(
+        children: <Widget>[
+          CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(height: 50.0),
+                    if (state.loadingProfile == LoadingStatus.success)
+                      ProfileInfoWidget(
+                        day: state.day,
+                        gender: state.gender,
+                        month: state.month,
+                        hour: state.hour,
+                        minute: state.minute,
+                        unknownTime: state.unknownTime,
+                        year: state.year,
+                      )
+                    else
+                      const SizedBox(height: 36.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 260,
+                            child: (state.loadingGraph == LoadingStatus.success)
+                                ? const ProfileGraphWidget()
+                                : const Center(
+                                    child: CircularProgressIndicator(
+                                      color: LuckitColors.main,
+                                    ),
+                                  ),
+                          ),
+                          const ProfileDescriptionTextWidget(),
+                        ],
                       ),
-                      const ProfileDescriptionTextWidget(),
-                      // ProfileGoalArchivingWidget(
-                      //   opened: state.opened,
-                      //   onTap: viewModel.toggleGoalArchiving,
-                      // ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) =>
+                        ProfileGoalArchivingWidget(
+                      onTap: () => viewModel.toggleGoalArchiving(
+                        tapIndex: index,
+                      ),
+                      goalModel: state.completeGoal[index],
+                    ),
+                    childCount: state.completeGoal.length,
                   ),
                 ),
-              ],
-            ),
-            // 더보기 버튼
-            Positioned(
-              top: 50,
-              right: 20,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Material(
-                    color: LuckitColors.transparent,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(100),
-                      onTap: () => viewModel.toggleProfileButtons(
-                        isCurrentOpen: state.isProfileButtonsOpen,
-                      ),
-                      child: SvgPicture.asset(
-                        Assets.verticalDots,
-                        colorFilter: const ColorFilter.mode(
-                          LuckitColors.gray80,
-                          BlendMode.srcIn,
-                        ),
+              ),
+              const SliverPadding(
+                padding: EdgeInsets.only(bottom: 24.0),
+              ),
+            ],
+          ),
+          // 더보기 버튼
+          Positioned(
+            top: 50,
+            right: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Material(
+                  color: LuckitColors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: () => viewModel.toggleProfileButtons(
+                      isCurrentOpen: state.isProfileButtonsOpen,
+                    ),
+                    child: SvgPicture.asset(
+                      Assets.verticalDots,
+                      colorFilter: const ColorFilter.mode(
+                        LuckitColors.gray80,
+                        BlendMode.srcIn,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 4.0),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Visibility(
-                      visible: state.isProfileButtonsOpen,
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 4.0),
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                            color: LuckitColors.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8.0)),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: LuckitColors.shadow2.withOpacity(0.15),
-                                blurRadius: 10.0,
-                              ),
-                            ]),
-                        child: Column(
-                          children: <Widget>[
-                            ProfileButtonWidget(
-                              iconPath: Assets.edit,
-                              color: LuckitColors.gray80,
-                              label: '정보수정',
-                              onTap: () => context.goNamed(Routes.edit.name),
+                ),
+                const SizedBox(height: 4.0),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Visibility(
+                    visible: state.isProfileButtonsOpen,
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 4.0),
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          color: LuckitColors.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                              color: LuckitColors.shadow2.withOpacity(0.15),
+                              blurRadius: 10.0,
                             ),
-                            const SizedBox(height: 16.0),
-                            ProfileButtonWidget(
-                              iconPath: Assets.logout,
-                              color: LuckitColors.error,
-                              label: '로그아웃',
-                              onTap: () {},
-                              width: 9.0,
-                            ),
-                          ],
-                        ),
+                          ]),
+                      child: Column(
+                        children: <Widget>[
+                          ProfileButtonWidget(
+                            iconPath: Assets.edit,
+                            color: LuckitColors.gray80,
+                            label: '정보수정',
+                            onTap: () => context.goNamed(Routes.edit.name),
+                          ),
+                          const SizedBox(height: 16.0),
+                          ProfileButtonWidget(
+                            iconPath: Assets.logout,
+                            color: LuckitColors.error,
+                            label: '로그아웃',
+                            onTap: () {},
+                            width: 9.0,
+                          ),
+                        ],
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
