@@ -26,7 +26,7 @@ class FortuneAppBarWidget extends StatelessWidget {
             const SizedBox(width: 16),
             //TODO(재훈): 행간이 이상함
             Text(
-              '2025.11.15',
+              '${DateTime.now().year}.${DateTime.now().month}.${DateTime.now().day}',
               style: LuckitTypos.suitR14.copyWith(height: 2.0),
             ),
           ],

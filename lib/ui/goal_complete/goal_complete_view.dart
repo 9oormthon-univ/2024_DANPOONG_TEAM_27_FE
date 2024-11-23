@@ -77,7 +77,7 @@ class _KingAppearScreenState extends ConsumerState<GoalCompleteView> {
                                       '진행 기간 ${viewModel.getDurationInDays()}일'),
                               const SizedBox(width: 16),
                               RoundedGreyTextWidget(
-                                  label: '완료한 미션 ${state.completedMissions}개'),
+                                  label: '완료한 미션 12개'),
                             ],
                           ),
                           const SizedBox(height: 20),

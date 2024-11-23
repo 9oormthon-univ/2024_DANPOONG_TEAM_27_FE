@@ -8,6 +8,8 @@ import 'package:timer_builder/timer_builder.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../routes/routes.dart';
+import '../../service/my_info/my_info_service.dart';
+import '../../service/my_info/my_info_state.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
@@ -92,6 +94,8 @@ class _FarmViewState extends ConsumerState<FarmView>
     final bool isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
+    final MyInfoState infoState = ref.watch(myInfoServiceProvider);
+
     if (game == null) {
       return const Scaffold(
         body: Center(
@@ -125,9 +129,9 @@ class _FarmViewState extends ConsumerState<FarmView>
                   curve: Curves.easeInOut,
                   opacity: _clockSelected ? 0.0 : 1.0,
                   child: GoalGlass(
-                    userName: '이승훈',
-                    startDate: DateTime(2024, 11, 15),
-                    endDate: DateTime(2024, 12, 15),
+                    userName: infoState.userName,
+                    startDate: DateTime(2023, 1, 1),
+                    endDate: DateTime(2024, 12, 31),
                     goalTitle: '운동하기',
                   ),
                 ),

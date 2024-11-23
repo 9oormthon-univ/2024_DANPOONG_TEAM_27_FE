@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/goal/model/complete_goal_model.dart';
+import '../../../routes/app_router.dart';
+import '../../../routes/routes.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/consts/assets.dart';
@@ -35,7 +38,9 @@ class GoFarmWidget extends StatelessWidget {
             ),
             const Spacer(),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.goNamed(Routes.farm.name);
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: 16,

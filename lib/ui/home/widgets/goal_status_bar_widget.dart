@@ -333,7 +333,7 @@ class DefaultGoalStatusBar extends ConsumerWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '1개',
+                  '12개',
                   style: LuckitTypos.suitSB12.copyWith(
                     color: LuckitColors.gray20,
                   ),
