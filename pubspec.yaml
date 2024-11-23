@@ -51,6 +51,8 @@ flutter:
     - assets/animation/move/
     - assets/animation/stop/
     - assets/animation/appear/
+    - assets/animation/no_shadow_move/
+    - assets/animation/no_shadow_stop/
     - assets/frame/
     - .env
 

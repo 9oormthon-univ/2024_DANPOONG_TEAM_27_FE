@@ -34,7 +34,7 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
     )
         .compose(
           _dio.options,
-          '/fortune',
+          '/api/v1/fortune/onboarding',
           queryParameters: queryParameters,
           data: _data,
         )
