@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../core/common/data/entity_form.dart';
+import '../../core/common/data/list_entity_form.dart';
 import '../../service/network/dio_service.dart';
 import 'entity/fortune_entity.dart';
 
@@ -18,6 +20,6 @@ abstract class FortuneRemoteDataSource {
   factory FortuneRemoteDataSource(Dio dio) = _FortuneRemoteDataSource;
 
   @GET('/fortune/daily')
-  Future<FortuneEntity> getFortune();
+  Future<EntityForm<FortuneEntity>> getFortune();
   
 }

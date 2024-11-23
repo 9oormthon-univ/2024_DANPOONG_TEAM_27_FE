@@ -22,12 +22,12 @@ class _FortuneRemoteDataSource implements FortuneRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<FortuneEntity> getFortune() async {
+  Future<EntityForm<FortuneEntity>> getFortune() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<FortuneEntity>(Options(
+    final _options = _setStreamType<EntityForm<FortuneEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -44,9 +44,12 @@ class _FortuneRemoteDataSource implements FortuneRemoteDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late FortuneEntity _value;
+    late EntityForm<FortuneEntity> _value;
     try {
-      _value = FortuneEntity.fromJson(_result.data!);
+      _value = EntityForm<FortuneEntity>.fromJson(
+        _result.data!,
+        (json) => FortuneEntity.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

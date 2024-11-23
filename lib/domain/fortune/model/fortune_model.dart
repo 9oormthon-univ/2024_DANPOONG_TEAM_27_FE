@@ -2,13 +2,12 @@ import 'package:equatable/equatable.dart';
 
 import '../../../data/fortune/entity/fortune_entity.dart';
 
-  class FortuneModel extends Equatable {
+class FortuneModel extends Equatable {
   final List<String> fortuneKeywords;
   final String shortFortune;
   final String fullFortune;
-  final Map<String, int> categoryFortuneScores;
-  final Map<String, int> timeOfDayFortuneScores;
-  final int overallFortuneScore;
+  final List<CategoryFortuneScores> categoryFortuneScores;
+  final List<TimeOfDayFortuneScores> timeOfDayFortuneScores;
 
   const FortuneModel({
     required this.fortuneKeywords,
@@ -16,7 +15,6 @@ import '../../../data/fortune/entity/fortune_entity.dart';
     required this.fullFortune,
     required this.categoryFortuneScores,
     required this.timeOfDayFortuneScores,
-    required this.overallFortuneScore,
   });
 
   factory FortuneModel.fromEntity({
@@ -26,9 +24,26 @@ import '../../../data/fortune/entity/fortune_entity.dart';
         fortuneKeywords: entity.fortuneKeywords,
         shortFortune: entity.shortFortune,
         fullFortune: entity.fullFortune,
-        categoryFortuneScores: entity.categoryFortuneScores,
-        timeOfDayFortuneScores: entity.timeOfDayFortuneScores,
-        overallFortuneScore: entity.overallFortuneScore,
+        categoryFortuneScores: [
+          CategoryFortuneScores(
+            category: 'all_luck',
+            score: entity.overallFortuneScore,
+          ),
+          ...entity.categoryFortuneScores.map(
+            (score) => CategoryFortuneScores(
+              category: score.category,
+              score: score.score,
+            ),
+          ),
+        ],
+        timeOfDayFortuneScores: [
+          ...entity.timeOfDayFortuneScores.map(
+            (score) => TimeOfDayFortuneScores(
+              time: score.time,
+              score: score.score,
+            ),
+          ),
+        ],
       );
 
   @override
@@ -38,6 +53,19 @@ import '../../../data/fortune/entity/fortune_entity.dart';
         fullFortune,
         categoryFortuneScores,
         timeOfDayFortuneScores,
-        overallFortuneScore,
       ];
+}
+
+class CategoryFortuneScores {
+  final String category;
+  final int score;
+
+  CategoryFortuneScores({required this.category, required this.score});
+}
+
+class TimeOfDayFortuneScores {
+  final String time;
+  final int score;
+
+  TimeOfDayFortuneScores({required this.time, required this.score});
 }

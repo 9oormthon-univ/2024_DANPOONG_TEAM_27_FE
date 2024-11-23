@@ -27,7 +27,7 @@ class FortuneViewModel extends StateNotifier<FortuneState> {
 
   Future<void> getFortune() async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
-    final UseCaseResult<FortuneModel> result = await _getFortuneUseCase.call();
+    final UseCaseResult<FortuneModel> result = await _getFortuneUseCase();
 
     switch (result) {
       case SuccessUseCaseResult<FortuneModel>():

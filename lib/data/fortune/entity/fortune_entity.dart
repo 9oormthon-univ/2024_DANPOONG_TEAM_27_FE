@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'generated/fortune_entity.g.dart';
 
 @JsonSerializable()
@@ -15,16 +16,43 @@ class FortuneEntity {
   final List<String> fortuneKeywords;
   final String shortFortune;
   final String fullFortune;
-  
+
   @JsonKey(name: 'categoryFortuneScores')
-  final Map<String, int> categoryFortuneScores;
-  
+  final List<CategoryFortuneScoresEntity> categoryFortuneScores;
+
   @JsonKey(name: 'timeOfDayFortuneScores')
-  final Map<String, int> timeOfDayFortuneScores;
-  
+  final List<TimeOfDayFortuneScoresEntity> timeOfDayFortuneScores;
+
   final int overallFortuneScore;
 
   factory FortuneEntity.fromJson(Map<String, dynamic> json) =>
       _$FortuneEntityFromJson(json);
-  
+}
+
+@JsonSerializable()
+class CategoryFortuneScoresEntity {
+  const CategoryFortuneScoresEntity({
+    required this.category,
+    required this.score,
+  });
+
+  final String category;
+  final int score;
+
+  factory CategoryFortuneScoresEntity.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFortuneScoresEntityFromJson(json);
+}
+
+@JsonSerializable()
+class TimeOfDayFortuneScoresEntity {
+  const TimeOfDayFortuneScoresEntity({
+    required this.time,
+    required this.score,
+  });
+
+  final String time;
+  final int score;
+
+  factory TimeOfDayFortuneScoresEntity.fromJson(Map<String, dynamic> json) =>
+      _$TimeOfDayFortuneScoresEntityFromJson(json);
 }
