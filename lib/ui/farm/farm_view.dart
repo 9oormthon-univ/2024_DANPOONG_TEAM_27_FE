@@ -128,7 +128,7 @@ class _FarmViewState extends ConsumerState<FarmView>
                     userName: '수정',
                     startDate: DateTime(2024, 11, 15),
                     endDate: DateTime(2024, 12, 15),
-                    goalTitle: '자연스럽게 숨쉬기 농장',
+                    goalTitle: '운동하기',
                   ),
                 ),
               ],
