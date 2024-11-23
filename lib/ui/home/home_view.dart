@@ -9,6 +9,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../core/loading_status.dart';
 import '../../routes/routes.dart';
 import '../../service/app/app_service.dart';
+import '../../service/my_info/my_info_service.dart';
+import '../../service/my_info/my_info_state.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
@@ -128,6 +130,8 @@ class _HomeViewState extends ConsumerState<HomeView>
     // final double availableHeight =
     //     screenSize.height - paddingTop - appBarHeight;
     // final double gameHeight = availableHeight * 0.3;
+
+    final MyInfoState infoState = ref.watch(myInfoServiceProvider);
 
     if (game == null) {
       return Scaffold(

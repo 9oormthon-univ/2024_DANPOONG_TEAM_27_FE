@@ -5,7 +5,7 @@ import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/consts/assets.dart';
 
-class AnimatedCard extends StatelessWidget {
+class AnimatedCard extends StatefulWidget {
   final String title;
   final String comment;
   final String iconPath;
@@ -19,6 +19,12 @@ class AnimatedCard extends StatelessWidget {
     super.key,
   });
 
+  @override
+  State<AnimatedCard> createState() => _AnimatedCardState();
+}
+
+class _AnimatedCardState extends State<AnimatedCard> {
+  bool done = false;
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.only(right: 16),
@@ -39,14 +45,14 @@ class AnimatedCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 4),
               child: Text(
-                title,
+                widget.title,
                 style: LuckitTypos.suitSB16,
               ),
             ),
             Row(
               children: <Widget>[
                 SvgPicture.asset(
-                  iconPath,
+                  widget.iconPath,
                   colorFilter: const ColorFilter.mode(
                     LuckitColors.main,
                     BlendMode.srcIn,
@@ -54,7 +60,7 @@ class AnimatedCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  comment,
+                  widget.comment,
                   style: LuckitTypos.suitR12,
                 ),
               ],
@@ -67,21 +73,28 @@ class AnimatedCard extends StatelessWidget {
                   Container(
                     width: 130,
                     height: 115,
-                    child: Image.asset(imagePath),
+                    child: Image.asset(widget.imagePath),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 21.33),
-                    width: 53,
-                    height: 53,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: LuckitColors.gray20,
-                    ),
-                    child: SvgPicture.asset(
-                      Assets.done,
-                      colorFilter: const ColorFilter.mode(
-                        LuckitColors.white,
-                        BlendMode.srcIn,
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        done = !done;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 21.33),
+                      width: 53,
+                      height: 53,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: LuckitColors.gray20,
+                      ),
+                      child: SvgPicture.asset(
+                        Assets.done,
+                        colorFilter: ColorFilter.mode(
+                          done ? LuckitColors.main :LuckitColors.white,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),

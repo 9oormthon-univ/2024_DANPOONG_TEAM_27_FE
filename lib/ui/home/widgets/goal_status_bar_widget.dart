@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/loading_status.dart';
+import '../../../service/my_info/my_info_service.dart';
+import '../../../service/my_info/my_info_state.dart';
 import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/consts/assets.dart';
@@ -19,6 +21,7 @@ class GoalStatusBarWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final HomeState state = ref.watch(homeViewModelProvider);
+
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
@@ -274,6 +277,7 @@ class DefaultGoalStatusBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final HomeState state = ref.watch(homeViewModelProvider);
     final HomeViewModel viewModel = ref.read(homeViewModelProvider.notifier);
+    final MyInfoState infoState = ref.watch(myInfoServiceProvider);
     return Column(
       children: <Widget>[
         Row(
@@ -282,7 +286,7 @@ class DefaultGoalStatusBar extends ConsumerWidget {
             Row(
               children: <Widget>[
                 Text(
-                  '수정님의 목표',
+                  '${infoState.userName}님의 목표',
                   style: LuckitTypos.suitSB16.copyWith(
                     color: LuckitColors.white,
                   ),
