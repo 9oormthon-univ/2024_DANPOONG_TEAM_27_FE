@@ -2,35 +2,44 @@ import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/common/use_case/use_case_result.dart';
 import '../../core/loading_status.dart';
 import '../../domain/goal/use_case/get_complete_goal_list_use_case.dart';
 import '../../domain/user/use_case/get_birth_info_use_case.dart';
 import '../../domain/user/use_case/get_login_info_use_case.dart';
+import '../../domain/user/use_case/register_birth_info_use_case.dart';
+import '../onboarding/onboarding_state.dart';
 import '../onboarding/utils/validation.dart';
 import 'data/graph_data.dart';
 import 'profile_state.dart';
 
 final AutoDisposeStateNotifierProvider<ProfileViewModel, ProfileState>
-    profileViewModelProvider = StateNotifierProvider.autoDispose(
-  (AutoDisposeRef<ProfileState> ref) => ProfileViewModel(
-    getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
-    getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
-    getCompleteGoalListUseCase: ref.read(getCompleteGoalListUseCaseProvider),
-  ),
+profileViewModelProvider = StateNotifierProvider.autoDispose(
+      (AutoDisposeRef<ProfileState> ref) =>
+      ProfileViewModel(
+          getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
+          getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
+          getCompleteGoalListUseCase: ref.read(
+              getCompleteGoalListUseCaseProvider),
+          registerBirthInfoUseCase: ref.read(registerBirthInfoUseCaseProvider)),
 );
 
 class ProfileViewModel extends StateNotifier<ProfileState> {
   final GetBirthInfoUseCase _getBirthInfoUseCase;
   final GetLoginInfoUseCase _getLoginInfoUseCase;
   final GetCompleteGoalListUseCase _getCompleteGoalListUseCase;
+  final RegisterBirthInfoUseCase _registerBirthInfoUseCase;
 
   ProfileViewModel({
     required GetBirthInfoUseCase getBirthInfoUseCase,
     required GetLoginInfoUseCase getLoginInfoUseCase,
     required GetCompleteGoalListUseCase getCompleteGoalListUseCase,
-  })  : _getBirthInfoUseCase = getBirthInfoUseCase,
+    required RegisterBirthInfoUseCase registerBirthInfoUseCase,
+  })
+      : _getBirthInfoUseCase = getBirthInfoUseCase,
         _getLoginInfoUseCase = getLoginInfoUseCase,
         _getCompleteGoalListUseCase = getCompleteGoalListUseCase,
+        _registerBirthInfoUseCase = registerBirthInfoUseCase,
         super(ProfileState.init());
 
   void toggleGoalArchiving() {
@@ -46,8 +55,8 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
       state = state.copyWith(
         loadingProfile: LoadingStatus.success,
         name: '미르미',
-        gender: '여성',
-        solarOrLunar: '양력',
+        gender: GenderType.female,
+        solarOrLunar: BirthType.solar,
         year: 2003.toString(),
         month: 3.toString(),
         day: 7.toString(),
@@ -94,17 +103,17 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
 
   void onTapGenderButton({required String label}) {
     if (label == '남성') {
-      state = state.copyWith(gender: '남성');
+      state = state.copyWith(gender: GenderType.male);
     } else if (label == '여성') {
-      state = state.copyWith(gender: '여성');
+      state = state.copyWith(gender: GenderType.female);
     }
   }
 
   void onTapSolarOrLunarButton({required String label}) {
     if (label == '양력') {
-      state = state.copyWith(solarOrLunar: '양력');
+      state = state.copyWith(solarOrLunar: BirthType.solar);
     } else if (label == '음력') {
-      state = state.copyWith(solarOrLunar: '음력');
+      state = state.copyWith(solarOrLunar: BirthType.lunar);
     }
   }
 
@@ -136,11 +145,37 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     state = state.copyWith(isAm: !current);
   }
 
+  Future<void> onTapRegisterButton() async {
+    state = state.copyWith(loadingRegister: LoadingStatus.loading);
+    final UseCaseResult<void> result = await _registerBirthInfoUseCase(
+      isAm: state.isAm,
+      unknownTime: state.unknownTime,
+      solarOrLunar: state.solarOrLunar,
+      year: state.year,
+      gender: state.gender,
+      day: state.day,
+      month: state.month,
+      minute: state.minute,
+      hour: state.hour,
+    );
+    switch (result) {
+      case SuccessUseCaseResult<void>():
+        if (mounted) {
+          state = state.copyWith(loadingRegister: LoadingStatus.success);
+        }
+      case FailureUseCaseResult<void>():
+        if (mounted) {
+          state = state.copyWith(loadingRegister: LoadingStatus.error);
+        }
+    }
+  }
+
   String? get yearErrorText => birthYearValidation(value: state.year);
 
   String? get monthErrorText => monthValidation(value: state.month);
 
-  String? get dayErrorText => startDayValidation(
+  String? get dayErrorText =>
+      startDayValidation(
         day: state.day,
         month: state.month,
         year: state.year,
@@ -153,14 +188,14 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
 
   bool get activateEditButton =>
       state.year.isNotEmpty &&
-      state.month.isNotEmpty &&
-      state.day.isNotEmpty &&
-      yearErrorText == null &&
-      monthErrorText == null &&
-      dayErrorText == null &&
-      (state.unknownTime ||
-          (state.hour.isNotEmpty &&
-              state.minute.isNotEmpty &&
-              hourErrorText == null &&
-              minuteErrorText == null));
+          state.month.isNotEmpty &&
+          state.day.isNotEmpty &&
+          yearErrorText == null &&
+          monthErrorText == null &&
+          dayErrorText == null &&
+          (state.unknownTime ||
+              (state.hour.isNotEmpty &&
+                  state.minute.isNotEmpty &&
+                  hourErrorText == null &&
+                  minuteErrorText == null));
 }

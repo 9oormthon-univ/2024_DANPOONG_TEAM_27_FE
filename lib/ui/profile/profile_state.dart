@@ -2,11 +2,13 @@ import 'package:equatable/equatable.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import '../../core/loading_status.dart';
+import '../onboarding/onboarding_state.dart';
 
 class ProfileState extends Equatable {
   final bool opened;
 
   // status
+  final LoadingStatus loadingRegister;
   final LoadingStatus loadingGraph;
   final LoadingStatus loadingProfile;
   final bool isProfileButtonsOpen;
@@ -15,8 +17,8 @@ class ProfileState extends Equatable {
 
   // user info
   final String name;
-  final String gender;
-  final String solarOrLunar;
+  final GenderType gender;
+  final BirthType solarOrLunar;
   final String year;
   final String month;
   final String day;
@@ -28,6 +30,7 @@ class ProfileState extends Equatable {
   final List<List<FlSpot>> spotsList;
 
   const ProfileState({
+    required this.loadingRegister,
     required this.isAm,
     required this.currentGraphIndex,
     required this.loadingGraph,
@@ -48,14 +51,15 @@ class ProfileState extends Equatable {
 
   ProfileState.init()
       : loadingGraph = LoadingStatus.none,
+        loadingRegister = LoadingStatus.none,
         isAm = true,
         currentGraphIndex = 0,
         opened = false,
         loadingProfile = LoadingStatus.none,
         isProfileButtonsOpen = false,
         name = '',
-        gender = '',
-        solarOrLunar = '',
+        gender = GenderType.none,
+        solarOrLunar = BirthType.none,
         year = '',
         month = '',
         day = '',
@@ -65,6 +69,7 @@ class ProfileState extends Equatable {
         spotsList = <List<FlSpot>>[];
 
   ProfileState copyWith({
+    LoadingStatus? loadingRegister,
     bool? isAm,
     LoadingStatus? loadingGraph,
     int? currentGraphIndex,
@@ -72,8 +77,8 @@ class ProfileState extends Equatable {
     LoadingStatus? loadingProfile,
     bool? isProfileButtonsOpen,
     String? name,
-    String? gender,
-    String? solarOrLunar,
+    GenderType? gender,
+    BirthType? solarOrLunar,
     String? year,
     String? month,
     String? day,
@@ -83,6 +88,7 @@ class ProfileState extends Equatable {
     List<List<FlSpot>>? spotsList,
   }) =>
       ProfileState(
+        loadingRegister: loadingRegister ?? this.loadingRegister,
         isAm: isAm ?? this.isAm,
         loadingGraph: loadingGraph ?? this.loadingGraph,
         currentGraphIndex: currentGraphIndex ?? this.currentGraphIndex,
@@ -103,6 +109,7 @@ class ProfileState extends Equatable {
 
   @override
   List<Object> get props => <Object>[
+        loadingRegister,
         isAm,
         loadingGraph,
         currentGraphIndex,

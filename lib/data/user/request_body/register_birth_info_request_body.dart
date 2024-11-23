@@ -11,6 +11,7 @@ class RegisterBirthInfoRequestBody {
     required this.day,
     required this.hour,
     required this.minute,
+    required this.unknownTime,
   });
 
   final String gender;
@@ -20,6 +21,7 @@ class RegisterBirthInfoRequestBody {
   final int day;
   final int hour;
   final int minute;
+  final bool unknownTime;
 
   factory RegisterBirthInfoRequestBody.fromJson(Map<String, dynamic> json) =>
       _$RegisterBirthInfoRequestBodyFromJson(json);

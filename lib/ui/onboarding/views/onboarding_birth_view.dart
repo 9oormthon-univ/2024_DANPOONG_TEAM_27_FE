@@ -183,20 +183,20 @@ class OnboardingBirthView extends ConsumerWidget {
             children: <Widget>[
               Expanded(
                 child: RoundedTextButtonWidget(
-                  isSelected: state.gender == Gender.man,
+                  isSelected: state.gender == GenderType.male,
                   label: '남성',
                   onPressed: () => viewModel.onPressedGender(
-                    gender: Gender.man,
+                    gender: GenderType.male,
                   ),
                 ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: RoundedTextButtonWidget(
-                  isSelected: state.gender == Gender.woman,
+                  isSelected: state.gender == GenderType.female,
                   label: '여성',
                   onPressed: () => viewModel.onPressedGender(
-                    gender: Gender.woman,
+                    gender: GenderType.female,
                   ),
                 ),
               ),

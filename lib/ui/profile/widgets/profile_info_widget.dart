@@ -5,6 +5,7 @@ import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/consts/assets.dart';
 import '../../common/widgets/rounded_grey_text_widget.dart';
+import '../../onboarding/onboarding_state.dart';
 
 class ProfileInfoWidget extends StatelessWidget {
   final String year;
@@ -13,7 +14,7 @@ class ProfileInfoWidget extends StatelessWidget {
   final String hour;
   final String minute;
   final bool unknownTime;
-  final String gender;
+  final GenderType gender;
 
   const ProfileInfoWidget({
     required this.year,
@@ -42,7 +43,7 @@ class ProfileInfoWidget extends StatelessWidget {
           const SizedBox(width: 8.0),
           if (!unknownTime) RoundedGreyTextWidget(label: '$hour:$minute 생'),
           const SizedBox(width: 8.0),
-          RoundedGreyTextWidget(label: gender),
+          RoundedGreyTextWidget(label: gender == GenderType.male ? '남성' : '여성'),
         ],
       );
 }

@@ -100,7 +100,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
   }
 
   // -----birth-----
-  void onPressedGender({required Gender gender}) {
+  void onPressedGender({required GenderType gender}) {
     state = state.copyWith(gender: gender);
   }
 

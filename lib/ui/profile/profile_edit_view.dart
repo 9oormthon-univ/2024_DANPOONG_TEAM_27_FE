@@ -192,7 +192,10 @@ class _ProfileEditViewState extends ConsumerState<ProfileEditView> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: OnboardingBottomButton(
-              onPressed: () => context.goNamed(Routes.profile.name),
+              onPressed: () {
+                viewModel.onTapRegisterButton();
+                context.goNamed(Routes.profile.name);
+              },
               activated: viewModel.activateEditButton,
             ),
           ),
