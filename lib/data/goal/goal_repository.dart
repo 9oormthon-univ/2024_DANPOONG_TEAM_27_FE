@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/common/data/list_entity_form.dart';
 import '../../core/common/repository/repository.dart';
 import '../../core/common/repository/repository_result.dart';
-import 'entity/complete_goal_entity.dart';
 import 'entity/goal_entity.dart';
 import 'entity/goal_summary_entity.dart';
 import 'goal_remote_data_source.dart';
