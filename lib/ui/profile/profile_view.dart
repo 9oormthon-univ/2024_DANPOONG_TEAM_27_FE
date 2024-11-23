@@ -9,6 +9,7 @@ import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
 import '../common/widget/bottom_navigation_bar_widget.dart';
+import '../home/widget/mission_complete_dialog.dart';
 import 'profile_state.dart';
 import 'profile_view_model.dart';
 import 'widgets/profile_description_text_widget.dart';
@@ -43,9 +44,6 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         ref.read(profileViewModelProvider.notifier);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed(Routes.birth.name),
-      ),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentRouteName: Routes.profile.name,
       ),
@@ -160,14 +158,24 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                             iconPath: Assets.edit,
                             color: LuckitColors.gray80,
                             label: '정보수정',
-                            onTap: () => context.goNamed(Routes.edit.name),
+                            onTap: () => context.pushNamed(Routes.edit.name),
                           ),
                           const SizedBox(height: 16.0),
                           ProfileButtonWidget(
                             iconPath: Assets.logout,
                             color: LuckitColors.error,
                             label: '로그아웃',
-                            onTap: () {},
+                            onTap: () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) => MissionCompleteDialog(
+                                descriptionText: null,
+                                  mainText: '로그아웃 하시겠습니까?',
+                                  missionTitle: null,
+                                  onComplete: () {},
+                                rightButtonColor: LuckitColors.error,
+                                rightButtonLabel: '로그아웃',
+                                ),
+                            ),
                             width: 9.0,
                           ),
                         ],
