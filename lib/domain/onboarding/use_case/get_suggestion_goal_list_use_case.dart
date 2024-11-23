@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/common/data/list_entity_form.dart';
 import '../../../core/common/repository/repository_result.dart';
 import '../../../core/common/use_case/use_case_result.dart';
 import '../../../data/onboarding/onboarding_repository.dart';
@@ -17,23 +18,25 @@ final AutoDisposeProvider<GetSuggestionGoalListUseCase>
 
 class GetSuggestionGoalListUseCase {
   final OnboardingRepository _onboardingRepository;
+
   GetSuggestionGoalListUseCase({
     required OnboardingRepository onboardingRepository,
   }) : _onboardingRepository = onboardingRepository;
 
-  Future<UseCaseResult<List<SuggestionGoalModel>>> call() async {
-    final RepositoryResult<List<SuggestionGoalEntity>> repositoryResult =
+  Future<UseCaseResult<List<GoalModel>>> call() async {
+    final RepositoryResult<ListEntityForm<SuggestionGoalEntity>> repositoryResult =
         await _onboardingRepository.getSuggestionGoals();
 
     return switch (repositoryResult) {
-      SuccessRepositoryResult<List<SuggestionGoalEntity>>() =>
-        SuccessUseCaseResult<List<SuggestionGoalModel>>(
-          data: List.generate(repositoryResult.data.length, (index) {
-            return SuggestionGoalModel.fromEntity(entity: repositoryResult.data[index]);
+      SuccessRepositoryResult<ListEntityForm<SuggestionGoalEntity>>() =>
+        SuccessUseCaseResult<List<GoalModel>>(
+          data: List.generate(repositoryResult.data.data.length, (index) {
+            return GoalModel.fromEntity(
+                entity: repositoryResult.data.data[index]);
           }),
         ),
-      FailureRepositoryResult<List<SuggestionGoalEntity>>() =>
-        FailureUseCaseResult<List<SuggestionGoalModel>>(
+      FailureRepositoryResult<ListEntityForm<SuggestionGoalEntity>>() =>
+        FailureUseCaseResult<List<GoalModel>>(
           message: repositoryResult.messages?[0],
         )
     };

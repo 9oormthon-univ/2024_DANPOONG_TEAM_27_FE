@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'generated/suggestion_goal_entity.g.dart';
 
 @JsonSerializable()

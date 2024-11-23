@@ -23,37 +23,37 @@ class IconCardListWidget extends ConsumerWidget {
         children: <Widget>[
           //TODO(재훈): Enum으로 관리(?)
           IconCardWidget(
-            selected: state.selectdTitle == '총운',
+            selected: state.selectedTitle == '총운',
             icon: Assets.chartOutlined,
             selectedIcon: Assets.chartFilled,
             title: '총운',
           ),
           IconCardWidget(
-            selected: state.selectdTitle == '애정운',
+            selected: state.selectedTitle == '애정운',
             icon: Assets.heartOutlined,
             selectedIcon: Assets.heartFilled,
             title: '애정운',
           ),
           IconCardWidget(
-            selected: state.selectdTitle == '금전운',
+            selected: state.selectedTitle == '금전운',
             icon: Assets.pigOutlined,
             selectedIcon: Assets.pigFilled,
             title: '금전운',
           ),
           IconCardWidget(
-            selected: state.selectdTitle == '직장운',
+            selected: state.selectedTitle == '직장운',
             icon: Assets.buildingOutlined,
             selectedIcon: Assets.buildingFilled,
             title: '직장운',
           ),
           IconCardWidget(
-            selected: state.selectdTitle == '학업운',
+            selected: state.selectedTitle == '학업운',
             icon: Assets.bookOutlined,
             selectedIcon: Assets.bookFilled,
             title: '학업운',
           ),
           IconCardWidget(
-            selected: state.selectdTitle == '건강운',
+            selected: state.selectedTitle == '건강운',
             icon: Assets.healthOutlined,
             selectedIcon: Assets.healthFilled,
             title: '건강운',

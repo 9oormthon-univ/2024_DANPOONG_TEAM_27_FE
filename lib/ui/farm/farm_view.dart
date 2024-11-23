@@ -137,6 +137,25 @@ class _FarmViewState extends ConsumerState<FarmView>
           Positioned(
             left: 0,
             right: 0,
+            bottom: 0,
+            child: Container(
+              width: double.infinity,
+              height: 132,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                    Color(0xFF020928).withOpacity(0),
+                    Color(0xFF020928).withOpacity(0.7),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
             bottom: 27,
             child: Center(
               child: Container(
