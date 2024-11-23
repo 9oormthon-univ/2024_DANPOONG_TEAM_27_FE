@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 import '../../core/loading_status.dart';
+import '../../domain/todo/model/graph_data_model.dart';
 import '../onboarding/onboarding_state.dart';
 
 class ProfileState extends Equatable {
@@ -14,6 +14,10 @@ class ProfileState extends Equatable {
   final bool isProfileButtonsOpen;
   final int currentGraphIndex;
   final bool isAm;
+  final int queryYear;
+  final int queryMonth;
+  final int currentYear;
+  final int currentMonth;
 
   // user info
   final String name;
@@ -27,9 +31,11 @@ class ProfileState extends Equatable {
   final bool unknownTime;
 
   // graph
-  final List<List<FlSpot>> spotsList;
+  final List<GraphDataModel> spotsList;
 
   const ProfileState({
+    required this.currentYear,
+    required this.currentMonth,
     required this.loadingRegister,
     required this.isAm,
     required this.currentGraphIndex,
@@ -47,11 +53,17 @@ class ProfileState extends Equatable {
     required this.minute,
     required this.unknownTime,
     required this.spotsList,
+    required this.queryYear,
+    required this.queryMonth,
   });
 
   ProfileState.init()
       : loadingGraph = LoadingStatus.none,
         loadingRegister = LoadingStatus.none,
+        currentMonth = 0,
+        currentYear = 0,
+        queryYear = 0,
+        queryMonth = 0,
         isAm = true,
         currentGraphIndex = 0,
         opened = false,
@@ -66,9 +78,13 @@ class ProfileState extends Equatable {
         hour = '',
         minute = '',
         unknownTime = false,
-        spotsList = <List<FlSpot>>[];
+        spotsList = [];
 
   ProfileState copyWith({
+    int? currentYear,
+    int? currentMonth,
+    int? queryYear,
+    int? queryMonth,
     LoadingStatus? loadingRegister,
     bool? isAm,
     LoadingStatus? loadingGraph,
@@ -85,9 +101,13 @@ class ProfileState extends Equatable {
     String? hour,
     String? minute,
     bool? unknownTime,
-    List<List<FlSpot>>? spotsList,
+    List<GraphDataModel>? spotsList,
   }) =>
       ProfileState(
+        currentMonth: currentMonth ?? this.currentMonth,
+        currentYear: currentYear ?? this.currentYear,
+        queryYear: queryYear ?? this.queryYear,
+        queryMonth: queryMonth ?? this.queryMonth,
         loadingRegister: loadingRegister ?? this.loadingRegister,
         isAm: isAm ?? this.isAm,
         loadingGraph: loadingGraph ?? this.loadingGraph,
@@ -109,6 +129,8 @@ class ProfileState extends Equatable {
 
   @override
   List<Object> get props => <Object>[
+        queryYear,
+        queryMonth,
         loadingRegister,
         isAm,
         loadingGraph,

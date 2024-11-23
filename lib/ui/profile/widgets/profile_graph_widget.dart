@@ -1,4 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -41,8 +42,7 @@ class ProfileGraphWidget extends ConsumerWidget {
                 Row(
                   children: <Widget>[
                     Text(
-                      // TODO(도연): 여기도 바꿔야 됨
-                      '2024년 11월',
+                      '${state.currentYear}년 ${state.currentMonth}월',
                       textAlign: TextAlign.right,
                       style: LuckitTypos.suitR12.copyWith(
                         color: LuckitColors.gray60,
@@ -108,7 +108,8 @@ class ProfileGraphWidget extends ConsumerWidget {
                 ),
                 height: 94.0,
                 child: LineChartWidget(
-                    spots: state.spotsList[state.currentGraphIndex]),
+                    spots:
+                        state.spotsList[state.currentGraphIndex].missionCount),
               ),
             ],
           ),

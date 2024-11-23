@@ -19,7 +19,7 @@ class UnknownTimeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: <Widget>[
-          if (leftPadding) const SizedBox(width: 12),
+          if (leftPadding) const SizedBox(width: 14),
           CheckIconWidget(
             isChecked: isChecked,
             onPressed: onPressed,

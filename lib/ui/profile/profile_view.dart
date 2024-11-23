@@ -29,6 +29,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(profileViewModelProvider.notifier)
+        ..getCurrentDate()
         ..getProfile()
         ..getSpotList();
     });

@@ -1,28 +1,27 @@
 import 'package:dio/dio.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/common/use_case/use_case_result.dart';
 import '../../core/loading_status.dart';
 import '../../domain/goal/use_case/get_complete_goal_list_use_case.dart';
+import '../../domain/todo/model/graph_data_model.dart';
+import '../../domain/todo/use_case/get_graph_data_use_case.dart';
 import '../../domain/user/use_case/get_birth_info_use_case.dart';
 import '../../domain/user/use_case/get_login_info_use_case.dart';
 import '../../domain/user/use_case/register_birth_info_use_case.dart';
 import '../onboarding/onboarding_state.dart';
 import '../onboarding/utils/validation.dart';
-import 'data/graph_data.dart';
 import 'profile_state.dart';
 
 final AutoDisposeStateNotifierProvider<ProfileViewModel, ProfileState>
-profileViewModelProvider = StateNotifierProvider.autoDispose(
-      (AutoDisposeRef<ProfileState> ref) =>
-      ProfileViewModel(
-          getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
-          getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
-          getCompleteGoalListUseCase: ref.read(
-              getCompleteGoalListUseCaseProvider),
-          registerBirthInfoUseCase: ref.read(registerBirthInfoUseCaseProvider)),
+    profileViewModelProvider = StateNotifierProvider.autoDispose(
+  (AutoDisposeRef<ProfileState> ref) => ProfileViewModel(
+    getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
+    getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
+    getCompleteGoalListUseCase: ref.read(getCompleteGoalListUseCaseProvider),
+    registerBirthInfoUseCase: ref.read(registerBirthInfoUseCaseProvider),
+    getGraphDataUseCase: ref.read(getGraphDataUseCaseProvider),
+  ),
 );
 
 class ProfileViewModel extends StateNotifier<ProfileState> {
@@ -30,18 +29,30 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
   final GetLoginInfoUseCase _getLoginInfoUseCase;
   final GetCompleteGoalListUseCase _getCompleteGoalListUseCase;
   final RegisterBirthInfoUseCase _registerBirthInfoUseCase;
+  final GetGraphDataUseCase _getGraphDataUseCase;
 
   ProfileViewModel({
     required GetBirthInfoUseCase getBirthInfoUseCase,
     required GetLoginInfoUseCase getLoginInfoUseCase,
     required GetCompleteGoalListUseCase getCompleteGoalListUseCase,
     required RegisterBirthInfoUseCase registerBirthInfoUseCase,
-  })
-      : _getBirthInfoUseCase = getBirthInfoUseCase,
+    required GetGraphDataUseCase getGraphDataUseCase,
+  })  : _getBirthInfoUseCase = getBirthInfoUseCase,
         _getLoginInfoUseCase = getLoginInfoUseCase,
         _getCompleteGoalListUseCase = getCompleteGoalListUseCase,
         _registerBirthInfoUseCase = registerBirthInfoUseCase,
+        _getGraphDataUseCase = getGraphDataUseCase,
         super(ProfileState.init());
+
+  void getCurrentDate() {
+    print('오늘 날짜 불러오기');
+    final DateTime curDateTime = DateTime.now();
+    state = state.copyWith(
+      currentYear: curDateTime.year,
+      currentMonth: curDateTime.month,
+    );
+    print('${state.currentYear}, ${state.currentMonth}');
+  }
 
   void toggleGoalArchiving() {
     state = state.copyWith(opened: !state.opened);
@@ -77,16 +88,36 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     state = state.copyWith(isProfileButtonsOpen: !isCurrentOpen);
   }
 
-  void getSpotList() {
+  Future<void> getSpotList() async {
     state = state.copyWith(loadingGraph: LoadingStatus.loading);
-    try {
-      final List<List<FlSpot>> spotsList = graphData;
-      state = state.copyWith(
-        loadingGraph: LoadingStatus.success,
-        spotsList: spotsList,
-      );
-    } on DioException {
-      state = state.copyWith(loadingGraph: LoadingStatus.error);
+
+    // 쿼리 파라미터 생성
+    int queryMonth = state.currentMonth - state.spotsList.length;
+    int queryYear = state.currentYear;
+    if (queryMonth < 0) {
+      queryMonth = 12;
+      queryYear -= 1;
+    }
+
+    // 요청
+    state = state.copyWith(queryMonth: queryYear, queryYear: queryYear);
+    final UseCaseResult<GraphDataModel> result = await _getGraphDataUseCase(
+      month: queryYear,
+      year: queryYear,
+    );
+    print('요청할 날: ${queryYear}년 ${queryMonth}월');
+    switch (result) {
+      case SuccessUseCaseResult<GraphDataModel>():
+        state = state.copyWith(
+          spotsList: <GraphDataModel>[
+            result.data,
+            ...state.spotsList,
+          ],
+          loadingGraph: LoadingStatus.success,
+        );
+        print('현재 리스트 상태: ${state.spotsList}');
+      case FailureUseCaseResult<GraphDataModel>():
+        state = state.copyWith(loadingGraph: LoadingStatus.error);
     }
   }
 
@@ -94,6 +125,10 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     if (state.currentGraphIndex > 0) {
       state = state.copyWith(currentGraphIndex: state.currentGraphIndex - 1);
     }
+    // 이전달 데이터 불러와야 함
+    getSpotList();
+    print('새로운 데이터 불러오기 성공');
+    state = state.copyWith(currentGraphIndex: 0);
   }
 
   void onTapRightArrow() {
@@ -175,8 +210,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
 
   String? get monthErrorText => monthValidation(value: state.month);
 
-  String? get dayErrorText =>
-      startDayValidation(
+  String? get dayErrorText => startDayValidation(
         day: state.day,
         month: state.month,
         year: state.year,
@@ -189,14 +223,14 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
 
   bool get activateEditButton =>
       state.year.isNotEmpty &&
-          state.month.isNotEmpty &&
-          state.day.isNotEmpty &&
-          yearErrorText == null &&
-          monthErrorText == null &&
-          dayErrorText == null &&
-          (state.unknownTime ||
-              (state.hour.isNotEmpty &&
-                  state.minute.isNotEmpty &&
-                  hourErrorText == null &&
-                  minuteErrorText == null));
+      state.month.isNotEmpty &&
+      state.day.isNotEmpty &&
+      yearErrorText == null &&
+      monthErrorText == null &&
+      dayErrorText == null &&
+      (state.unknownTime ||
+          (state.hour.isNotEmpty &&
+              state.minute.isNotEmpty &&
+              hourErrorText == null &&
+              minuteErrorText == null));
 }
