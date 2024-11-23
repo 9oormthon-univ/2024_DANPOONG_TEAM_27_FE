@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:luckit/ui/profile/widgets/profile_character_box_widget.dart';
 
 import '../../core/common/use_case/use_case_result.dart';
 import '../../core/loading_status.dart';
@@ -15,18 +16,22 @@ import '../../domain/user/use_case/register_birth_info_use_case.dart';
 import '../onboarding/onboarding_state.dart';
 import '../onboarding/utils/validation.dart';
 import 'data/graph_data.dart';
+import 'data/profile_data.dart';
 import 'profile_state.dart';
 
 final AutoDisposeStateNotifierProvider<ProfileViewModel, ProfileState>
-    profileViewModelProvider = StateNotifierProvider.autoDispose(
-  (AutoDisposeRef<ProfileState> ref) => ProfileViewModel(
-    getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
-    getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
-    getCompleteGoalListUseCase: ref.read(getCompleteGoalListUseCaseProvider),
-    registerBirthInfoUseCase: ref.read(registerBirthInfoUseCaseProvider),
-    getGraphDataUseCase: ref.read(getGraphDataUseCaseProvider),
-    getCharactersByGoalUseCase: ref.read(getCharactersByGoalUseCaseProvider),
-  ),
+profileViewModelProvider = StateNotifierProvider.autoDispose(
+      (AutoDisposeRef<ProfileState> ref) =>
+      ProfileViewModel(
+        getBirthInfoUseCase: ref.read(getBirthInfoUseCaseProvider),
+        getLoginInfoUseCase: ref.read(getLoginInfoUseCaseProvider),
+        getCompleteGoalListUseCase: ref.read(
+            getCompleteGoalListUseCaseProvider),
+        registerBirthInfoUseCase: ref.read(registerBirthInfoUseCaseProvider),
+        getGraphDataUseCase: ref.read(getGraphDataUseCaseProvider),
+        getCharactersByGoalUseCase: ref.read(
+            getCharactersByGoalUseCaseProvider),
+      ),
 );
 
 class ProfileViewModel extends StateNotifier<ProfileState> {
@@ -44,7 +49,8 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     required RegisterBirthInfoUseCase registerBirthInfoUseCase,
     required GetGraphDataUseCase getGraphDataUseCase,
     required CharactersByGoalUseCaseProvider getCharactersByGoalUseCase,
-  })  : _getBirthInfoUseCase = getBirthInfoUseCase,
+  })
+      : _getBirthInfoUseCase = getBirthInfoUseCase,
         _getLoginInfoUseCase = getLoginInfoUseCase,
         _getCompleteGoalListUseCase = getCompleteGoalListUseCase,
         _registerBirthInfoUseCase = registerBirthInfoUseCase,
@@ -60,7 +66,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
       loadingRegister: LoadingStatus.loading,
       loadingProfile: LoadingStatus.loading,
     );
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     state = state.copyWith(
       loadingCharacters: LoadingStatus.success,
       loadingGoalList: LoadingStatus.success,
@@ -69,6 +75,19 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
       loadingProfile: LoadingStatus.success,
       spotsList: graphData,
       currentGraphIndex: 0,
+      completeGoal: [
+        CompleteGoalModel(goalId: 1,
+          name: 'name',
+          countSuccessTodo: 74,
+          characterWidgetList: datadaa,
+          opened: false,
+          startDay: 15,
+          startYear: 2024,
+          startMonth: 11,
+          endYear: 2024,
+          endMonth: 12,
+          endDay: 15,)
+      ],
     );
   }
 
@@ -76,7 +95,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     state = state.copyWith(loadingGoalList: LoadingStatus.loading);
     // await
     final UseCaseResult<List<CompleteGoalModel>> result =
-        await _getCompleteGoalListUseCase();
+    await _getCompleteGoalListUseCase();
 
     switch (result) {
       case SuccessUseCaseResult<List<CompleteGoalModel>>():
@@ -101,7 +120,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     final CompleteGoalModel goal = state.completeGoal[tapIndex];
     // toggle opened
     final List<CompleteGoalModel> updatedCompleteGoals =
-        List<CompleteGoalModel>.from(state.completeGoal);
+    List<CompleteGoalModel>.from(state.completeGoal);
     updatedCompleteGoals[tapIndex] = updatedCompleteGoals[tapIndex].copyWith(
       opened: !state.completeGoal[tapIndex].opened,
     );
@@ -113,21 +132,21 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     if (goal.characterWidgetList == null) {
       state = state.copyWith(loadingCharacters: LoadingStatus.loading);
       final UseCaseResult<CompleteGoalCharactersModel> result =
-          await _getCharactersByGoalUseCase(goalId: goal.goalId);
+      await _getCharactersByGoalUseCase(goalId: goal.goalId);
       switch (result) {
         case SuccessUseCaseResult():
           final List<CompleteGoalModel> updatedCompleteGoals =
-              await List<CompleteGoalModel>.from(state.completeGoal);
+          await List<CompleteGoalModel>.from(state.completeGoal);
           updatedCompleteGoals[tapIndex] =
               updatedCompleteGoals[tapIndex].copyWith(
-            characterWidgetList: result.data,
-            endDay: result.data.endDay,
-            endMonth: result.data.endMonth,
-            endYear: result.data.endYear,
-            startDay: result.data.startDay,
-            startMonth: result.data.startMonth,
-            startYear: result.data.startYear,
-          );
+                characterWidgetList: result.data,
+                endDay: result.data.endDay,
+                endMonth: result.data.endMonth,
+                endYear: result.data.endYear,
+                startDay: result.data.startDay,
+                startMonth: result.data.startMonth,
+                startYear: result.data.startYear,
+              );
           state = state.copyWith(
             completeGoal: updatedCompleteGoals,
             loadingCharacters: LoadingStatus.success,
@@ -191,7 +210,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
           ],
           loadingGraph: LoadingStatus.success,
         );
-        // print('현재 리스트 상태: ${state.spotsList}');
+    // print('현재 리스트 상태: ${state.spotsList}');
       case FailureUseCaseResult<GraphDataModel>():
         state = state.copyWith(loadingGraph: LoadingStatus.error);
     }
@@ -286,7 +305,8 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
 
   String? get monthErrorText => monthValidation(value: state.month);
 
-  String? get dayErrorText => startDayValidation(
+  String? get dayErrorText =>
+      startDayValidation(
         day: state.day,
         month: state.month,
         year: state.year,
@@ -299,14 +319,14 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
 
   bool get activateEditButton =>
       state.year.isNotEmpty &&
-      state.month.isNotEmpty &&
-      state.day.isNotEmpty &&
-      yearErrorText == null &&
-      monthErrorText == null &&
-      dayErrorText == null &&
-      (state.unknownTime ||
-          (state.hour.isNotEmpty &&
-              state.minute.isNotEmpty &&
-              hourErrorText == null &&
-              minuteErrorText == null));
+          state.month.isNotEmpty &&
+          state.day.isNotEmpty &&
+          yearErrorText == null &&
+          monthErrorText == null &&
+          dayErrorText == null &&
+          (state.unknownTime ||
+              (state.hour.isNotEmpty &&
+                  state.minute.isNotEmpty &&
+                  hourErrorText == null &&
+                  minuteErrorText == null));
 }
