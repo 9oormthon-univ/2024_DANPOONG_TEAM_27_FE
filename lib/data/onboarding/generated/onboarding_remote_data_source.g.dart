@@ -22,7 +22,7 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<SuggestionGoalEntity>> getTodoList() async {
+  Future<List<SuggestionGoalEntity>> getSuggestionGoalList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -34,7 +34,7 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
     )
         .compose(
           _dio.options,
-          '/fortune',
+          '/api/v1/fortune/onboarding',
           queryParameters: queryParameters,
           data: _data,
         )
