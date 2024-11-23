@@ -11,7 +11,7 @@ import 'suggested_duration_widget.dart';
 
 class GoalSuggestionWidget extends ConsumerWidget {
   final int index;
-  final SuggestionGoalModel model;
+  final GoalModel model;
   final VoidCallback onPressedCheck;
 
   const GoalSuggestionWidget({

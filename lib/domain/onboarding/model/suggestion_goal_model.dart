@@ -3,19 +3,20 @@ import 'package:equatable/equatable.dart';
 import '../../../data/onboarding/entity/suggestion_goal_entity.dart';
 
 
-class SuggestionGoalModel extends Equatable {
+
+class GoalModel extends Equatable {
   final String goals;
   final String period;
 
-  const SuggestionGoalModel({
+  const GoalModel({
     required this.goals,
     required this.period,
   });
 
-  factory SuggestionGoalModel.fromEntity({
+  factory GoalModel.fromEntity({
     required SuggestionGoalEntity entity,
   }) =>
-      SuggestionGoalModel(
+      GoalModel(
         goals: entity.goals,
         period: entity.period,
       );

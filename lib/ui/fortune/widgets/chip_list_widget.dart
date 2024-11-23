@@ -4,22 +4,23 @@ import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 
 class ChipListWidget extends StatelessWidget {
+  final List<String> titles;
+
   const ChipListWidget({
     super.key,
+    required this.titles,
   });
 
   @override
-  Widget build(BuildContext context) => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: <Widget>[
-            TextChipWidget(title: '긍정'),
-            TextChipWidget(title: '극복'),
-            TextChipWidget(title: '자신감'),
-            TextChipWidget(title: '귀인'),
-          ],
+          children: List<Widget>.generate(
+            titles.length,
+            (int index) => TextChipWidget(title: titles[index]),
+          ),
         ),
       );
 }

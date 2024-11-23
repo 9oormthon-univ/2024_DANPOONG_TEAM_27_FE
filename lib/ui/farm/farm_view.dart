@@ -1,5 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -33,6 +34,12 @@ class _FarmViewState extends ConsumerState<FarmView>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     initializeGame();
     WidgetsBinding.instance.addObserver(this);
     WakelockPlus.enable();
@@ -73,6 +80,10 @@ class _FarmViewState extends ConsumerState<FarmView>
     WidgetsBinding.instance.removeObserver(this);
     game?.removeAll(game!.children);
     WakelockPlus.disable();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     super.dispose();
   }
 
@@ -121,6 +132,25 @@ class _FarmViewState extends ConsumerState<FarmView>
                   ),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              width: double.infinity,
+              height: 132,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                    Color(0xFF020928).withOpacity(0),
+                    Color(0xFF020928).withOpacity(0.7),
+                  ],
+                ),
+              ),
             ),
           ),
           Positioned(

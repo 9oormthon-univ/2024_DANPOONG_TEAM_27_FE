@@ -103,20 +103,56 @@ class OnboardingBirthView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                child: AmPmSelectWidget(
-                  isAm: state.dayPeriod == DayPeriod.am,
-                  isPm: state.dayPeriod == DayPeriod.pm,
-                  onPressedAm: () => viewModel.onPressedDayPeriod(
-                    dayPeriod: DayPeriod.am,
-                  ),
-                  onPressedPm: () => viewModel.onPressedDayPeriod(
-                    dayPeriod: DayPeriod.pm,
-                  ),
-                  unknown: state.dontKnow,
-                  onPressedUnknown: () => viewModel.onPressedDontKnow(),
+
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        const SizedBox(width: 24.0),
+                        Expanded(
+                          child: RoundedTextButtonWidget(
+                            isSelected: state.dayPeriod == DayPeriod.am,
+                            label: 'AM',
+                            onPressed: () => viewModel.onPressedDayPeriod(
+                              dayPeriod: DayPeriod.am,
+                            ),
+                            isActivated: !state.dontKnow,
+                          ),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Expanded(
+                          child: RoundedTextButtonWidget(
+                            isSelected: state.dayPeriod == DayPeriod.pm,
+                            label: 'PM',
+                            onPressed: () => viewModel.onPressedDayPeriod(
+                              dayPeriod: DayPeriod.pm,
+                            ),
+                            isActivated: !state.dontKnow,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        const SizedBox(width: 12),
+                        CheckIconWidget(
+                          isChecked: state.dontKnow,
+                          onPressed: viewModel.onPressedDontKnow,
+                          size: 24.0,
+                        ),
+                        Text(
+                          '태어난 시간을 알지 못합니다',
+                          style: LuckitTypos.suitR10.copyWith(
+                            color: LuckitColors.gray80,
+                            height: 0.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(width: 8.0),
+              const SizedBox(width: 6.0),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(right: 24.0),

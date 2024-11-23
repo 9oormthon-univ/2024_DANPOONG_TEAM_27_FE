@@ -1,0 +1,42 @@
+import 'package:equatable/equatable.dart';
+
+import '../entity/fortune_entity.dart';
+  class FortuneModel extends Equatable {
+  final List<String> fortuneKeywords;
+  final String shortFortune;
+  final String fullFortune;
+  final Map<String, int> categoryFortuneScores;
+  final Map<String, int> timeOfDayFortuneScores;
+  final int overallFortuneScore;
+
+  const FortuneModel({
+    required this.fortuneKeywords,
+    required this.shortFortune,
+    required this.fullFortune,
+    required this.categoryFortuneScores,
+    required this.timeOfDayFortuneScores,
+    required this.overallFortuneScore,
+  });
+
+  factory FortuneModel.fromEntity({
+    required FortuneEntity entity,
+  }) =>
+      FortuneModel(
+        fortuneKeywords: entity.fortuneKeywords,
+        shortFortune: entity.shortFortune,
+        fullFortune: entity.fullFortune,
+        categoryFortuneScores: entity.categoryFortuneScores,
+        timeOfDayFortuneScores: entity.timeOfDayFortuneScores,
+        overallFortuneScore: entity.overallFortuneScore,
+      );
+
+  @override
+  List<Object?> get props => <Object?>[
+        fortuneKeywords,
+        shortFortune,
+        fullFortune,
+        categoryFortuneScores,
+        timeOfDayFortuneScores,
+        overallFortuneScore,
+      ];
+}
