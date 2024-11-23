@@ -153,6 +153,8 @@ class Assets {
   static const String emptyDragon = 'assets/images/empty_dragon.png';
 
   //애니메이션
+  static const String loading = 'assets/animation/loading.json';
+
   static const String chickenStop = 'assets/animation/stop/chicken_stop.json';
   static const String cowStop = 'assets/animation/stop/cow_stop.json';
   static const String dogStop = 'assets/animation/stop/dog_stop.json';

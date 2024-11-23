@@ -19,15 +19,16 @@ import '../widgets/onboarding_bottom_button.dart';
 import '../widgets/onboarding_description_text_widget.dart';
 import '../widgets/onboarding_top_widget.dart';
 
-
 class OnboardingGoalView extends ConsumerStatefulWidget {
-  const OnboardingGoalView({super.key});
+  final VoidCallback onNextPage;
+
+  const OnboardingGoalView({required this.onNextPage, super.key});
 
   @override
   ConsumerState<OnboardingGoalView> createState() => _OnboardingGoalViewState();
 }
 
-class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView> 
+class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _slideAnimation;
@@ -35,12 +36,12 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView>
   @override
   void initState() {
     super.initState();
-    
+
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-    
+
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
       end: Offset.zero,
@@ -67,13 +68,11 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView>
         ref.read(onboardingViewModelProvider.notifier);
     final OnboardingState state = ref.watch(onboardingViewModelProvider);
 
-    if(state.suggestions.isNotEmpty) {
+    if (state.suggestions.isNotEmpty) {
       _animationController.forward();
     }
 
     return Scaffold(
-      appBar: const OnboardingAppBar(),
-      backgroundColor: LuckitColors.background,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -109,9 +108,9 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView>
                         height: MediaQuery.of(context).size.height * 0.3,
                         alignment: Alignment.center,
                         child: Transform.scale(
-                          scale: 2.5,
+                          scale: 0.7,
                           child: Lottie.asset(
-                            Assets.mouseStop,
+                            Assets.loading,
                             repeat: true,
                           ),
                         ),
@@ -146,7 +145,7 @@ class _OnboardingGoalViewState extends ConsumerState<OnboardingGoalView>
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: OnboardingBottomButton(
-              onPressed: () => context.pushNamed(Routes.duration.name),
+              onPressed: widget.onNextPage,
               activated: viewModel.activateNextButtonInGoal,
               label: '목표 입력 완료',
             ),

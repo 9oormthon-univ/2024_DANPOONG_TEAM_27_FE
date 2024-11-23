@@ -19,7 +19,8 @@ import '../widgets/onboarding_top_widget.dart';
 import '../widgets/unknown_time_widget.dart';
 
 class OnboardingBirthView extends ConsumerWidget {
-  const OnboardingBirthView({super.key});
+  final VoidCallback onNextPage;
+  const OnboardingBirthView({required this.onNextPage, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,8 +29,6 @@ class OnboardingBirthView extends ConsumerWidget {
     final OnboardingState state = ref.watch(onboardingViewModelProvider);
 
     return Scaffold(
-      appBar: const OnboardingAppBar(),
-      backgroundColor: LuckitColors.background,
       body: Stack(
         children: [
           Column(
@@ -70,7 +69,7 @@ class OnboardingBirthView extends ConsumerWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: OnboardingBottomButton(
-                  onPressed: () => context.pushNamed(Routes.goal.name),
+                  onPressed: onNextPage,
                   activated: viewModel.activateNextButtonInBirth,
                   label: '입력 완료',
                 ),

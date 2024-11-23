@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/loading_status.dart';
 import '../../routes/routes.dart';
+import '../../service/app/app_service.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
@@ -25,13 +26,11 @@ class LoginView extends ConsumerWidget {
       if (current.kakaoOauthLoadingStatus == LoadingStatus.success &&
           current.isAuthenticated) {
         // TODO: 온보딩이 필요한 경우 (새로운 사용자)
-        context.goNamed(Routes.start.name);
-        // if (current.needsOnboarding) {
-        //   context.goNamed(Routes.onboarding.name);
-        // } else {
-        // 기존 사용자는 홈으로
-        // context.goNamed(Routes.birth.name);
-        // }
+        if (ref.read(appServiceProvider).isFirstLogin) {
+          context.goNamed(Routes.start.name);
+        } else {
+          context.goNamed(Routes.home.name);
+        }
       }
     });
 

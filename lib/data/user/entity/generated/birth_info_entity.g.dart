@@ -15,6 +15,7 @@ BirthInfoEntity _$BirthInfoEntityFromJson(Map<String, dynamic> json) =>
       day: (json['day'] as num).toInt(),
       hour: (json['hour'] as num).toInt(),
       minute: (json['minute'] as num).toInt(),
+      unknownTime: json['unknownTime'] as bool,
     );
 
 Map<String, dynamic> _$BirthInfoEntityToJson(BirthInfoEntity instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$BirthInfoEntityToJson(BirthInfoEntity instance) =>
       'day': instance.day,
       'hour': instance.hour,
       'minute': instance.minute,
+      'unknownTime': instance.unknownTime,
     };

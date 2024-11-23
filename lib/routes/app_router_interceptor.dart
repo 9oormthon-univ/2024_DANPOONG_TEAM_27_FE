@@ -25,20 +25,19 @@ class AppRouterInterceptor {
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
     final bool isSignedIn = await _ref
         .read(appServiceProvider.select((AppState value) => value.isSignedIn));
+
     if (!isSignedIn) {
       // sign in 으로 가야만 하는 상태입니다.
       if (state.fullPath?.startsWith(Routes.auth.name) == false) {
         return Routes.login.name;
       }
     } else {
-      // 유저가 회원가입을 처음할 상태이고 로그인 되어 있다면 온보딩으로 보냅니다
-
       // 현재 위치가 아직도 auth 관련 페이지에 있다면
       // 즉시 홈화면으로 리다이렉트 해줍니다.
-      // if (state.fullPath != null &&
-      //     state.fullPath!.startsWith(Routes.auth.name)) {
-      //   return Routes.home.name;
-      // }
+      if (state.fullPath != null &&
+          state.fullPath!.startsWith(Routes.auth.name)) {
+        return Routes.home.name;
+      }
     }
 
     return null;

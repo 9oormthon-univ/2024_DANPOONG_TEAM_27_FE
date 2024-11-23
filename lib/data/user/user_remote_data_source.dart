@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../core/common/data/entity_form.dart';
 import '../../service/network/dio_service.dart';
 import 'entity/birth_info_entity.dart';
 import 'entity/login_info_entity.dart';
@@ -20,10 +21,10 @@ abstract class UserRemoteDataSource {
   factory UserRemoteDataSource(Dio dio) = _UserRemoteDataSource;
 
   @GET('/user/fortune')
-  Future<BirthInfoEntity> getUserBirthInfo();
+  Future<EntityForm<BirthInfoEntity>> getUserBirthInfo();
 
   @GET('/user')
-  Future<LoginInfoEntity> getUserLoginInfo();
+  Future<EntityForm<LoginInfoEntity>> getUserLoginInfo();
 
   @POST('/user/fortune')
   Future<void> registerUserBirthInfo({

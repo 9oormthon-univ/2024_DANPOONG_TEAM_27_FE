@@ -86,4 +86,9 @@ class Routes {
     name: '/home/goal-complete',
     path: 'goal-complete',
   );
+
+  static const RouteInfo onboardingg = RouteInfo(
+    name: '/onboardingg',
+    path: '/onboardingg',
+  );
 }

@@ -10,6 +10,7 @@ class BirthInfoModel extends Equatable {
   final int day;
   final int hour;
   final int minute;
+  final bool unknownTime;
 
   const BirthInfoModel({
     required this.gender,
@@ -19,6 +20,7 @@ class BirthInfoModel extends Equatable {
     required this.day,
     required this.hour,
     required this.minute,
+    required this.unknownTime,
   });
 
   factory BirthInfoModel.fromEntity({
@@ -32,6 +34,7 @@ class BirthInfoModel extends Equatable {
         day: entity.day,
         hour: entity.hour,
         minute: entity.minute,
+        unknownTime: entity.unknownTime,
       );
 
   @override
@@ -43,5 +46,6 @@ class BirthInfoModel extends Equatable {
         day,
         hour,
         minute,
+        unknownTime,
       ];
 }
