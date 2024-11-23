@@ -7,6 +7,7 @@ import '../../common/consts/assets.dart';
 import '../../common/widgets/rounded_grey_text_widget.dart';
 import '../data/profile_data.dart';
 import '../decoration/profile_box_decoration.dart';
+import 'go_farm_widget.dart';
 
 class ProfileGoalArchivingWidget extends StatelessWidget {
   final bool opened;
@@ -49,6 +50,8 @@ class ProfileGoalArchivingWidget extends StatelessWidget {
                 ),
               ],
             ),
+            if (opened) const SizedBox(height: 16.0,),
+            if (opened) GoFarmWidget(),
             if (opened) const SizedBox(height: 16.0),
             if (opened)
               SizedBox(

@@ -4,7 +4,12 @@ import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 
 class FortuneScoreWidget extends StatelessWidget {
+  final String title;
+  final int score;
+
   const FortuneScoreWidget({
+    required this.title,
+    required this.score,
     super.key,
   });
 
@@ -16,13 +21,13 @@ class FortuneScoreWidget extends StatelessWidget {
             Row(
               children: <Widget>[
                 const SizedBox(width: 6.5),
-                const Text(
-                  '총운 지수',
+                Text(
+                  '$title 지수',
                   style: LuckitTypos.suitR12,
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '80',
+                  score.toString(),
                   style:
                       LuckitTypos.suitSB16.copyWith(color: LuckitColors.main),
                 ),
@@ -52,7 +57,9 @@ class FortuneScoreWidget extends StatelessWidget {
                                 LuckitColors.gradient1Stop100.withOpacity(0.7),
                               ]),
                         ),
-                        width: 260,
+                        width: (MediaQuery.of(context).size.width - 47) /
+                            100 *
+                            score,
                         height: 16,
                       ),
                     ],

@@ -21,6 +21,7 @@ import '../game/walking_game.dart';
 import 'home_state.dart';
 import 'home_view_model.dart';
 import 'widget/add_mission_bottom_sheet.dart';
+import 'widget/mission_complete_container.dart';
 import 'widget/mission_manage_bottom_sheet.dart';
 import 'widgets/animated_card_widget.dart';
 import 'widgets/complete_goal_button_widget.dart';
@@ -275,11 +276,16 @@ class _HomeViewState extends ConsumerState<HomeView>
                 ),
               ],
             ),
+            const SizedBox(height: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              child: MissionCompleteContainer(),
+            ),
             TextButton(
               onPressed: appService.signOut,
               child: const Text('로그아웃'),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             Builder(
               builder: (BuildContext context) {
                 if (!state.isGoalRegistered) {

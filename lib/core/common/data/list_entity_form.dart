@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'generated/list_entity_form.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
