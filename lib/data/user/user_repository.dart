@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:luckit/data/user/request_body/register_birth_info_request_body.dart';
 
 import '../../core/common/repository/repository.dart';
 import '../../core/common/repository/repository_result.dart';
@@ -88,6 +89,34 @@ class UserRepository extends Repository {
             messages: <String>['Unauthorized access'],
           ),
         _ => FailureRepositoryResult<BirthInfoEntity>(
+            error: e,
+            messages: <String>['정의되지 않은 오류'],
+          ),
+      };
+    }
+  }
+
+  Future<RepositoryResult<void>> registerBirthInfo({
+    required RegisterBirthInfoRequestBody body,
+  }) async {
+    try {
+      await _userRemoteDataSource.registerUserBirthInfo(
+        body: body,
+      );
+      return const SuccessRepositoryResult<void>(data: null);
+    } on DioException catch (e) {
+      final int? statusCode = e.response?.statusCode;
+
+      return switch (statusCode) {
+        400 => FailureRepositoryResult<String>(
+            error: e,
+            messages: <String>['Bad Request'],
+          ),
+        401 => FailureRepositoryResult<String>(
+            error: e,
+            messages: <String>['Unauthorized access'],
+          ),
+        _ => FailureRepositoryResult<String>(
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),

@@ -22,9 +22,7 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-
   Future<ListEntityForm<SuggestionGoalEntity>> getSuggestionGoalList() async {
-
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

@@ -8,12 +8,16 @@ class BirthTimeInputContainerWidget extends StatefulWidget {
   final bool enabled;
   final Function(String) onChangedHour;
   final Function(String) onChangedMinute;
+  final TextEditingController? hourController;
+  final TextEditingController? minuteController;
 
   const BirthTimeInputContainerWidget({
     required this.enabled,
     required this.onChangedHour,
     required this.onChangedMinute,
     super.key,
+    this.hourController,
+    this.minuteController,
   });
 
   @override
@@ -45,6 +49,7 @@ class _BirthTimeInputContainerWidgetState
         children: <Widget>[
           Expanded(
             child: BirthTimeTextFieldWidget(
+              controller: widget.hourController,
               enabled: widget.enabled,
               hintText: 'HH',
               onChanged: widget.onChangedHour,
@@ -62,6 +67,7 @@ class _BirthTimeInputContainerWidgetState
           ),
           Expanded(
             child: BirthTimeTextFieldWidget(
+              controller: widget.minuteController,
               enabled: widget.enabled,
               hintText: 'MM',
               onChanged: widget.onChangedMinute,

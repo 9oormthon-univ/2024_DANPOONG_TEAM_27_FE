@@ -27,7 +27,7 @@ class OnboardingState extends Equatable {
   final String endDay;
 
   // birth
-  final Gender gender;
+  final GenderType gender;
   final BirthType birthType;
   final DayPeriod dayPeriod;
   final String birthYear;
@@ -82,7 +82,7 @@ class OnboardingState extends Equatable {
         endYear: '',
         endMonth: '',
         endDay: '',
-        gender: Gender.man,
+        gender: GenderType.male,
         birthType: BirthType.solar,
         dayPeriod: DayPeriod.am,
         birthYear: '',
@@ -110,7 +110,7 @@ class OnboardingState extends Equatable {
     String? endYear,
     String? endMonth,
     String? endDay,
-    Gender? gender,
+    GenderType? gender,
     BirthType? birthType,
     DayPeriod? dayPeriod,
     String? birthYear,
@@ -166,6 +166,6 @@ class OnboardingState extends Equatable {
 
 
 
-enum Gender { man, woman }
+enum GenderType { male, female, none }
 
-enum BirthType { solar, lunar }
+enum BirthType { solar, lunar, none }

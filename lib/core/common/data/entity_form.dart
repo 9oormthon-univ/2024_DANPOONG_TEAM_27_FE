@@ -18,6 +18,3 @@ class EntityForm<T> {
       Map<String, dynamic> json, T Function(Object? json) fromjsonT) =>
       _$EntityFormFromJson(json, fromjsonT);
 }
-
-
-
