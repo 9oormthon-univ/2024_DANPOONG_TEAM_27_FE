@@ -57,9 +57,6 @@ class LoginView extends ConsumerWidget {
                 const SizedBox(
                   height: 168,
                 ),
-                const SizedBox(
-                  height: 168,
-                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: InkWell(
