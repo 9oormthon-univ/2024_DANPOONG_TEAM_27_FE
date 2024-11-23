@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/loading_status.dart';
 import '../../routes/routes.dart';
+import '../../service/app/app_service.dart';
 import '../../theme/luckit_colors.dart';
 import '../../theme/luckit_typos.dart';
 import '../common/consts/assets.dart';
@@ -31,8 +32,8 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(profileViewModelProvider.notifier)
         ..getCurrentDate()
-        ..getCompleteGoalList()
         ..getProfile()
+        ..getCompleteGoalList()
         ..getSpotList();
     });
   }
@@ -42,6 +43,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
     final ProfileState state = ref.watch(profileViewModelProvider);
     final ProfileViewModel viewModel =
         ref.read(profileViewModelProvider.notifier);
+    final AppService appService = ref.read(appServiceProvider.notifier);
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBarWidget(
@@ -167,14 +169,15 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                             label: '로그아웃',
                             onTap: () => showDialog(
                               context: context,
-                              builder: (BuildContext context) => MissionCompleteDialog(
+                              builder: (BuildContext context) =>
+                                  MissionCompleteDialog(
                                 descriptionText: null,
-                                  mainText: '로그아웃 하시겠습니까?',
-                                  missionTitle: null,
-                                  onComplete: () {},
+                                mainText: '로그아웃 하시겠습니까?',
+                                missionTitle: null,
+                                onComplete: appService.signOut,
                                 rightButtonColor: LuckitColors.error,
                                 rightButtonLabel: '로그아웃',
-                                ),
+                              ),
                             ),
                             width: 9.0,
                           ),
