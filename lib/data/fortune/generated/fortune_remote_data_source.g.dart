@@ -34,7 +34,7 @@ class _FortuneRemoteDataSource implements FortuneRemoteDataSource {
     )
         .compose(
           _dio.options,
-          '/fortune/daily',
+          '/api/v1/fortune/daily',
           queryParameters: queryParameters,
           data: _data,
         )
