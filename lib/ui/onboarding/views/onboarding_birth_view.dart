@@ -73,7 +73,7 @@ class OnboardingBirthView extends ConsumerWidget {
           ),
           Positioned(
             left: 0.0,
-            top: 560.0,
+            top: 540.0,
             child: UnknownTimeWidget(
               leftPadding: true,
               isChecked: state.dontKnow,
@@ -132,23 +132,23 @@ class OnboardingBirthView extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      children: <Widget>[
-                        const SizedBox(width: 12),
-                        CheckIconWidget(
-                          isChecked: state.dontKnow,
-                          onPressed: viewModel.onPressedDontKnow,
-                          size: 24.0,
-                        ),
-                        Text(
-                          '태어난 시간을 알지 못합니다',
-                          style: LuckitTypos.suitR10.copyWith(
-                            color: LuckitColors.gray80,
-                            height: 0.0,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: <Widget>[
+                    //     const SizedBox(width: 12),
+                    //     CheckIconWidget(
+                    //       isChecked: state.dontKnow,
+                    //       onPressed: viewModel.onPressedDontKnow,
+                    //       size: 24.0,
+                    //     ),
+                    //     Text(
+                    //       '태어난 시간을 알지 못합니다',
+                    //       style: LuckitTypos.suitR10.copyWith(
+                    //         color: LuckitColors.gray80,
+                    //         height: 0.0,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
