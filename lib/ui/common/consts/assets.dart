@@ -59,10 +59,11 @@ class Assets {
   static const String tutorialCloud2 = 'assets/icons/tutorial_cloud_2.svg';
   static const String tutorialCloud3 = 'assets/icons/tutorial_cloud_3.svg';
   static const String tutorialCloud4 = 'assets/icons/tutorial_cloud_4.svg';
-  static const String roundedArrowLeft = 'assets/icons/rounded_arrow_left.svg';
-  static const String roundedArrowRight = 'assets/icons/rounded_arrow_right.svg';
-  static const String logout = 'assets/icons/logout.svg';
   static const String goalFilled = 'assets/icons/goal_filled.svg';
+  static const String roundedArrowLeft = 'assets/icons/rounded_arrow_left.svg';
+  static const String roundedArrowRight =
+      'assets/icons/rounded_arrow_right.svg';
+  static const String logout = 'assets/icons/logout.svg';
 
   static const String allLuck = 'assets/images/all_luck.png';
   static const String health = 'assets/images/health.png';
@@ -166,6 +167,8 @@ class Assets {
   static const String tigerStop = 'assets/animation/stop/tiger_stop.json';
   static const String kingMouseStop =
       'assets/animation/stop/king_mouse_stop.json';
+  static const String kingChickenStop =
+      'assets/animation/stop/king_chicken_stop.json';
 
   static const String chickenMove = 'assets/animation/move/chicken_move.json';
   static const String cowMove = 'assets/animation/move/cow_move.json';
@@ -179,6 +182,8 @@ class Assets {
   static const String sheepMove = 'assets/animation/move/sheep_move.json';
   static const String snakeMove = 'assets/animation/move/snake_move.json';
   static const String tigerMove = 'assets/animation/move/tiger_move.json';
+  static const String kingChickenMove =
+      'assets/animation/move/king_chicken_move.json';
 
   static const String noShadowChickenStop =
       'assets/animation/no_shadow_stop/no_shadow_chicken_stop.json';
@@ -232,6 +237,8 @@ class Assets {
 
   static const String kingMouseAppear =
       'assets/animation/appear/king_mouse_appear.json';
+  static const String kingChickenAppear =
+      'assets/animation/appear/king_chicken_appear.json';
 
   // 튜토리얼
   static const String tutorialFirstImage =

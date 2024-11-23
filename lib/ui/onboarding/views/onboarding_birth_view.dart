@@ -49,10 +49,16 @@ class OnboardingBirthView extends ConsumerWidget {
                           children: <Widget>[
                             _buildGender(state, viewModel),
                             _buildBirthDate(state, viewModel),
+
                           ],
                         ),
                       ),
                       _buildBirthTime(state, viewModel),
+                      UnknownTimeWidget(
+                        leftPadding: true,
+                        isChecked: state.dontKnow,
+                        onPressed: viewModel.onPressedDontKnow,
+                      ),
                     ],
                   ),
                 ),
@@ -69,17 +75,18 @@ class OnboardingBirthView extends ConsumerWidget {
                   label: '입력 완료',
                 ),
               ),
+
             ],
           ),
-          Positioned(
-            left: 0.0,
-            top: 540.0,
-            child: UnknownTimeWidget(
-              leftPadding: true,
-              isChecked: state.dontKnow,
-              onPressed: viewModel.onPressedDontKnow,
-            ),
-          ),
+          // Positioned(
+          //   left: 0.0,
+          //   top: 540.0,
+          //   child: UnknownTimeWidget(
+          //     leftPadding: true,
+          //     isChecked: state.dontKnow,
+          //     onPressed: viewModel.onPressedDontKnow,
+          //   ),
+          // ),
         ],
       ),
     );
@@ -103,7 +110,6 @@ class OnboardingBirthView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-
                 child: Column(
                   children: <Widget>[
                     Row(
