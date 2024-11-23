@@ -22,7 +22,9 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
+
   Future<ListEntityForm<SuggestionGoalEntity>> getSuggestionGoalList() async {
+
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -33,6 +35,7 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
       headers: _headers,
       extra: _extra,
     )
+
             .compose(
               _dio.options,
               '/fortune/onboarding',
@@ -46,6 +49,7 @@ class _OnboardingRemoteDataSource implements OnboardingRemoteDataSource {
             )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late ListEntityForm<SuggestionGoalEntity> _value;
+
     try {
       _value = ListEntityForm<SuggestionGoalEntity>.fromJson(
         _result.data!,
