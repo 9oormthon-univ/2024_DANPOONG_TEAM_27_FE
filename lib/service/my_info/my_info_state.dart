@@ -50,6 +50,8 @@ class MyInfoState extends Equatable {
         unknownTime = true,
         userFortune = FortuneModel.init();
 
+
+
   MyInfoState copyWith({
     LoadingStatus? getUserBirthInfoLoadingStatus,
     LoadingStatus? getUserFortuneInfoLoadingStatus,

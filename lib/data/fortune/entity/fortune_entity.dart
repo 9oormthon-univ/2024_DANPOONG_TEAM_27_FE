@@ -39,19 +39,19 @@ class CategoryFortuneScoresEntity {
     required this.work,
   });
 
-  @JsonKey(name: 'Money')
+  @JsonKey(name: 'MONEY')
   final int money;
 
-  @JsonKey(name: 'Study')
+  @JsonKey(name: 'STUDY')
   final int study;
 
-  @JsonKey(name: 'Health')
+  @JsonKey(name: 'HEALTH')
   final int health;
 
-  @JsonKey(name: 'Love')
+  @JsonKey(name: 'LOVE')
   final int love;
 
-  @JsonKey(name: 'Work')
+  @JsonKey(name: 'WORK')
   final int work;
 
   factory CategoryFortuneScoresEntity.fromJson(Map<String, dynamic> json) =>

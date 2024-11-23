@@ -17,6 +17,13 @@ class FortuneModel extends Equatable {
     required this.timeOfDayFortuneScores,
   });
 
+  FortuneModel.init()
+      : fortuneKeywords = <String>[],
+        shortFortune = '',
+        fullFortune = '',
+        categoryFortuneScores = <CategoryFortuneScores>[],
+        timeOfDayFortuneScores = <TimeOfDayFortuneScores>[];
+
   factory FortuneModel.fromEntity({
     required FortuneEntity entity,
   }) =>

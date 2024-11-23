@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../core/loading_status.dart';
@@ -129,7 +130,12 @@ class _HomeViewState extends ConsumerState<HomeView>
     // final double gameHeight = availableHeight * 0.3;
 
     if (game == null) {
-      return const Center(child: CircularProgressIndicator());
+      return Scaffold(
+        body: Transform.scale(
+          scale: 0.7,
+          child: Lottie.asset(Assets.loading),
+        ),
+      );
     }
 
     return Scaffold(
@@ -278,13 +284,10 @@ class _HomeViewState extends ConsumerState<HomeView>
               ],
             ),
             const SizedBox(height: 16),
+            if (state.currentGoal.endDate.isBefore(DateTime.now()))
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.0),
               child: MissionCompleteContainer(),
-            ),
-            TextButton(
-              onPressed: appService.signOut,
-              child: const Text('로그아웃'),
             ),
             const SizedBox(height: 16),
             Builder(
@@ -414,7 +417,7 @@ class _HomeViewState extends ConsumerState<HomeView>
                             return AnimatedCard(
                               title: todo.name,
                               comment: fortuneTypeToComment[todo.fortuneType] ??
-                                  '운을 향상시킬 수 있어요',  
+                                  '운을 향상시킬 수 있어요',
                               iconPath: Assets.pigOutlined,
                               imagePath: fortuneTypeToAsset[todo.fortuneType] ??
                                   Assets.money,
@@ -525,7 +528,7 @@ class _HomeViewState extends ConsumerState<HomeView>
                                         showModalBottomSheet(
                                           context: context,
                                           builder: (BuildContext context) =>
-                                               MissionManageBottomSheet(
+                                              MissionManageBottomSheet(
                                             title: todo.name,
                                             todoId: todo.todoId,
                                             updateTodo: viewModel.updateTodo,
@@ -536,7 +539,8 @@ class _HomeViewState extends ConsumerState<HomeView>
                                         children: <Widget>[
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsets.symmetric(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
                                                 vertical: 11.5,
                                               ),
                                               child: Text(todo.name),

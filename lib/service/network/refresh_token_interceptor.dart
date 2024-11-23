@@ -16,7 +16,7 @@ final Provider<RefreshTokenInterceptor> refreshTokenInterceptorProvider =
 );
 
 class RefreshTokenInterceptor extends QueuedInterceptor {
-  static const String _refreshTokenPath = '/renew';
+  static const String _refreshTokenPath = 'api/v1/renew';
 
   RefreshTokenInterceptor({
     required StorageService storageService,

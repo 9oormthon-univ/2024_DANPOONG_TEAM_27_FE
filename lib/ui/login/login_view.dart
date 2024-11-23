@@ -20,7 +20,7 @@ class LoginView extends ConsumerWidget {
     final LoginState state = ref.watch(loginViewModelProvider);
     final LoginViewModel viewModel = ref.read(loginViewModelProvider.notifier);
 
-    // 로그인 상태 변경 감지
+    // // 로그인 상태 변경 감지
     ref.listen(loginViewModelProvider,
         (LoginState? previous, LoginState current) {
       if (current.kakaoOauthLoadingStatus == LoadingStatus.success &&

@@ -33,21 +33,21 @@ Map<String, dynamic> _$FortuneEntityToJson(FortuneEntity instance) =>
 CategoryFortuneScoresEntity _$CategoryFortuneScoresEntityFromJson(
         Map<String, dynamic> json) =>
     CategoryFortuneScoresEntity(
-      money: (json['Money'] as num).toInt(),
-      study: (json['Study'] as num).toInt(),
-      health: (json['Health'] as num).toInt(),
-      love: (json['Love'] as num).toInt(),
-      work: (json['Work'] as num).toInt(),
+      money: (json['MONEY'] as num).toInt(),
+      study: (json['STUDY'] as num).toInt(),
+      health: (json['HEALTH'] as num).toInt(),
+      love: (json['LOVE'] as num).toInt(),
+      work: (json['WORK'] as num).toInt(),
     );
 
 Map<String, dynamic> _$CategoryFortuneScoresEntityToJson(
         CategoryFortuneScoresEntity instance) =>
     <String, dynamic>{
-      'Money': instance.money,
-      'Study': instance.study,
-      'Health': instance.health,
-      'Love': instance.love,
-      'Work': instance.work,
+      'MONEY': instance.money,
+      'STUDY': instance.study,
+      'HEALTH': instance.health,
+      'LOVE': instance.love,
+      'WORK': instance.work,
     };
 
 TimeOfDayFortuneScoresEntity _$TimeOfDayFortuneScoresEntityFromJson(
