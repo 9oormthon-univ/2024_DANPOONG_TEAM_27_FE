@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/common/data/list_entity_form.dart';
 import '../../core/common/repository/repository.dart';
 import '../../core/common/repository/repository_result.dart';
 import 'entity/todo_entity.dart';
@@ -18,11 +19,11 @@ class TodoRepository extends Repository {
 
   final TodoRemoteDataSource _todoRemoteDataSource;
 
-  Future<RepositoryResult<List<TodoEntity>>> getTodoList({
+  Future<RepositoryResult<ListEntityForm<TodoEntity>>> getTodoList({
     required int goalId,
   }) async {
     try {
-      return SuccessRepositoryResult<List<TodoEntity>>(
+      return SuccessRepositoryResult<ListEntityForm<TodoEntity>>(
         data: await _todoRemoteDataSource.getTodoList(
           goalId: goalId,
         ),
@@ -31,15 +32,15 @@ class TodoRepository extends Repository {
       final int? statusCode = e.response?.statusCode;
 
       return switch (statusCode) {
-        400 => FailureRepositoryResult<List<TodoEntity>>(
+        400 => FailureRepositoryResult<ListEntityForm<TodoEntity>>(
             error: e,
             messages: <String>['Bad Request'],
           ),
-        401 => FailureRepositoryResult<List<TodoEntity>>(
+        401 => FailureRepositoryResult<ListEntityForm<TodoEntity>>(
             error: e,
             messages: <String>['Unauthorized access'],
           ),
-        _ => FailureRepositoryResult<List<TodoEntity>>(
+        _ => FailureRepositoryResult<ListEntityForm<TodoEntity>>(
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),
@@ -102,6 +103,65 @@ class TodoRepository extends Repository {
             messages: <String>['Unauthorized access'],
           ),
         _ => FailureRepositoryResult<void>(
+            error: e,
+            messages: <String>['정의되지 않은 오류'],
+          ),
+      };
+    }
+  }
+
+  Future<RepositoryResult<void>> deleteTodo({
+    required int todoId,
+  }) async {
+    try {
+      await _todoRemoteDataSource.deleteTodo(todoId: todoId);
+      return const SuccessRepositoryResult<void>(
+        data: null,
+      );
+    } on DioException catch (e) {
+      final int? statusCode = e.response?.statusCode;
+
+      return switch (statusCode) {
+        400 => FailureRepositoryResult<void>(
+            error: e,
+            messages: <String>['Bad Request'],
+          ),
+        401 => FailureRepositoryResult<void>(
+            error: e,
+            messages: <String>['Unauthorized access'],
+          ),
+        _ => FailureRepositoryResult<void>(
+            error: e,
+            messages: <String>['정의되지 않은 오류'],
+          ),
+      };
+    }
+  }
+
+  Future<RepositoryResult<ListEntityForm<int>>> getTodoGrahpData({
+    required int year,
+    required int month,
+  }) async {
+    try {
+      return SuccessRepositoryResult<ListEntityForm<int>>(
+        data: await _todoRemoteDataSource.getTodoGrahpData(
+          year: year,
+          month: month,
+        ),
+      );
+    } on DioException catch (e) {
+      final int? statusCode = e.response?.statusCode;
+
+      return switch (statusCode) {
+        400 => FailureRepositoryResult<ListEntityForm<int>>(
+            error: e,
+            messages: <String>['Bad Request'],
+          ),
+        401 => FailureRepositoryResult<ListEntityForm<int>>(
+            error: e,
+            messages: <String>['Unauthorized access'],
+          ),
+        _ => FailureRepositoryResult<ListEntityForm<int>>(
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),

@@ -64,6 +64,17 @@ class Routes {
     path: 'tutorial',
   );
 
+  // 목표 수정
+  static const RouteInfo editGoal = RouteInfo(
+    name: '/home/edit-goal',
+    path: 'edit-goal',
+  );
+
+  static const RouteInfo editDuration = RouteInfo(
+    name: '/home/edit-duration',
+    path: 'edit-duration',
+  );
+
   // 농장
   static const RouteInfo farm = RouteInfo(
     name: '/farm',

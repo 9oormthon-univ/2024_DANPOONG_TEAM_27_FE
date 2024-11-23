@@ -21,19 +21,35 @@ class GoalModel extends Equatable {
     required GoalEntity entity,
   }) =>
       GoalModel(
-          goalId: entity.goalId,
-          name: entity.name,
-          isCompleted: entity.isCompleted,
-          startDate: DateTime(
-            entity.startDateYear,
-            entity.startDateMonth,
-            entity.startDateDay,
-          ),
-          endDate: DateTime(
-            entity.endDateYear,
-            entity.endDateMonth,
-            entity.endDateDay,
-          ));
+        goalId: entity.goalId,
+        name: entity.name,
+        isCompleted: entity.isCompleted,
+        startDate: DateTime(
+          entity.startDateYear,
+          entity.startDateMonth,
+          entity.startDateDay,
+        ),
+        endDate: DateTime(
+          entity.endDateYear,
+          entity.endDateMonth,
+          entity.endDateDay,
+        ),
+      );
+
+  GoalModel copyWith({
+    int? goalId,
+    String? name,
+    bool? isCompleted,
+    DateTime? startDate,
+    DateTime? endDate,
+  }) =>
+      GoalModel(
+        goalId: goalId ?? this.goalId,
+        name: name ?? this.name,
+        isCompleted: isCompleted ?? this.isCompleted,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate ?? this.endDate,
+      );
 
   @override
   List<Object?> get props => <Object?>[

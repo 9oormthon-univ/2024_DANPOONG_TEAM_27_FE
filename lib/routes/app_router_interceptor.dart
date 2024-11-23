@@ -25,8 +25,6 @@ class AppRouterInterceptor {
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
     final bool isSignedIn = await _ref
         .read(appServiceProvider.select((AppState value) => value.isSignedIn));
-    // const bool isFirstSignIn = false;
-
     if (!isSignedIn) {
       // sign in 으로 가야만 하는 상태입니다.
       if (state.fullPath?.startsWith(Routes.auth.name) == false) {

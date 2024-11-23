@@ -15,6 +15,6 @@ class EntityForm<T> {
   final T data;
 
   factory EntityForm.fromJson(
-      Map<String, dynamic> json, T Function(Object? json) fromjsonT) =>
+          Map<String, dynamic> json, T Function(Object? json) fromjsonT) =>
       _$EntityFormFromJson(json, fromjsonT);
 }

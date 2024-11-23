@@ -3,23 +3,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/common/use_case/use_case_result.dart';
 import '../../core/loading_status.dart';
+import '../../domain/goal/use_case/create_goal_use_case.dart';
 import '../../domain/onboarding/model/suggestion_goal_model.dart';
 import '../../domain/onboarding/use_case/get_suggestion_goal_list_use_case.dart';
-import 'onboarding_state.dart';
-import 'utils/validation.dart';
+import 'editing_state.dart';
 
-final AutoDisposeStateNotifierProvider<OnboardingViewModel, OnboardingState>
-    onboardingViewModelProvider =
-    StateNotifierProvider.autoDispose<OnboardingViewModel, OnboardingState>(
-  (StateNotifierProviderRef<OnboardingViewModel, OnboardingState> ref) =>
-      OnboardingViewModel(ref.read(getSuggestionGoalListUseCaseProvider)),
+final AutoDisposeStateNotifierProvider<EditingViewModel, EditingState>
+    editingViewModelProvider =
+    StateNotifierProvider.autoDispose<EditingViewModel, EditingState>(
+  (StateNotifierProviderRef<EditingViewModel, EditingState> ref) =>
+      EditingViewModel(
+    getSuggestionGoalListUseCase:
+        ref.read(getSuggestionGoalListUseCaseProvider),
+    createGoalUseCase: ref.read(createGoalUseCaseProvider),
+  ),
 );
 
-class OnboardingViewModel extends StateNotifier<OnboardingState> {
+class EditingViewModel extends StateNotifier<EditingState> {
   final GetSuggestionGoalListUseCase _getSuggestionGoalListUseCase;
+  final CreateGoalUseCase _createGoalUseCase;
 
-  OnboardingViewModel(this._getSuggestionGoalListUseCase)
-      : super(OnboardingState.init());
+  EditingViewModel({
+    required GetSuggestionGoalListUseCase getSuggestionGoalListUseCase,
+    required CreateGoalUseCase createGoalUseCase,
+  })  : _getSuggestionGoalListUseCase = getSuggestionGoalListUseCase,
+        _createGoalUseCase = createGoalUseCase,
+        super(EditingState.init());
 
   void getUserName() {
     state = state.copyWith(getUserNameLoading: LoadingStatus.loading);
@@ -34,11 +43,34 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
 
     switch (result) {
       case SuccessUseCaseResult<List<GoalModel>>():
-        state = state.copyWith(
-            suggestions: result.data,
-            getSuggestionsLoading: LoadingStatus.success);
+        state = state.copyWith(suggestions: result.data);
       case FailureUseCaseResult<List<GoalModel>>():
         state = state.copyWith(getSuggestionsLoading: LoadingStatus.error);
+    }
+    state = state.copyWith(getSuggestionsLoading: LoadingStatus.success);
+  }
+
+  Future<void> createGoal() async {
+    state = state.copyWith(createGoalLoadingStatus: LoadingStatus.loading);
+    final UseCaseResult<void> result = await _createGoalUseCase(
+      name: state.goal,
+      startDate: DateTime(
+        int.parse(state.startYear),
+        int.parse(state.startMonth),
+        int.parse(state.startDay),
+      ),
+      endDate: DateTime(
+        int.parse(state.endYear),
+        int.parse(state.endMonth),
+        int.parse(state.endDay),
+      ),
+    );
+
+    switch (result) {
+      case SuccessUseCaseResult<void>():
+        state = state.copyWith(createGoalLoadingStatus: LoadingStatus.success);
+      case FailureUseCaseResult<void>():
+        state = state.copyWith(createGoalLoadingStatus: LoadingStatus.error);
     }
   }
 
@@ -102,7 +134,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
   }
 
   // -----birth-----
-  void onPressedGender({required GenderType gender}) {
+  void onPressedGender({required Gender gender}) {
     state = state.copyWith(gender: gender);
   }
 

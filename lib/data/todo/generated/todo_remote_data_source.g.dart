@@ -22,12 +22,12 @@ class _TodoRemoteDataSource implements TodoRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<TodoEntity>> getTodoList({required int goalId}) async {
+  Future<ListEntityForm<TodoEntity>> getTodoList({required int goalId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<TodoEntity>>(Options(
+    final _options = _setStreamType<ListEntityForm<TodoEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,12 +43,13 @@ class _TodoRemoteDataSource implements TodoRemoteDataSource {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<TodoEntity> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ListEntityForm<TodoEntity> _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => TodoEntity.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = ListEntityForm<TodoEntity>.fromJson(
+        _result.data!,
+        (json) => TodoEntity.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -104,6 +105,73 @@ class _TodoRemoteDataSource implements TodoRemoteDataSource {
           baseUrl,
         )));
     await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<void> deleteTodo({required int todoId}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/todo/${todoId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<ListEntityForm<int>> getTodoGrahpData({
+    required int year,
+    required int month,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'year': year,
+      r'month': month,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ListEntityForm<int>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/todo/graph',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ListEntityForm<int> _value;
+    try {
+      _value = ListEntityForm<int>.fromJson(
+        _result.data!,
+        (json) => json as int,
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

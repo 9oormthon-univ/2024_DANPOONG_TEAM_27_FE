@@ -1,55 +1,113 @@
 import 'package:equatable/equatable.dart';
 import '../../../../core/loading_status.dart';
+import '../../domain/goal/model/goal_model.dart';
+import '../../domain/todo/model/todo_model.dart';
 
 class HomeState extends Equatable {
-  final LoadingStatus loadingStatus;
+  final LoadingStatus getCurrentGoalLoadingstatus;
+  final LoadingStatus getCurrentTodoLoadingstatus;
+  final LoadingStatus editCurrentGoalLoadingstatus;
+  final LoadingStatus deleteGoalLoadingStatus;
   final bool isGoalEditing;
   final bool isGoalButtonOpen;
   final bool isGoalCompleted;
   final bool isGoalRegistered;
-  final String example;
+  final GoalModel currentGoal;
+  final String editingStartDate;
+  final String editingEndDate;
+  final String editingGoal;
+  final List<TodoModel> currentTodoList;
 
   const HomeState({
-    required this.loadingStatus,
+    required this.getCurrentGoalLoadingstatus,
+    required this.getCurrentTodoLoadingstatus,
+    required this.editCurrentGoalLoadingstatus,
+    required this.deleteGoalLoadingStatus,
     required this.isGoalEditing,
     required this.isGoalButtonOpen,
     required this.isGoalCompleted,
     required this.isGoalRegistered,
-    required this.example,
+    required this.currentGoal,
+    required this.editingStartDate,
+    required this.editingEndDate,
+    required this.editingGoal,
+    required this.currentTodoList,
   });
-
-  const HomeState.init()
-      : loadingStatus = LoadingStatus.none,
+  HomeState.init()
+      : getCurrentGoalLoadingstatus = LoadingStatus.none,
+        getCurrentTodoLoadingstatus = LoadingStatus.none,
+        editCurrentGoalLoadingstatus = LoadingStatus.none,
+        deleteGoalLoadingStatus = LoadingStatus.none,
         isGoalEditing = false,
         isGoalButtonOpen = false,
         isGoalCompleted = false,
         isGoalRegistered = true,
-        example = '';
+        currentTodoList = <TodoModel>[],
+        editingStartDate = '',
+        editingEndDate = '',
+        editingGoal = '',
+        currentGoal = GoalModel(
+          goalId: -999,
+          name: '',
+          isCompleted: false,
+          startDate: DateTime(2024),
+          endDate: DateTime(2024),
+        );
 
   HomeState copyWith({
-    LoadingStatus? loadingStatus,
+    LoadingStatus? getCurrentGoalLoadingstatus,
+    LoadingStatus? getCurrentTodoLoadingstatus,
+    LoadingStatus? editCurrentGoalLoadingstatus,
+    LoadingStatus? deleteGoalLoadingStatus,
     bool? isGoalEditing,
     bool? isGoalButtonOpen,
     bool? isGoalCompleted,
     bool? isGoalRegistered,
-    String? example,
+    String? editingStartDate,
+    String? editingEndDate,
+    String? editingGoal,
+    GoalModel? currentGoal,
+    List<TodoModel>? currentTodoList,
   }) =>
       HomeState(
-        loadingStatus: loadingStatus ?? this.loadingStatus,
+        getCurrentGoalLoadingstatus:
+            getCurrentGoalLoadingstatus ?? this.getCurrentGoalLoadingstatus,
+        getCurrentTodoLoadingstatus:
+            getCurrentTodoLoadingstatus ?? this.getCurrentTodoLoadingstatus,
+        editCurrentGoalLoadingstatus:
+            editCurrentGoalLoadingstatus ?? this.editCurrentGoalLoadingstatus,
+        deleteGoalLoadingStatus:
+            deleteGoalLoadingStatus ?? this.deleteGoalLoadingStatus,
         isGoalEditing: isGoalEditing ?? this.isGoalEditing,
         isGoalButtonOpen: isGoalButtonOpen ?? this.isGoalButtonOpen,
         isGoalCompleted: isGoalCompleted ?? this.isGoalCompleted,
         isGoalRegistered: isGoalRegistered ?? this.isGoalRegistered,
-        example: example ?? this.example,
+        editingStartDate: editingStartDate ?? this.editingStartDate,
+        editingEndDate: editingEndDate ?? this.editingEndDate,
+        editingGoal: editingGoal ?? this.editingGoal,
+        currentGoal: currentGoal ?? this.currentGoal,
+        currentTodoList: currentTodoList ?? this.currentTodoList,
       );
 
   @override
   List<Object> get props => <Object>[
-        loadingStatus,
+        getCurrentGoalLoadingstatus,
+        getCurrentTodoLoadingstatus,
+        editCurrentGoalLoadingstatus,
+        deleteGoalLoadingStatus,
         isGoalEditing,
         isGoalButtonOpen,
         isGoalCompleted,
         isGoalRegistered,
-        example,
+        editingStartDate,
+        editingEndDate,
+        editingGoal,
+        currentGoal,
+        currentTodoList,
       ];
+
+  String get formattedStartDate =>
+      '''${currentGoal.startDate.year}.${currentGoal.startDate.month}.${currentGoal.startDate.day}''';
+  String get formattedEndDate =>
+      '''${currentGoal.endDate.year}.${currentGoal.endDate.month}.${currentGoal.endDate.day}''';
 }

@@ -22,12 +22,12 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<GoalEntity>> getGoalList() async {
+  Future<ListEntityForm<GoalEntity>> getGoalList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<GoalEntity>>(Options(
+    final _options = _setStreamType<ListEntityForm<GoalEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,12 +43,13 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<GoalEntity> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ListEntityForm<GoalEntity> _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => GoalEntity.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = ListEntityForm<GoalEntity>.fromJson(
+        _result.data!,
+        (json) => GoalEntity.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -61,7 +62,8 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<void>(Options(
       method: 'POST',
       headers: _headers,
@@ -107,12 +109,37 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
   }
 
   @override
-  Future<List<CompleteGoalEntity>> getCompleteGoals() async {
+  Future<void> deleteGoal({required int goalId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<CompleteGoalEntity>>(Options(
+    final _options = _setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/goal/${goalId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<ListEntityForm<GoalSummaryEntity>> getGoalSummaryList() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ListEntityForm<GoalSummaryEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -128,13 +155,49 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<CompleteGoalEntity> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ListEntityForm<GoalSummaryEntity> _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) =>
-              CompleteGoalEntity.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = ListEntityForm<GoalSummaryEntity>.fromJson(
+        _result.data!,
+        (json) => GoalSummaryEntity.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ListEntityForm<int>> getGoalSummary({required int goalId}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ListEntityForm<int>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/goal/mypage/${goalId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ListEntityForm<int> _value;
+    try {
+      _value = ListEntityForm<int>.fromJson(
+        _result.data!,
+        (json) => json as int,
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

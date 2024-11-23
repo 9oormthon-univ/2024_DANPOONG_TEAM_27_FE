@@ -14,12 +14,21 @@ class CreateGoalRequestBody {
   });
 
   final String name;
+
+  @JsonKey(name: 'start_date_year')
   final int startDateYear;
+  @JsonKey(name: 'start_date_month')
   final int startDateMonth;
+  @JsonKey(name: 'start_date_day')
   final int startDateDay;
+  @JsonKey(name: 'end_date_year')
   final int endDateYear;
+  @JsonKey(name: 'end_date_month')
   final int endDateMonth;
+  @JsonKey(name: 'end_date_day')
   final int endDateDay;
+
+  Map<String, dynamic> toJson() => _$CreateGoalRequestBodyToJson(this);
 
   factory CreateGoalRequestBody.fromJson(Map<String, dynamic> json) =>
       _$CreateGoalRequestBodyFromJson(json);
