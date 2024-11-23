@@ -14,6 +14,7 @@ import '../../domain/user/use_case/get_login_info_use_case.dart';
 import '../../domain/user/use_case/register_birth_info_use_case.dart';
 import '../onboarding/onboarding_state.dart';
 import '../onboarding/utils/validation.dart';
+import 'data/graph_data.dart';
 import 'profile_state.dart';
 
 final AutoDisposeStateNotifierProvider<ProfileViewModel, ProfileState>
@@ -50,6 +51,26 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
         _getGraphDataUseCase = getGraphDataUseCase,
         _getCharactersByGoalUseCase = getCharactersByGoalUseCase,
         super(ProfileState.init());
+
+  Future<void> initProfileView() async {
+    state = state.copyWith(
+      loadingCharacters: LoadingStatus.loading,
+      loadingGoalList: LoadingStatus.loading,
+      loadingGraph: LoadingStatus.loading,
+      loadingRegister: LoadingStatus.loading,
+      loadingProfile: LoadingStatus.loading,
+    );
+    await Future.delayed(const Duration(seconds: 2));
+    state = state.copyWith(
+      loadingCharacters: LoadingStatus.success,
+      loadingGoalList: LoadingStatus.success,
+      loadingGraph: LoadingStatus.success,
+      loadingRegister: LoadingStatus.success,
+      loadingProfile: LoadingStatus.success,
+      spotsList: graphData,
+      currentGraphIndex: 0,
+    );
+  }
 
   Future<void> getCompleteGoalList() async {
     state = state.copyWith(loadingGoalList: LoadingStatus.loading);
@@ -181,9 +202,9 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
       state = state.copyWith(currentGraphIndex: state.currentGraphIndex - 1);
     }
     // 이전달 데이터 불러와야 함
-    getSpotList();
-    print('새로운 데이터 불러오기 성공');
-    state = state.copyWith(currentGraphIndex: 0);
+    // getSpotList();
+    // print('새로운 데이터 불러오기 성공');
+    // state = state.copyWith(currentGraphIndex: 0);
   }
 
   void onTapRightArrow() {
