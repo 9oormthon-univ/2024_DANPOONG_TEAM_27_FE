@@ -149,18 +149,18 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     // 쿼리 파라미터 생성
     int queryMonth = state.currentMonth - state.spotsList.length;
     int queryYear = state.currentYear;
-    if (queryMonth < 0) {
-      queryMonth = 12;
+    while (queryMonth < 1) {
+      queryMonth += 12;
       queryYear -= 1;
     }
 
     // 요청
-    state = state.copyWith(queryMonth: queryYear, queryYear: queryYear);
+    state = state.copyWith(queryMonth: queryMonth, queryYear: queryYear);
     final UseCaseResult<GraphDataModel> result = await _getGraphDataUseCase(
-      month: queryYear,
+      month: queryMonth,
       year: queryYear,
     );
-    print('요청할 날: ${queryYear}년 ${queryMonth}월');
+    // print('요청할 날: ${queryYear}년 ${queryMonth}월');
     switch (result) {
       case SuccessUseCaseResult<GraphDataModel>():
         state = state.copyWith(
@@ -170,7 +170,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
           ],
           loadingGraph: LoadingStatus.success,
         );
-        print('현재 리스트 상태: ${state.spotsList}');
+        // print('현재 리스트 상태: ${state.spotsList}');
       case FailureUseCaseResult<GraphDataModel>():
         state = state.copyWith(loadingGraph: LoadingStatus.error);
     }

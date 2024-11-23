@@ -53,7 +53,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
       body: Stack(
         children: <Widget>[
           CustomScrollView(
-            slivers: [
+            slivers: <Widget>[
               SliverToBoxAdapter(
                 child: Column(
                   children: <Widget>[
@@ -84,7 +84,9 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                                     ),
                                   ),
                           ),
-                          const ProfileDescriptionTextWidget(),
+                          ProfileDescriptionTextWidget(
+                            count: state.completeGoal.length,
+                          ),
                         ],
                       ),
                     ),

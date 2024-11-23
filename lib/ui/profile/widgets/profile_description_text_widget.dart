@@ -4,7 +4,8 @@ import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 
 class ProfileDescriptionTextWidget extends StatelessWidget {
-  const ProfileDescriptionTextWidget({super.key});
+  final int count;
+  const ProfileDescriptionTextWidget({required this.count, super.key});
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -20,7 +21,7 @@ class ProfileDescriptionTextWidget extends StatelessWidget {
             ),
           ),
           Text(
-            '48개',
+            '$count개',
             style: LuckitTypos.suitSB16.copyWith(
               color: LuckitColors.main,
             ),
