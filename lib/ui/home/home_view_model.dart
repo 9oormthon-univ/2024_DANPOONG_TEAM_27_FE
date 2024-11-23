@@ -8,6 +8,7 @@ import '../../domain/goal/use_case/delete_goal_use_case.dart';
 import '../../domain/goal/use_case/get_goal_list_use_case.dart';
 import '../../domain/todo/model/todo_model.dart';
 import '../../domain/todo/use_case/get_todo_list_use_case.dart';
+import '../../domain/todo/use_case/update_todo_use_case.dart';
 import '../../utils/date_time_format_helper.dart';
 import 'home_state.dart';
 
@@ -18,7 +19,8 @@ final AutoDisposeStateNotifierProvider<HomeViewModel, HomeState>
     getGoalListUseCase: ref.read(getGoalListUseCaseProvider),
     getTodoListUseCase: ref.read(getTodoListUseCaseProvider),
     createGoalUseCase: ref.read(createGoalUseCaseProvider),
-    deleteGaolUseCase: ref.read(deleteGoalUseCaseProvider),
+    deleteGoalUseCase: ref.read(deleteGoalUseCaseProvider),
+    updateTodoUseCase: ref.read(updateTodoUseCaseProvider),
   ),
 );
 
@@ -27,23 +29,49 @@ class HomeViewModel extends StateNotifier<HomeState> {
   final GetTodoListUseCase _getTodoListUseCase;
   final CreateGoalUseCase _createGoalUseCase;
   final DeleteGoalUseCase _deleteGoalUseCase;
+  final UpdateTodoUseCase _updateTodoUseCase;
 
   HomeViewModel({
     required HomeState state,
     required GetGoalListUseCase getGoalListUseCase,
     required GetTodoListUseCase getTodoListUseCase,
     required CreateGoalUseCase createGoalUseCase,
-    required DeleteGoalUseCase deleteGaolUseCase,
+    required DeleteGoalUseCase deleteGoalUseCase,
+    required UpdateTodoUseCase updateTodoUseCase,
   })  : _getGoalListUseCase = getGoalListUseCase,
         _getTodoListUseCase = getTodoListUseCase,
         _createGoalUseCase = createGoalUseCase,
-        _deleteGoalUseCase = deleteGaolUseCase,
+        _deleteGoalUseCase = deleteGoalUseCase,
+        _updateTodoUseCase = updateTodoUseCase,
         super(state);
 
   void init() {
     getCurrentGoal().then((_) {
       getCurrentTodoList();
     });
+  }
+  Future<void> updateTodo(int todoId, String todo) async{
+    state = state.copyWith(updateTodoLoadingStatus: LoadingStatus.loading);
+    final UseCaseResult<void> result = await _updateTodoUseCase(
+      name: todo,
+      todoId: todoId
+    );
+    switch (result){
+      case SuccessUseCaseResult<void>():
+        state = state.copyWith(
+          currentTodoList: state.currentTodoList.map((todoModel) {
+            if (todoModel.todoId == todoId) {
+              return todoModel.copyWith(name: todo);
+            }
+            return todoModel;
+          }).toList(),
+          updateTodoLoadingStatus: LoadingStatus.success,
+        );
+      case FailureUseCaseResult<void>():
+        state = state.copyWith(
+          updateTodoLoadingStatus: LoadingStatus.error,
+        );
+    }
   }
 
   Future<void> getCurrentGoal() async {

@@ -13,6 +13,10 @@ TodoEntity _$TodoEntityFromJson(Map<String, dynamic> json) => TodoEntity(
       month: (json['month'] as num).toInt(),
       day: (json['day'] as num).toInt(),
       isCompleted: json['isCompleted'] as bool,
+      isMadeByGpt: json['isMadeByGpt'] as bool,
+      fortuneType: json['fortuneType'] as String,
+      score: (json['score'] as num).toInt(),
+      animal: (json['animal'] as num).toInt(),
     );
 
 Map<String, dynamic> _$TodoEntityToJson(TodoEntity instance) =>
@@ -23,4 +27,8 @@ Map<String, dynamic> _$TodoEntityToJson(TodoEntity instance) =>
       'month': instance.month,
       'day': instance.day,
       'isCompleted': instance.isCompleted,
+      'isMadeByGpt': instance.isMadeByGpt,
+      'fortuneType': instance.fortuneType,
+      'score': instance.score,
+      'animal': instance.animal,
     };

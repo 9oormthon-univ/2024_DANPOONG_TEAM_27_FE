@@ -8,8 +8,15 @@ import 'mission_delete_bottom_sheet.dart';
 
 class MissionManageBottomSheet extends StatelessWidget {
   final String title;
+  final int todoId;
+  final Function(int, String) updateTodo;
 
-  const MissionManageBottomSheet({required this.title, super.key});
+  const MissionManageBottomSheet({
+    required this.title,
+    required this.todoId,
+    required this.updateTodo,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +29,16 @@ class MissionManageBottomSheet extends StatelessWidget {
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: const AddMissionBottomSheet(
+          child: AddMissionBottomSheet(
             title: '미션 수정',
             subtitle: '미션 내용을 수정해보세요!',
             buttonLabel: '수정완료',
-            initialText: '거울 볼 때마다 미소짓기',
+            initialText: title,
           ),
         ),
       ).then((String? missionText) {
         if (missionText != null) {
-          // 수정 로직
+          updateTodo(todoId, missionText);
         }
       });
     }

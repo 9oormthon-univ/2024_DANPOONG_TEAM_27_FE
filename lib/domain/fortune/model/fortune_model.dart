@@ -29,19 +29,39 @@ class FortuneModel extends Equatable {
             category: 'all_luck',
             score: entity.overallFortuneScore,
           ),
-          ...entity.categoryFortuneScores.map(
-            (score) => CategoryFortuneScores(
-              category: score.category,
-              score: score.score,
-            ),
+          CategoryFortuneScores(
+            category: 'Money',
+            score: entity.categoryFortuneScores.money,
+          ),
+          CategoryFortuneScores(
+            category: 'Study',
+            score: entity.categoryFortuneScores.study,
+          ),
+          CategoryFortuneScores(
+            category: 'Health',
+            score: entity.categoryFortuneScores.health,
+          ),
+          CategoryFortuneScores(
+            category: 'Love',
+            score: entity.categoryFortuneScores.love,
+          ),
+          CategoryFortuneScores(
+            category: 'Work',
+            score: entity.categoryFortuneScores.work,
           ),
         ],
         timeOfDayFortuneScores: [
-          ...entity.timeOfDayFortuneScores.map(
-            (score) => TimeOfDayFortuneScores(
-              time: score.time,
-              score: score.score,
-            ),
+          TimeOfDayFortuneScores(
+            time: 'Morning',
+            score: entity.timeOfDayFortuneScores.morning,
+          ),
+          TimeOfDayFortuneScores(
+            time: 'Afternoon',
+            score: entity.timeOfDayFortuneScores.afternoon,
+          ),
+          TimeOfDayFortuneScores(
+            time: 'Night',
+            score: entity.timeOfDayFortuneScores.night,
           ),
         ],
       );

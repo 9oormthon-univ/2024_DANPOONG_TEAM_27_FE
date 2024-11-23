@@ -25,7 +25,7 @@ class LoginView extends ConsumerWidget {
       if (current.kakaoOauthLoadingStatus == LoadingStatus.success &&
           current.isAuthenticated) {
         // TODO: 온보딩이 필요한 경우 (새로운 사용자)
-        context.goNamed(Routes.start.name);
+        context.goNamed(Routes.onboardingg.name);
         // if (current.needsOnboarding) {
         //   context.goNamed(Routes.onboarding.name);
         // } else {

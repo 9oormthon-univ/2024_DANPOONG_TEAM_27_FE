@@ -17,8 +17,15 @@ class AnimalGlass extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              '총 74마리',
+              '성공 미션',
               style: LuckitTypos.suitSB16.copyWith(color: LuckitColors.white),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Text(
+              '총 74마리',
+              style: LuckitTypos.suitSB16.copyWith(color: LuckitColors.white, fontSize: 14),
             ),
             const SizedBox(
               height: 16,
@@ -50,9 +57,18 @@ class AnimalGlass extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              '총 74마리',
-              style: LuckitTypos.suitSB16.copyWith(color: LuckitColors.white),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '성공 미션',
+                  style: LuckitTypos.suitSB16.copyWith(color: LuckitColors.white),
+                ),
+                Text(
+                  '총 74마리',
+                  style: LuckitTypos.suitSB16.copyWith(color: LuckitColors.white, fontSize: 14),
+                ),
+              ],
             ),
             const SizedBox(
               width: 24,

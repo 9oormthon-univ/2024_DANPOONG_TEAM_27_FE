@@ -8,6 +8,7 @@ class HomeState extends Equatable {
   final LoadingStatus getCurrentTodoLoadingstatus;
   final LoadingStatus editCurrentGoalLoadingstatus;
   final LoadingStatus deleteGoalLoadingStatus;
+  final LoadingStatus updateTodoLoadingStatus;
   final bool isGoalEditing;
   final bool isGoalButtonOpen;
   final bool isGoalCompleted;
@@ -23,6 +24,7 @@ class HomeState extends Equatable {
     required this.getCurrentTodoLoadingstatus,
     required this.editCurrentGoalLoadingstatus,
     required this.deleteGoalLoadingStatus,
+    required this.updateTodoLoadingStatus,
     required this.isGoalEditing,
     required this.isGoalButtonOpen,
     required this.isGoalCompleted,
@@ -38,6 +40,7 @@ class HomeState extends Equatable {
         getCurrentTodoLoadingstatus = LoadingStatus.none,
         editCurrentGoalLoadingstatus = LoadingStatus.none,
         deleteGoalLoadingStatus = LoadingStatus.none,
+        updateTodoLoadingStatus = LoadingStatus.none,
         isGoalEditing = false,
         isGoalButtonOpen = false,
         isGoalCompleted = false,
@@ -59,6 +62,7 @@ class HomeState extends Equatable {
     LoadingStatus? getCurrentTodoLoadingstatus,
     LoadingStatus? editCurrentGoalLoadingstatus,
     LoadingStatus? deleteGoalLoadingStatus,
+    LoadingStatus? updateTodoLoadingStatus,
     bool? isGoalEditing,
     bool? isGoalButtonOpen,
     bool? isGoalCompleted,
@@ -78,6 +82,8 @@ class HomeState extends Equatable {
             editCurrentGoalLoadingstatus ?? this.editCurrentGoalLoadingstatus,
         deleteGoalLoadingStatus:
             deleteGoalLoadingStatus ?? this.deleteGoalLoadingStatus,
+        updateTodoLoadingStatus:
+            updateTodoLoadingStatus ?? this.updateTodoLoadingStatus,
         isGoalEditing: isGoalEditing ?? this.isGoalEditing,
         isGoalButtonOpen: isGoalButtonOpen ?? this.isGoalButtonOpen,
         isGoalCompleted: isGoalCompleted ?? this.isGoalCompleted,
@@ -95,6 +101,7 @@ class HomeState extends Equatable {
         getCurrentTodoLoadingstatus,
         editCurrentGoalLoadingstatus,
         deleteGoalLoadingStatus,
+        updateTodoLoadingStatus,
         isGoalEditing,
         isGoalButtonOpen,
         isGoalCompleted,
