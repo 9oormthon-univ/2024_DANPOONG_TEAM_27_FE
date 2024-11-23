@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luckit/data/user/request_body/register_birth_info_request_body.dart';
+import 'request_body/register_birth_info_request_body.dart';
 
+import '../../core/common/data/entity_form.dart';
 import '../../core/common/repository/repository.dart';
 import '../../core/common/repository/repository_result.dart';
 import 'entity/birth_info_entity.dart';
@@ -11,7 +12,7 @@ import 'user_remote_data_source.dart';
 final Provider<UserRepository> userRepositoryProvider =
     Provider<UserRepository>(
   (ProviderRef<UserRepository> ref) =>
-      UserRepository(ref.watch(userRemoteDataSourceProvider)),
+      UserRepository(ref.read(userRemoteDataSourceProvider)),
 );
 
 class UserRepository extends Repository {
@@ -19,24 +20,25 @@ class UserRepository extends Repository {
 
   final UserRemoteDataSource _userRemoteDataSource;
 
-  Future<RepositoryResult<BirthInfoEntity>> getUserBirthInfo() async {
+  Future<RepositoryResult<EntityForm<BirthInfoEntity>>>
+      getUserBirthInfo() async {
     try {
-      return SuccessRepositoryResult<BirthInfoEntity>(
+      return SuccessRepositoryResult<EntityForm<BirthInfoEntity>>(
         data: await _userRemoteDataSource.getUserBirthInfo(),
       );
     } on DioException catch (e) {
       final int? statusCode = e.response?.statusCode;
 
       return switch (statusCode) {
-        400 => FailureRepositoryResult<BirthInfoEntity>(
+        400 => FailureRepositoryResult<EntityForm<BirthInfoEntity>>(
             error: e,
             messages: <String>['Bad Request'],
           ),
-        401 => FailureRepositoryResult<BirthInfoEntity>(
+        401 => FailureRepositoryResult<EntityForm<BirthInfoEntity>>(
             error: e,
             messages: <String>['Unauthorized access'],
           ),
-        _ => FailureRepositoryResult<BirthInfoEntity>(
+        _ => FailureRepositoryResult<EntityForm<BirthInfoEntity>>(
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),
@@ -44,24 +46,25 @@ class UserRepository extends Repository {
     }
   }
 
-  Future<RepositoryResult<LoginInfoEntity>> getUserLoginInfo() async {
+  Future<RepositoryResult<EntityForm<LoginInfoEntity>>>
+      getUserLoginInfo() async {
     try {
-      return SuccessRepositoryResult<LoginInfoEntity>(
+      return SuccessRepositoryResult<EntityForm<LoginInfoEntity>>(
         data: await _userRemoteDataSource.getUserLoginInfo(),
       );
     } on DioException catch (e) {
       final int? statusCode = e.response?.statusCode;
 
       return switch (statusCode) {
-        400 => FailureRepositoryResult<LoginInfoEntity>(
+        400 => FailureRepositoryResult<EntityForm<LoginInfoEntity>>(
             error: e,
             messages: <String>['Bad Request'],
           ),
-        401 => FailureRepositoryResult<LoginInfoEntity>(
+        401 => FailureRepositoryResult<EntityForm<LoginInfoEntity>>(
             error: e,
             messages: <String>['Unauthorized access'],
           ),
-        _ => FailureRepositoryResult<LoginInfoEntity>(
+        _ => FailureRepositoryResult<EntityForm<LoginInfoEntity>>(
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),
@@ -69,26 +72,46 @@ class UserRepository extends Repository {
     }
   }
 
-  Future<RepositoryResult<BirthInfoEntity>> getUser({
-    required String title,
+  Future<RepositoryResult<void>> registerUserBirthInfo({
+    required String gender,
+    required String solarOrLunar,
+    required int year,
+    required int month,
+    required int day,
+    required int hour,
+    required int minute,
+    required bool unknownTime,
   }) async {
     try {
-      return SuccessRepositoryResult<BirthInfoEntity>(
-        data: await _userRemoteDataSource.getUserBirthInfo(),
+      await _userRemoteDataSource.registerUserBirthInfo(
+        body: RegisterBirthInfoRequestBody(
+          gender: gender,
+          solarOrLunar: solarOrLunar,
+          year: year,
+          month: month,
+          day: day,
+          hour: hour,
+          minute: minute,
+          unknownTime: unknownTime,
+        ),
+      );
+
+      return const SuccessRepositoryResult<void>(
+        data: null,
       );
     } on DioException catch (e) {
       final int? statusCode = e.response?.statusCode;
 
       return switch (statusCode) {
-        400 => FailureRepositoryResult<BirthInfoEntity>(
+        400 => FailureRepositoryResult<void>(
             error: e,
             messages: <String>['Bad Request'],
           ),
-        401 => FailureRepositoryResult<BirthInfoEntity>(
+        401 => FailureRepositoryResult<void>(
             error: e,
             messages: <String>['Unauthorized access'],
           ),
-        _ => FailureRepositoryResult<BirthInfoEntity>(
+        _ => FailureRepositoryResult<void>(
             error: e,
             messages: <String>['정의되지 않은 오류'],
           ),

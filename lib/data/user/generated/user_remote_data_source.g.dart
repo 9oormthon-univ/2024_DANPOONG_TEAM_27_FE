@@ -22,12 +22,12 @@ class _UserRemoteDataSource implements UserRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BirthInfoEntity> getUserBirthInfo() async {
+  Future<EntityForm<BirthInfoEntity>> getUserBirthInfo() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BirthInfoEntity>(Options(
+    final _options = _setStreamType<EntityForm<BirthInfoEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -44,9 +44,12 @@ class _UserRemoteDataSource implements UserRemoteDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BirthInfoEntity _value;
+    late EntityForm<BirthInfoEntity> _value;
     try {
-      _value = BirthInfoEntity.fromJson(_result.data!);
+      _value = EntityForm<BirthInfoEntity>.fromJson(
+        _result.data!,
+        (json) => BirthInfoEntity.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -55,12 +58,12 @@ class _UserRemoteDataSource implements UserRemoteDataSource {
   }
 
   @override
-  Future<LoginInfoEntity> getUserLoginInfo() async {
+  Future<EntityForm<LoginInfoEntity>> getUserLoginInfo() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<LoginInfoEntity>(Options(
+    final _options = _setStreamType<EntityForm<LoginInfoEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -77,9 +80,12 @@ class _UserRemoteDataSource implements UserRemoteDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late LoginInfoEntity _value;
+    late EntityForm<LoginInfoEntity> _value;
     try {
-      _value = LoginInfoEntity.fromJson(_result.data!);
+      _value = EntityForm<LoginInfoEntity>.fromJson(
+        _result.data!,
+        (json) => LoginInfoEntity.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

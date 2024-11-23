@@ -24,27 +24,51 @@ class FortuneModel extends Equatable {
         fortuneKeywords: entity.fortuneKeywords,
         shortFortune: entity.shortFortune,
         fullFortune: entity.fullFortune,
-        categoryFortuneScores: [
+        categoryFortuneScores: <CategoryFortuneScores>[
           CategoryFortuneScores(
             category: 'all_luck',
             score: entity.overallFortuneScore,
           ),
           ...entity.categoryFortuneScores.map(
-            (score) => CategoryFortuneScores(
+            (CategoryFortuneScoresEntity score) => CategoryFortuneScores(
               category: score.category,
               score: score.score,
             ),
           ),
         ],
-        timeOfDayFortuneScores: [
+        timeOfDayFortuneScores: <TimeOfDayFortuneScores>[
           ...entity.timeOfDayFortuneScores.map(
-            (score) => TimeOfDayFortuneScores(
+            (TimeOfDayFortuneScoresEntity score) => TimeOfDayFortuneScores(
               time: score.time,
               score: score.score,
             ),
           ),
         ],
       );
+
+  FortuneModel copyWith({
+    required List<String>? fortuneKeywords,
+    required String? shortFortune,
+    required String? fullFortune,
+    required List<CategoryFortuneScores>? categoryFortuneScores,
+    required List<TimeOfDayFortuneScores>? timeOfDayFortuneScores,
+  }) =>
+      FortuneModel(
+        fortuneKeywords: fortuneKeywords ?? this.fortuneKeywords,
+        shortFortune: shortFortune ?? this.shortFortune,
+        fullFortune: fullFortune ?? this.fullFortune,
+        categoryFortuneScores:
+            categoryFortuneScores ?? this.categoryFortuneScores,
+        timeOfDayFortuneScores:
+            timeOfDayFortuneScores ?? this.timeOfDayFortuneScores,
+      );
+
+  FortuneModel.init()
+      : fortuneKeywords = <String>[],
+        shortFortune = '',
+        fullFortune = '',
+        categoryFortuneScores = <CategoryFortuneScores>[],
+        timeOfDayFortuneScores = <TimeOfDayFortuneScores>[];
 
   @override
   List<Object?> get props => <Object?>[

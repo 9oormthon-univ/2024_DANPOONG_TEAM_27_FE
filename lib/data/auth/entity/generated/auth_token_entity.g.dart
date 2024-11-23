@@ -8,11 +8,13 @@ part of '../auth_token_entity.dart';
 
 AuthTokenEntity _$AuthTokenEntityFromJson(Map<String, dynamic> json) =>
     AuthTokenEntity(
+      message: json['message'] as String,
       data: TokenData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AuthTokenEntityToJson(AuthTokenEntity instance) =>
     <String, dynamic>{
+      'message': instance.message,
       'data': instance.data,
     };
 
