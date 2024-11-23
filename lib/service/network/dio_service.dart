@@ -44,7 +44,7 @@ class DioClient {
     ..options = BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: const Duration(milliseconds: 5000),
-      receiveTimeout: const Duration(milliseconds: 3000),
+      receiveTimeout: const Duration(milliseconds: 10000),
       sendTimeout: const Duration(milliseconds: 30 * 1000),
       // contentType을 명시적으로 지정해줘야 합니다.
       // https://github.com/cfug/dio/issues/1653
