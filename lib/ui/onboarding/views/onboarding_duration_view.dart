@@ -24,8 +24,6 @@ class OnboardingDurationView extends ConsumerWidget {
     final OnboardingState state = ref.watch(onboardingViewModelProvider);
 
     return Scaffold(
-      appBar: const OnboardingAppBar(),
-      backgroundColor: LuckitColors.background,
       body: Column(
         children: <Widget>[
           Expanded(

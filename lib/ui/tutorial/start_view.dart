@@ -9,14 +9,18 @@ import '../onboarding/widgets/onboarding_bottom_button.dart';
 import 'widgets/tutorial_game.dart';
 
 class StartView extends ConsumerWidget {
-  const StartView({super.key});
+  final VoidCallback onNextPage;
+  
+  const StartView({
+    required this.onNextPage,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double gameHeight = MediaQuery.of(context).size.width / 375 * 300;
 
     return Scaffold(
-      backgroundColor: LuckitColors.background,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -51,7 +55,7 @@ class StartView extends ConsumerWidget {
           ),
           const Expanded(child: SizedBox()),
           OnboardingBottomButton(
-            onPressed: () => context.goNamed(Routes.birth.name),
+            onPressed: onNextPage,
             activated: true,
             label: '정보 입력하러 가기',
           ),

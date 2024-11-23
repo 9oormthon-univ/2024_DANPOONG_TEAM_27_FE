@@ -54,6 +54,7 @@ flutter:
     - assets/animation/no_shadow_move/
     - assets/animation/no_shadow_stop/
     - assets/frame/
+    - assets/animation/
     - .env
 
   fonts:
