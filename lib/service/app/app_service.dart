@@ -1,10 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import '../../data/auth/entity/auth_token_entity.dart';
-// import '../storage/storage_key.dart';
-// import '../storage/storage_service.dart';
-// import '../../data/auth/entity/auth_token_entity.dart';
-// import '../storage/storage_key.dart';
-// import '../storage/storage_service.dart';
 import '../../domain/auth/model/auth_token_model.dart';
 import '../storage/storage_key.dart';
 import '../storage/storage_service.dart';
@@ -41,7 +35,10 @@ class AppService extends StateNotifier<AppState> {
     }
   }
 
-  Future<void> signIn({required AuthTokenModel authTokens}) async {
+  Future<void> signIn({
+    required AuthTokenModel authTokens,
+    required bool isFirstLogin,
+  }) async {
     await _storageService.setString(
       key: StorageKey.accessToken,
       value: authTokens.accessToken,
@@ -50,8 +47,10 @@ class AppService extends StateNotifier<AppState> {
       key: StorageKey.refreshToken,
       value: authTokens.refreshToken,
     );
-
-    state = state.copyWith(isSignedIn: true);
+    state = state.copyWith(
+      isSignedIn: true,
+      isFirstLogin: isFirstLogin,
+    );
   }
 
   Future<void> signOut() async {

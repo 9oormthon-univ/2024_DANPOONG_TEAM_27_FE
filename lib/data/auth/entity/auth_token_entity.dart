@@ -4,9 +4,10 @@ part 'generated/auth_token_entity.g.dart';
 @JsonSerializable()
 class AuthTokenEntity {
   const AuthTokenEntity({
+    required this.message,
     required this.data,
   });
-
+  final String message;
   final TokenData data;
 
   factory AuthTokenEntity.fromJson(Map<String, dynamic> json) =>

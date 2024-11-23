@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/common/data/entity_form.dart';
 import '../../../core/common/repository/repository_result.dart';
 import '../../../core/common/use_case/use_case_result.dart';
 import '../../../data/user/entity/birth_info_entity.dart';
@@ -19,20 +20,18 @@ class GetBirthInfoUseCase {
     required UserRepository userRepository,
   }) : _userRepository = userRepository;
 
-  Future<UseCaseResult<BirthInfoModel>> call({
-    required int goalId,
-  }) async {
-    final RepositoryResult<BirthInfoEntity> repositoryResult =
+  Future<UseCaseResult<BirthInfoModel>> call() async {
+    final RepositoryResult<EntityForm<BirthInfoEntity>> repositoryResult =
         await _userRepository.getUserBirthInfo();
 
     return switch (repositoryResult) {
-      SuccessRepositoryResult<BirthInfoEntity>() =>
+      SuccessRepositoryResult<EntityForm<BirthInfoEntity>>() =>
         SuccessUseCaseResult<BirthInfoModel>(
           data: BirthInfoModel.fromEntity(
-            entity: repositoryResult.data,
+            entity: repositoryResult.data.data,
           ),
         ),
-      FailureRepositoryResult<BirthInfoEntity>() =>
+      FailureRepositoryResult<EntityForm<BirthInfoEntity>>() =>
         FailureUseCaseResult<BirthInfoModel>(
           message: repositoryResult.messages?[0],
         )
