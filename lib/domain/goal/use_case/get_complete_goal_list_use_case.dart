@@ -1,9 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/common/repository/repository_result.dart';
 import '../../../core/common/use_case/use_case_result.dart';
-import '../../../data/goal/entity/complete_goal_entity.dart';
-import '../../../data/goal/goal_repository.dart';
+import '../../../data/todo/todo_repository.dart';
 import '../model/complete_goal_model.dart';
 
 final AutoDisposeProvider<GetCompleteGoalListUseCase>
@@ -11,35 +9,52 @@ final AutoDisposeProvider<GetCompleteGoalListUseCase>
     Provider.autoDispose<GetCompleteGoalListUseCase>(
   (AutoDisposeRef<GetCompleteGoalListUseCase> ref) =>
       GetCompleteGoalListUseCase(
-    goalRepository: ref.read(goalRepositoryProvider),
+    todoRepository: ref.read(todoRepositoryProvider),
   ),
 );
 
 class GetCompleteGoalListUseCase {
-  final GoalRepository _goalRepository;
+  final TodoRepository _todoRepository;
 
   GetCompleteGoalListUseCase({
-    required GoalRepository goalRepository,
-  }) : _goalRepository = goalRepository;
+    required TodoRepository todoRepository,
+  }) : _todoRepository = todoRepository;
 
-  Future<UseCaseResult<List<CompleteGoalModel>>> call() async {
-    final RepositoryResult<List<CompleteGoalEntity>> repositoryResult =
-        await _goalRepository.getCompleteGoals();
-
-    return switch (repositoryResult) {
-      SuccessRepositoryResult<List<CompleteGoalEntity>>() =>
-        SuccessUseCaseResult<List<CompleteGoalModel>>(
-          data: List<CompleteGoalModel>.generate(
-            repositoryResult.data.length,
-            (int index) => CompleteGoalModel.fromEntity(
-              entity: repositoryResult.data[index],
-            ),
-          ),
+  Future<UseCaseResult<List<CompleteGoalModel>>> call() async =>
+      const SuccessUseCaseResult(data: <CompleteGoalModel>[
+        CompleteGoalModel(
+          goalId: 1,
+          name: '안녕',
+          countSuccessTodo: 100,
+          characterWidgetList: null,
+          opened: false,
         ),
-      FailureRepositoryResult<List<CompleteGoalEntity>>() =>
-        FailureUseCaseResult<List<CompleteGoalModel>>(
-          message: repositoryResult.messages?[0],
+        CompleteGoalModel(
+          goalId: 2,
+          name: '안녕',
+          countSuccessTodo: 90,
+          characterWidgetList: null,
+          opened: false,
         )
-    };
-  }
+      ]);
+
+// Future<UseCaseResult<CompleteGoalModel>> call({}) async {
+//   final RepositoryResult<void> repositoryResult =
+//       await _todoRepository.createTodo(
+//     goalId: goalId,
+//     name: name,
+//   );
+//
+//   return switch (repositoryResult) {
+//     SuccessRepositoryResult<void>() =>
+//       const SuccessUseCaseResult<CompleteGoalModel>(
+//         data: CompleteGoalModel(
+//
+//         ),
+//       ),
+//     FailureRepositoryResult<void>() => FailureUseCaseResult<void>(
+//         message: repositoryResult.messages?[0],
+//       )
+//   };
+// }
 }

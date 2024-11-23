@@ -30,6 +30,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(profileViewModelProvider.notifier)
         ..getCurrentDate()
+        ..getCompleteGoalList()
         ..getProfile()
         ..getSpotList();
     });
@@ -82,10 +83,10 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                               ),
                       ),
                       const ProfileDescriptionTextWidget(),
-                      ProfileGoalArchivingWidget(
-                        opened: state.opened,
-                        onTap: viewModel.toggleGoalArchiving,
-                      ),
+                      // ProfileGoalArchivingWidget(
+                      //   opened: state.opened,
+                      //   onTap: viewModel.toggleGoalArchiving,
+                      // ),
                     ],
                   ),
                 ),

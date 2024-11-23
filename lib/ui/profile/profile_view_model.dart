@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/common/use_case/use_case_result.dart';
 import '../../core/loading_status.dart';
+import '../../domain/goal/model/complete_goal_characters_model.dart';
+import '../../domain/goal/model/complete_goal_model.dart';
+import '../../domain/goal/use_case/get_characters_by_goal_use_case.dart';
 import '../../domain/goal/use_case/get_complete_goal_list_use_case.dart';
 import '../../domain/todo/model/graph_data_model.dart';
 import '../../domain/todo/use_case/get_graph_data_use_case.dart';
@@ -21,6 +24,8 @@ final AutoDisposeStateNotifierProvider<ProfileViewModel, ProfileState>
     getCompleteGoalListUseCase: ref.read(getCompleteGoalListUseCaseProvider),
     registerBirthInfoUseCase: ref.read(registerBirthInfoUseCaseProvider),
     getGraphDataUseCase: ref.read(getGraphDataUseCaseProvider),
+    getCharactersByGoalUseCaseProvider:
+        ref.read(getCharactersByGoalUseCaseProvider),
   ),
 );
 
@@ -30,6 +35,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
   final GetCompleteGoalListUseCase _getCompleteGoalListUseCase;
   final RegisterBirthInfoUseCase _registerBirthInfoUseCase;
   final GetGraphDataUseCase _getGraphDataUseCase;
+  final CharactersByGoalUseCaseProvider _getCharactersByGoalUseCaseProvider;
 
   ProfileViewModel({
     required GetBirthInfoUseCase getBirthInfoUseCase,
@@ -37,25 +43,81 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     required GetCompleteGoalListUseCase getCompleteGoalListUseCase,
     required RegisterBirthInfoUseCase registerBirthInfoUseCase,
     required GetGraphDataUseCase getGraphDataUseCase,
+    required CharactersByGoalUseCaseProvider getCharactersByGoalUseCaseProvider,
   })  : _getBirthInfoUseCase = getBirthInfoUseCase,
         _getLoginInfoUseCase = getLoginInfoUseCase,
         _getCompleteGoalListUseCase = getCompleteGoalListUseCase,
         _registerBirthInfoUseCase = registerBirthInfoUseCase,
         _getGraphDataUseCase = getGraphDataUseCase,
+        _getCharactersByGoalUseCaseProvider =
+            getCharactersByGoalUseCaseProvider,
         super(ProfileState.init());
 
+  Future<void> getCompleteGoalList() async {
+    state = state.copyWith(loadingGoalList: LoadingStatus.loading);
+    // await
+    final UseCaseResult<List<CompleteGoalModel>> result =
+        await _getCompleteGoalListUseCase();
+
+    switch (result) {
+      case SuccessUseCaseResult<List<CompleteGoalModel>>():
+        state = state.copyWith(
+          completeGoal: result.data,
+          loadingGoalList: LoadingStatus.success,
+        );
+      case FailureUseCaseResult<List<CompleteGoalModel>>():
+        state = state.copyWith(loadingGraph: LoadingStatus.error);
+    }
+  }
+
+  Future<void> getCharactersByGoal({required int tapIndex}) async {
+    if (state.completeGoal[tapIndex].characterWidgetList != null) {
+      return;
+    }
+    // 캐릭터 정보 불러오기
+    final UseCaseResult<CompleteGoalCharactersModel> result =
+        await _getCharactersByGoalUseCaseProvider(goalId: 1);
+
+    // switch (result) {
+    //   case SuccessUseCaseResult<GraphDataModel>():
+    //     state = state.copyWith(
+    //       spotsList: <GraphDataModel>[
+    //         result.data,
+    //         ...state.spotsList,
+    //       ],
+    //       loadingGraph: LoadingStatus.success,
+    //     );
+    //     print('현재 리스트 상태: ${state.spotsList}');
+    //   case FailureUseCaseResult<GraphDataModel>():
+    //     state = state.copyWith(loadingGraph: LoadingStatus.error);
+    // }
+
+    // state update
+    // final List<CompleteGoalModel> updatedCompleteGoals =
+    //     List<CompleteGoalModel>.from(state.completeGoal);
+    // updatedCompleteGoals[tapIndex] = updatedCompleteGoals[tapIndex].copyWith(
+    //   characterWidgetList: result,
+    // );
+  }
+
   void getCurrentDate() {
-    print('오늘 날짜 불러오기');
     final DateTime curDateTime = DateTime.now();
     state = state.copyWith(
       currentYear: curDateTime.year,
       currentMonth: curDateTime.month,
     );
-    print('${state.currentYear}, ${state.currentMonth}');
   }
 
-  void toggleGoalArchiving() {
-    state = state.copyWith(opened: !state.opened);
+  void toggleGoalArchiving({required int tapIndex}) {
+    final List<CompleteGoalModel> updatedCompleteGoals =
+        List<CompleteGoalModel>.from(state.completeGoal);
+    updatedCompleteGoals[tapIndex] = updatedCompleteGoals[tapIndex].copyWith(
+      opened: !state.completeGoal[tapIndex].opened,
+    );
+
+    state = state.copyWith(
+      completeGoal: updatedCompleteGoals,
+    );
   }
 
   void getProfile() {
@@ -78,10 +140,6 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     } on DioException {
       state = state.copyWith(loadingProfile: LoadingStatus.error);
     }
-  }
-
-  void getCompleteGoalList() {
-    // await _getCompleteGoalListUseCase();
   }
 
   void toggleProfileButtons({required bool isCurrentOpen}) {

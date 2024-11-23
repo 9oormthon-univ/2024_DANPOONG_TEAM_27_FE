@@ -1,13 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 import '../../core/loading_status.dart';
+import '../../domain/goal/model/complete_goal_model.dart';
 import '../../domain/todo/model/graph_data_model.dart';
 import '../onboarding/onboarding_state.dart';
 
 class ProfileState extends Equatable {
-  final bool opened;
+  final List<bool> opened;
 
   // status
+  final LoadingStatus loadingGoalList;
+  final LoadingStatus loadingCharacters;
   final LoadingStatus loadingRegister;
   final LoadingStatus loadingGraph;
   final LoadingStatus loadingProfile;
@@ -18,6 +21,7 @@ class ProfileState extends Equatable {
   final int queryMonth;
   final int currentYear;
   final int currentMonth;
+  final int currentTapGoalIndex;
 
   // user info
   final String name;
@@ -30,10 +34,17 @@ class ProfileState extends Equatable {
   final String minute;
   final bool unknownTime;
 
+  // goal
+  final List<CompleteGoalModel> completeGoal;
+
   // graph
   final List<GraphDataModel> spotsList;
 
   const ProfileState({
+    required this.loadingGoalList,
+    required this.loadingCharacters,
+    required this.currentTapGoalIndex,
+    required this.completeGoal,
     required this.currentYear,
     required this.currentMonth,
     required this.loadingRegister,
@@ -60,13 +71,17 @@ class ProfileState extends Equatable {
   ProfileState.init()
       : loadingGraph = LoadingStatus.none,
         loadingRegister = LoadingStatus.none,
+        loadingGoalList = LoadingStatus.none,
+        loadingCharacters = LoadingStatus.none,
+        completeGoal = <CompleteGoalModel>[],
+        currentTapGoalIndex = 0,
         currentMonth = 0,
         currentYear = 0,
         queryYear = 0,
         queryMonth = 0,
         isAm = true,
         currentGraphIndex = 0,
-        opened = false,
+        opened = <bool>[],
         loadingProfile = LoadingStatus.none,
         isProfileButtonsOpen = false,
         name = '',
@@ -78,9 +93,13 @@ class ProfileState extends Equatable {
         hour = '',
         minute = '',
         unknownTime = false,
-        spotsList = [];
+        spotsList = <GraphDataModel>[];
 
   ProfileState copyWith({
+    LoadingStatus? loadingGoalList,
+    LoadingStatus? loadingCharacters,
+    int? currentTapGoalIndex,
+    List<CompleteGoalModel>? completeGoal,
     int? currentYear,
     int? currentMonth,
     int? queryYear,
@@ -89,7 +108,7 @@ class ProfileState extends Equatable {
     bool? isAm,
     LoadingStatus? loadingGraph,
     int? currentGraphIndex,
-    bool? opened,
+    List<bool>? opened,
     LoadingStatus? loadingProfile,
     bool? isProfileButtonsOpen,
     String? name,
@@ -104,6 +123,10 @@ class ProfileState extends Equatable {
     List<GraphDataModel>? spotsList,
   }) =>
       ProfileState(
+        loadingCharacters: loadingCharacters ?? this.loadingCharacters,
+        loadingGoalList: loadingGoalList ?? this.loadingGoalList,
+        currentTapGoalIndex: currentTapGoalIndex ?? this.currentTapGoalIndex,
+        completeGoal: completeGoal ?? this.completeGoal,
         currentMonth: currentMonth ?? this.currentMonth,
         currentYear: currentYear ?? this.currentYear,
         queryYear: queryYear ?? this.queryYear,
