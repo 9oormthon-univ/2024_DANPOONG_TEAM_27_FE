@@ -31,6 +31,11 @@ class Routes {
     path: '/profile',
   );
 
+  static const RouteInfo edit = RouteInfo(
+    name: '/edit',
+    path: '/edit',
+  );
+
   // 온보딩 시작
   static const RouteInfo start = RouteInfo(
     name: '/home/onboarding',
@@ -57,6 +62,17 @@ class Routes {
   static const RouteInfo tutorial = RouteInfo(
     name: '/home/onboarding/tutorial',
     path: 'tutorial',
+  );
+
+  // 목표 수정
+  static const RouteInfo editGoal = RouteInfo(
+    name: '/home/edit-goal',
+    path: 'edit-goal',
+  );
+
+  static const RouteInfo editDuration = RouteInfo(
+    name: '/home/edit-duration',
+    path: 'edit-duration',
   );
 
   // 농장

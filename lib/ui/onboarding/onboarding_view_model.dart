@@ -6,6 +6,7 @@ import '../../core/loading_status.dart';
 import '../../domain/onboarding/model/suggestion_goal_model.dart';
 import '../../domain/onboarding/use_case/get_suggestion_goal_list_use_case.dart';
 import 'onboarding_state.dart';
+import 'utils/validation.dart';
 
 final AutoDisposeStateNotifierProvider<OnboardingViewModel, OnboardingState>
     onboardingViewModelProvider =
@@ -26,17 +27,20 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     state = state.copyWith(getUserNameLoading: LoadingStatus.success);
   }
 
-  void getSuggestions() async {
+  Future<void> getSuggestions() async {
     state = state.copyWith(getSuggestionsLoading: LoadingStatus.loading);
     final UseCaseResult<List<GoalModel>> result =
         await _getSuggestionGoalListUseCase();
 
     switch (result) {
       case SuccessUseCaseResult<List<GoalModel>>():
-        state = state.copyWith(suggestions: result.data, getSuggestionsLoading: LoadingStatus.success);
+        state = state.copyWith(
+            suggestions: result.data,
+            getSuggestionsLoading: LoadingStatus.success);
       case FailureUseCaseResult<List<GoalModel>>():
         state = state.copyWith(getSuggestionsLoading: LoadingStatus.error);
     }
+    state = state.copyWith(getSuggestionsLoading: LoadingStatus.success);
   }
 
   void onTapSuggestion({
@@ -99,7 +103,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
   }
 
   // -----birth-----
-  void onPressedGender({required Gender gender}) {
+  void onPressedGender({required GenderType gender}) {
     state = state.copyWith(gender: gender);
   }
 
@@ -146,7 +150,7 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     }
     try {
       final int year = int.parse(value);
-      if (year != DateTime.now().year) {
+      if (year < DateTime.now().year) {
         return '연도를 정확히 입력해주세요';
       }
       return null;

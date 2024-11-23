@@ -20,7 +20,7 @@ class LottiePlayer extends PositionComponent with HasGameRef<WalkingGame> {
   final Random random = Random();
 
   // 모든 캐릭터에 대한 고정 값 설정
-  static const double CHARACTER_SIZE = 50.0;
+  static const double CHARACTER_SIZE = 75.0;
   static const double CHARACTER_SPEED = 80.0;
 
   late PositionComponent characterContainer;

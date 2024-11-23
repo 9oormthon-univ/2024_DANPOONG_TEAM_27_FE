@@ -5,16 +5,32 @@ import '../../../theme/luckit_colors.dart';
 import '../../../theme/luckit_typos.dart';
 import '../../common/consts/assets.dart';
 import '../../common/widgets/rounded_grey_text_widget.dart';
+import '../../onboarding/onboarding_state.dart';
 
 class ProfileInfoWidget extends StatelessWidget {
-  const ProfileInfoWidget({super.key});
+  final String year;
+  final String month;
+  final String day;
+  final String hour;
+  final String minute;
+  final bool unknownTime;
+  final GenderType gender;
+
+  const ProfileInfoWidget({
+    required this.year,
+    required this.month,
+    required this.day,
+    required this.unknownTime,
+    required this.gender,
+    required this.hour,
+    required this.minute,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: <Widget>[
-      Row(
         children: <Widget>[
+          const SizedBox(width: 24.0),
           Text(
             '미르미',
             style: LuckitTypos.suitR20.copyWith(
@@ -23,27 +39,11 @@ class ProfileInfoWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16.0),
-          const RoundedGreyTextWidget(label: '2000.04.19'),
+          RoundedGreyTextWidget(label: '$year.$month.$day'),
           const SizedBox(width: 8.0),
-          const RoundedGreyTextWidget(label: '07:23 생'),
+          if (!unknownTime) RoundedGreyTextWidget(label: '$hour:$minute 생'),
           const SizedBox(width: 8.0),
-          const RoundedGreyTextWidget(label: '여성'),
+          RoundedGreyTextWidget(label: gender == GenderType.male ? '남성' : '여성'),
         ],
-      ),
-      Material(
-        color: LuckitColors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(100),
-          onTap: () {},
-          child: SvgPicture.asset(
-            Assets.edit,
-            colorFilter: const ColorFilter.mode(
-              LuckitColors.gray60,
-              BlendMode.srcIn,
-            ),
-          ),
-        ),
-      )
-    ],
-  );
+      );
 }

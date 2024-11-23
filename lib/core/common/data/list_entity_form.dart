@@ -15,6 +15,6 @@ class ListEntityForm<T> {
   final List<T> data;
 
   factory ListEntityForm.fromJson(
-      Map<String, dynamic> json, T Function(Object? json) fromjsonT) =>
+          Map<String, dynamic> json, T Function(Object? json) fromjsonT) =>
       _$ListEntityFormFromJson(json, fromjsonT);
 }

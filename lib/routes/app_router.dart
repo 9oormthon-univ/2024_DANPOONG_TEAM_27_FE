@@ -8,9 +8,12 @@ import '../ui/fortune/fortune_view.dart';
 import '../ui/goal_complete/goal_complete_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/edit/views/editing_goal_view.dart';
+import '../ui/edit/views/editing_duration_view.dart';
 import '../ui/onboarding/views/onboarding_birth_view.dart';
 import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
+import '../ui/profile/profile_edit_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/tutorial/start_view.dart';
 import '../ui/tutorial/tutorial_view.dart';
@@ -84,6 +87,22 @@ class AppRouter {
               ),
           routes: <RouteBase>[
             GoRoute(
+              name: Routes.editDuration.name,
+              path: Routes.editDuration.path,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage<dynamic>(
+                child: EditDurationView(),
+              ),
+            ),
+            GoRoute(
+              name: Routes.editGoal.name,
+              path: Routes.editGoal.path,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage<dynamic>(
+                child: EditingGoalView(),
+              ),
+            ),
+            GoRoute(
               path: Routes.start.path,
               name: Routes.start.name,
               pageBuilder: (BuildContext context, GoRouterState state) =>
@@ -140,6 +159,14 @@ class AppRouter {
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: ProfileView(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.edit.path,
+        name: Routes.edit.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+        const NoTransitionPage<dynamic>(
+          child: ProfileEditView(),
         ),
       ),
 

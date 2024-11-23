@@ -2,8 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../core/common/data/list_entity_form.dart';
 import '../../service/network/dio_service.dart';
+import 'entity/complete_goal_entity.dart';
 import 'entity/goal_entity.dart';
+import 'entity/goal_summary_entity.dart';
 import 'request_body/create_goal_request_body.dart';
 
 part 'generated/goal_remote_data_source.g.dart';
@@ -19,7 +22,7 @@ abstract class GoalRemoteDataSource {
   factory GoalRemoteDataSource(Dio dio) = _GoalRemoteDataSource;
 
   @GET('/goal')
-  Future<List<GoalEntity>> getGoalList();
+  Future<ListEntityForm<GoalEntity>> getGoalList();
 
   @POST('/goal')
   Future<void> createGoal({
@@ -28,6 +31,19 @@ abstract class GoalRemoteDataSource {
 
   @POST('/goal/{goal_id}')
   Future<void> toggleGoalComplete({
+    @Path('goal_id') required int goalId,
+  });
+
+  @DELETE('/goal/{goal_id}')
+  Future<void> deleteGoal({
+    @Path('goal_id') required int goalId,
+  });
+
+  @GET('/goal/mypage')
+  Future<ListEntityForm<GoalSummaryEntity>> getGoalSummaryList();
+
+  @GET('/goal/mypage/{goal_id}')
+  Future<ListEntityForm<int>> getGoalSummary({
     @Path('goal_id') required int goalId,
   });
 }

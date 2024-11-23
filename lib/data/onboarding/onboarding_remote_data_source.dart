@@ -18,7 +18,9 @@ final Provider<OnboardingRemoteDataSource> onboardingRemoteDataSourceProvider =
 abstract class OnboardingRemoteDataSource {
   factory OnboardingRemoteDataSource(Dio dio) = _OnboardingRemoteDataSource;
 
+
   @GET('/fortune/onboarding')
   // Future<DefaultSuggestionGoalListEntity> getSuggestionGoalList();
   Future<ListEntityForm<SuggestionGoalEntity>> getSuggestionGoalList();
+
 }

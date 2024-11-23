@@ -13,6 +13,7 @@ class OnboardingNumberTextField extends StatelessWidget {
   final int? maxLength;
   final TextInputAction? textInputAction;
   final FocusNode? focusNode;
+  final TextEditingController? controller;
 
   const OnboardingNumberTextField({
     required this.hintText,
@@ -23,11 +24,13 @@ class OnboardingNumberTextField extends StatelessWidget {
     this.maxLength,
     this.textInputAction,
     this.focusNode,
+    this.controller,
   });
 
   @override
   Widget build(BuildContext context) => NewCustomTextField(
-    maxLength: maxLength,
+        controller: controller,
+        maxLength: maxLength,
         onSubmitted: onSubmitted,
         hintText: hintText,
         onChanged: onChanged,
