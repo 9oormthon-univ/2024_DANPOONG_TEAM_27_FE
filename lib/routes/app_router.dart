@@ -10,6 +10,7 @@ import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/edit/views/editing_goal_view.dart';
 import '../ui/edit/views/editing_duration_view.dart';
+import '../ui/onboarding/onboarding_view.dart';
 import '../ui/onboarding/views/onboarding_birth_view.dart';
 import '../ui/onboarding/views/onboarding_duration_view.dart';
 import '../ui/onboarding/views/onboarding_goal_view.dart';
@@ -56,6 +57,14 @@ class AppRouter {
     ),
     redirect: _redirect,
     routes: <RouteBase>[
+      GoRoute(
+        path: Routes.onboardingg.path,
+        name: Routes.onboardingg.name,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const NoTransitionPage<dynamic>(
+          child: OnboardingView(),
+        ),
+      ),
       // Auth
       GoRoute(
         path: Routes.auth.path,
@@ -106,16 +115,18 @@ class AppRouter {
               path: Routes.start.path,
               name: Routes.start.name,
               pageBuilder: (BuildContext context, GoRouterState state) =>
-                  const NoTransitionPage<dynamic>(
-                child: StartView(),
+                   NoTransitionPage<dynamic>(
+                child: StartView(onNextPage: () {
+
+                },),
               ),
               routes: <RouteBase>[
                 GoRoute(
                   name: Routes.goal.name,
                   path: Routes.goal.path,
                   pageBuilder: (BuildContext context, GoRouterState state) =>
-                      const NoTransitionPage<dynamic>(
-                    child: OnboardingGoalView(),
+                       NoTransitionPage<dynamic>(
+                    child: OnboardingGoalView(onNextPage: (){},),
                   ),
                 ),
                 GoRoute(
@@ -130,8 +141,8 @@ class AppRouter {
                   name: Routes.birth.name,
                   path: Routes.birth.path,
                   pageBuilder: (BuildContext context, GoRouterState state) =>
-                      const NoTransitionPage<dynamic>(
-                    child: OnboardingBirthView(),
+                       NoTransitionPage<dynamic>(
+                    child: OnboardingBirthView(onNextPage: (){},),
                   ),
                 ),
                 GoRoute(
@@ -165,7 +176,7 @@ class AppRouter {
         path: Routes.edit.path,
         name: Routes.edit.name,
         pageBuilder: (BuildContext context, GoRouterState state) =>
-        const NoTransitionPage<dynamic>(
+            const NoTransitionPage<dynamic>(
           child: ProfileEditView(),
         ),
       ),

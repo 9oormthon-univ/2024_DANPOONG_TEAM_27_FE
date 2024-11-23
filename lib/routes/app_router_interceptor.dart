@@ -26,10 +26,6 @@ class AppRouterInterceptor {
     final bool isSignedIn = await _ref
         .read(appServiceProvider.select((AppState value) => value.isSignedIn));
 
-    final bool isFirstLogin = await _ref.read(
-      appServiceProvider.select((AppState value) => value.isFirstLogin),
-    );
-
     if (!isSignedIn) {
       // sign in 으로 가야만 하는 상태입니다.
       if (state.fullPath?.startsWith(Routes.auth.name) == false) {
