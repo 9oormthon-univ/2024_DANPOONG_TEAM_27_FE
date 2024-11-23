@@ -138,7 +138,7 @@ class TodoRepository extends Repository {
     }
   }
 
-  Future<RepositoryResult<ListEntityForm<int>>> getTodoGrahpData({
+  Future<RepositoryResult<ListEntityForm<int>>> getTodoGraphData({
     required int year,
     required int month,
   }) async {

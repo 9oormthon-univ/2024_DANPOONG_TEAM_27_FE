@@ -3,13 +3,25 @@ import 'package:fl_chart/fl_chart.dart';
 
 class GraphDataModel extends Equatable {
   final List<FlSpot> missionCount;
+  final int year;
+  final int month;
 
   const GraphDataModel({
     required this.missionCount,
+    required this.year,
+    required this.month,
   });
 
-  factory GraphDataModel.fromEntity({required List<int> rawDataList}) =>
-      GraphDataModel(missionCount: makeSpots(rawDataList));
+  factory GraphDataModel.fromEntity({
+    required List<int> rawDataList,
+    required int queryYear,
+    required int queryMonth,
+  }) =>
+      GraphDataModel(
+        missionCount: makeSpots(rawDataList),
+        year: queryYear,
+        month: queryMonth,
+      );
 
   @override
   List<Object?> get props => <Object?>[

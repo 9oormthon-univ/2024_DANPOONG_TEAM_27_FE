@@ -37,8 +37,7 @@ class _MainAppState extends ConsumerState<MainApp> {
   void initState() {
     super.initState();
     ref.read(appServiceProvider.notifier).init().then((_) async {
-      if (ref.read(appServiceProvider).isSignedIn &&
-          !ref.read(appServiceProvider).isFirstLogin) {
+      if (ref.read(appServiceProvider).isSignedIn) {
         await ref.read(myInfoServiceProvider.notifier).getUserInfo();
       }
       FlutterNativeSplash.remove();

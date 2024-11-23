@@ -41,7 +41,6 @@ class MyInfoService extends StateNotifier<MyInfoState> {
     await getUserBirthInfo();
     await getFortune();
   }
-
   Future<void> getUserLoginInfo() async {
     final UseCaseResult<LoginInfoModel> result = await _getLoginInfoUseCase();
     switch (result) {

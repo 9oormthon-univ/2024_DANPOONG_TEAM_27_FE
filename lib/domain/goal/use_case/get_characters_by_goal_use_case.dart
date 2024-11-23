@@ -1,7 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/common/data/entity_form.dart';
+import '../../../core/common/repository/repository_result.dart';
 import '../../../core/common/use_case/use_case_result.dart';
-import '../../../data/todo/todo_repository.dart';
+import '../../../data/goal/entity/goal_detail_entity.dart';
+import '../../../data/goal/goal_repository.dart';
 import '../model/complete_goal_characters_model.dart';
 
 final AutoDisposeProvider<CharactersByGoalUseCaseProvider>
@@ -9,45 +12,34 @@ final AutoDisposeProvider<CharactersByGoalUseCaseProvider>
     Provider.autoDispose<CharactersByGoalUseCaseProvider>(
   (AutoDisposeRef<CharactersByGoalUseCaseProvider> ref) =>
       CharactersByGoalUseCaseProvider(
-    todoRepository: ref.read(todoRepositoryProvider),
+    goalRepository: ref.read(goalRepositoryProvider),
   ),
 );
 
 class CharactersByGoalUseCaseProvider {
-  final TodoRepository _todoRepository;
+  final GoalRepository _goalRepository;
 
   CharactersByGoalUseCaseProvider({
-    required TodoRepository todoRepository,
-  }) : _todoRepository = todoRepository;
+    required GoalRepository goalRepository,
+  }) : _goalRepository = goalRepository;
 
   Future<UseCaseResult<CompleteGoalCharactersModel>> call({
     required int goalId,
   }) async {
-    final List<int> repositoryResult = <int>[
-      12,
-      9,
-      5,
-      15,
-      49,
-      12,
-      0,
-      3,
-      6,
-      9,
-      23,
-      4
-    ];
-    return SuccessUseCaseResult<CompleteGoalCharactersModel>(
-      data: CompleteGoalCharactersModel.fromEntity(entity: repositoryResult),
-    );
-    //   return switch (repositoryResult) {
-    //     SuccessRepositoryResult<void>() => const SuccessUseCaseResult<void>(
-    //       data: null,
-    //     ),
-    //     FailureRepositoryResult<void>() => FailureUseCaseResult<void>(
-    //       message: repositoryResult.messages?[0],
-    //     )
-    //   };
-    // }
+    final RepositoryResult<EntityForm<GoalDetailEntity>> repositoryResult =
+        await _goalRepository.getGoalSummary(goalId: goalId);
+
+    return switch (repositoryResult) {
+      SuccessRepositoryResult<EntityForm<GoalDetailEntity>>() =>
+        SuccessUseCaseResult<CompleteGoalCharactersModel>(
+          data: CompleteGoalCharactersModel.fromEntity(
+            entity: repositoryResult.data.data,
+          ),
+        ),
+      FailureRepositoryResult<EntityForm<GoalDetailEntity>>() =>
+        FailureUseCaseResult<CompleteGoalCharactersModel>(
+          message: repositoryResult.messages?[0],
+        ),
+    };
   }
 }

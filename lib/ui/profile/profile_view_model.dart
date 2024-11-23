@@ -24,8 +24,7 @@ final AutoDisposeStateNotifierProvider<ProfileViewModel, ProfileState>
     getCompleteGoalListUseCase: ref.read(getCompleteGoalListUseCaseProvider),
     registerBirthInfoUseCase: ref.read(registerBirthInfoUseCaseProvider),
     getGraphDataUseCase: ref.read(getGraphDataUseCaseProvider),
-    getCharactersByGoalUseCaseProvider:
-        ref.read(getCharactersByGoalUseCaseProvider),
+    getCharactersByGoalUseCase: ref.read(getCharactersByGoalUseCaseProvider),
   ),
 );
 
@@ -35,7 +34,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
   final GetCompleteGoalListUseCase _getCompleteGoalListUseCase;
   final RegisterBirthInfoUseCase _registerBirthInfoUseCase;
   final GetGraphDataUseCase _getGraphDataUseCase;
-  final CharactersByGoalUseCaseProvider _getCharactersByGoalUseCaseProvider;
+  final CharactersByGoalUseCaseProvider _getCharactersByGoalUseCase;
 
   ProfileViewModel({
     required GetBirthInfoUseCase getBirthInfoUseCase,
@@ -43,14 +42,13 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     required GetCompleteGoalListUseCase getCompleteGoalListUseCase,
     required RegisterBirthInfoUseCase registerBirthInfoUseCase,
     required GetGraphDataUseCase getGraphDataUseCase,
-    required CharactersByGoalUseCaseProvider getCharactersByGoalUseCaseProvider,
+    required CharactersByGoalUseCaseProvider getCharactersByGoalUseCase,
   })  : _getBirthInfoUseCase = getBirthInfoUseCase,
         _getLoginInfoUseCase = getLoginInfoUseCase,
         _getCompleteGoalListUseCase = getCompleteGoalListUseCase,
         _registerBirthInfoUseCase = registerBirthInfoUseCase,
         _getGraphDataUseCase = getGraphDataUseCase,
-        _getCharactersByGoalUseCaseProvider =
-            getCharactersByGoalUseCaseProvider,
+        _getCharactersByGoalUseCase = getCharactersByGoalUseCase,
         super(ProfileState.init());
 
   Future<void> getCompleteGoalList() async {
@@ -70,36 +68,6 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     }
   }
 
-  Future<void> getCharactersByGoal({required int tapIndex}) async {
-    if (state.completeGoal[tapIndex].characterWidgetList != null) {
-      return;
-    }
-    // 캐릭터 정보 불러오기
-    final UseCaseResult<CompleteGoalCharactersModel> result =
-        await _getCharactersByGoalUseCaseProvider(goalId: 1);
-
-    // switch (result) {
-    //   case SuccessUseCaseResult<GraphDataModel>():
-    //     state = state.copyWith(
-    //       spotsList: <GraphDataModel>[
-    //         result.data,
-    //         ...state.spotsList,
-    //       ],
-    //       loadingGraph: LoadingStatus.success,
-    //     );
-    //     print('현재 리스트 상태: ${state.spotsList}');
-    //   case FailureUseCaseResult<GraphDataModel>():
-    //     state = state.copyWith(loadingGraph: LoadingStatus.error);
-    // }
-
-    // state update
-    // final List<CompleteGoalModel> updatedCompleteGoals =
-    //     List<CompleteGoalModel>.from(state.completeGoal);
-    // updatedCompleteGoals[tapIndex] = updatedCompleteGoals[tapIndex].copyWith(
-    //   characterWidgetList: result,
-    // );
-  }
-
   void getCurrentDate() {
     final DateTime curDateTime = DateTime.now();
     state = state.copyWith(
@@ -108,16 +76,45 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     );
   }
 
-  void toggleGoalArchiving({required int tapIndex}) {
+  Future<void> toggleGoalArchiving({required int tapIndex}) async {
+    final CompleteGoalModel goal = state.completeGoal[tapIndex];
+    // toggle opened
     final List<CompleteGoalModel> updatedCompleteGoals =
         List<CompleteGoalModel>.from(state.completeGoal);
     updatedCompleteGoals[tapIndex] = updatedCompleteGoals[tapIndex].copyWith(
       opened: !state.completeGoal[tapIndex].opened,
     );
-
     state = state.copyWith(
       completeGoal: updatedCompleteGoals,
     );
+
+    // 캐릭터가 비어있으면 가져오기
+    if (goal.characterWidgetList == null) {
+      state = state.copyWith(loadingCharacters: LoadingStatus.loading);
+      final UseCaseResult<CompleteGoalCharactersModel> result =
+          await _getCharactersByGoalUseCase(goalId: goal.goalId);
+      switch (result) {
+        case SuccessUseCaseResult():
+          final List<CompleteGoalModel> updatedCompleteGoals =
+              await List<CompleteGoalModel>.from(state.completeGoal);
+          updatedCompleteGoals[tapIndex] =
+              updatedCompleteGoals[tapIndex].copyWith(
+            characterWidgetList: result.data,
+            endDay: result.data.endDay,
+            endMonth: result.data.endMonth,
+            endYear: result.data.endYear,
+            startDay: result.data.startDay,
+            startMonth: result.data.startMonth,
+            startYear: result.data.startYear,
+          );
+          state = state.copyWith(
+            completeGoal: updatedCompleteGoals,
+            loadingCharacters: LoadingStatus.success,
+          );
+        case FailureUseCaseResult():
+          state = state.copyWith(loadingCharacters: LoadingStatus.error);
+      }
+    }
   }
 
   void getProfile() {
@@ -152,18 +149,18 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     // 쿼리 파라미터 생성
     int queryMonth = state.currentMonth - state.spotsList.length;
     int queryYear = state.currentYear;
-    if (queryMonth < 0) {
-      queryMonth = 12;
+    while (queryMonth < 1) {
+      queryMonth += 12;
       queryYear -= 1;
     }
 
     // 요청
-    state = state.copyWith(queryMonth: queryYear, queryYear: queryYear);
+    state = state.copyWith(queryMonth: queryMonth, queryYear: queryYear);
     final UseCaseResult<GraphDataModel> result = await _getGraphDataUseCase(
-      month: queryYear,
+      month: queryMonth,
       year: queryYear,
     );
-    print('요청할 날: ${queryYear}년 ${queryMonth}월');
+    // print('요청할 날: ${queryYear}년 ${queryMonth}월');
     switch (result) {
       case SuccessUseCaseResult<GraphDataModel>():
         state = state.copyWith(
@@ -173,7 +170,7 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
           ],
           loadingGraph: LoadingStatus.success,
         );
-        print('현재 리스트 상태: ${state.spotsList}');
+        // print('현재 리스트 상태: ${state.spotsList}');
       case FailureUseCaseResult<GraphDataModel>():
         state = state.copyWith(loadingGraph: LoadingStatus.error);
     }

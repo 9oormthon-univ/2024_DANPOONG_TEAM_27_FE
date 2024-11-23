@@ -42,7 +42,7 @@ class ProfileGraphWidget extends ConsumerWidget {
                 Row(
                   children: <Widget>[
                     Text(
-                      '${state.currentYear}년 ${state.currentMonth}월',
+                      '${state.spotsList[state.currentGraphIndex].year}년 ${state.spotsList[state.currentGraphIndex].month}월',
                       textAlign: TextAlign.right,
                       style: LuckitTypos.suitR12.copyWith(
                         color: LuckitColors.gray60,

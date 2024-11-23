@@ -170,12 +170,13 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
   }
 
   @override
-  Future<ListEntityForm<int>> getGoalSummary({required int goalId}) async {
+  Future<EntityForm<GoalDetailEntity>> getGoalSummary(
+      {required int goalId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ListEntityForm<int>>(Options(
+    final _options = _setStreamType<EntityForm<GoalDetailEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -192,11 +193,11 @@ class _GoalRemoteDataSource implements GoalRemoteDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ListEntityForm<int> _value;
+    late EntityForm<GoalDetailEntity> _value;
     try {
-      _value = ListEntityForm<int>.fromJson(
+      _value = EntityForm<GoalDetailEntity>.fromJson(
         _result.data!,
-        (json) => json as int,
+        (json) => GoalDetailEntity.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
